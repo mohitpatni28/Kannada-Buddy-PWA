@@ -1,0 +1,19 @@
+{
+  "name": "Kannada Buddy",
+  "short_name": "Kannada",
+  "description": "A personal Bengaluru Kannada survival coach.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f3e8",
+  "theme_color": "#183a37",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#183a37"/>
+  <circle cx="374" cy="132" r="58" fill="#e8ad3c"/>
+  <path d="M88 333c32-86 88-141 168-166 71 28 126 83 168 166v83H88z" fill="#f7f3e8"/>
+  <text x="256" y="324" text-anchor="middle" font-family="Arial, sans-serif" font-size="126" font-weight="800" fill="#183a37">ಕ</text>
+</svg>

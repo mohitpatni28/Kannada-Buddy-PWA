@@ -1,0 +1,174 @@
+import { writeFile } from "node:fs/promises";
+
+const sourceUrl = "https://en.wikivoyage.org/wiki/Kannada_phrasebook";
+const apiUrl =
+  "https://en.wikivoyage.org/w/api.php?action=parse&page=Kannada_phrasebook&prop=wikitext&format=json&origin=*";
+
+const categoryMap = [
+  [/taxi|transport|bus|train|direction|driving/i, "transport"],
+  [/eating|fruits|bar/i, "food"],
+  [/shopping|money/i, "shop"],
+  [/problem|medical|symptom|emergency|authority/i, "emergency"],
+  [/phone/i, "phone"],
+  [/lodging/i, "lodging"],
+  [/time|days|months|clock/i, "time"],
+  [/number|ordinal|multiplication|frequency|aggregation/i, "numbers"],
+  [/colour/i, "colours"],
+  [/family/i, "family"],
+  [/basic|useful|interrogative|sentence/i, "basics"]
+];
+
+function stripWiki(value) {
+  return value
+    .replace(/<br\s*\/?>/gi, " / ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/\{\{[^{}]*\}\}/g, "")
+    .replace(/\[\[([^|\]]+)\|([^\]]+)\]\]/g, "$2")
+    .replace(/\[\[([^\]]+)\]\]/g, "$1")
+    .replace(/''+/g, "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
+    .replace(/\s+([?.!,;:])/g, "$1")
+    .trim();
+}
+
+function slug(value) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 72);
+}
+
+function categoryFor(heading) {
+  return categoryMap.find(([pattern]) => pattern.test(heading))?.[1] ?? "wikivoyage";
+}
+
+function rowsFromTable(table) {
+  const lines = table.split("\n");
+  const headings = [];
+  const rows = [];
+  let currentHeading = "";
+  let currentCells = [];
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith("!")) {
+      headings.push(...trimmed.replace(/^!+/, "").split("!!").map(stripWiki));
+      continue;
+    }
+
+    if (trimmed === "|-") {
+      if (currentCells.length) rows.push(currentCells);
+      currentCells = [];
+      continue;
+    }
+
+    if (trimmed.startsWith("|")) {
+      const cells = trimmed
+        .replace(/^\|+/, "")
+        .split("||")
+        .map(stripWiki)
+        .filter(Boolean);
+      currentCells.push(...cells);
+    }
+
+    const headingMatch = trimmed.match(/^(=+)\s*(.*?)\s*\1$/);
+    if (headingMatch) currentHeading = stripWiki(headingMatch[2]);
+  }
+
+  if (currentCells.length) rows.push(currentCells);
+  return { headings, rows, currentHeading };
+}
+
+function parseTables(wikitext) {
+  const results = [];
+  const tableRegex = /\{\|[\s\S]*?\n\|\}/g;
+  let match;
+
+  while ((match = tableRegex.exec(wikitext))) {
+    const before = wikitext.slice(0, match.index);
+    const headingMatches = Array.from(before.matchAll(/^(=+)\s*(.*?)\s*\1$/gm));
+    const heading = stripWiki(headingMatches.at(-1)?.[2] ?? "Wikivoyage");
+    const table = match[0];
+    const { headings, rows } = rowsFromTable(table);
+    const headerText = headings.join(" ").toLowerCase();
+
+    if (!headerText.includes("english") || !headerText.includes("kannada") || !headerText.includes("transliteration")) {
+      continue;
+    }
+
+    for (const cells of rows) {
+      if (cells.length < 3) continue;
+      const [english, kannadaScript, kannadaRoman] = cells;
+      if (!english || !kannadaScript || !kannadaRoman) continue;
+      if (english.length > 120 || kannadaScript.length > 180 || kannadaRoman.length > 180) continue;
+      if (/^(english|kannada|transliteration)$/i.test(english)) continue;
+
+      results.push({
+        heading,
+        english,
+        kannadaScript,
+        kannadaRoman,
+        category: categoryFor(heading)
+      });
+    }
+  }
+
+  return results;
+}
+
+function dedupe(items) {
+  const seen = new Set();
+  return items.filter((item) => {
+    const key = `${item.english.toLowerCase()}|${item.kannadaScript}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+const response = await fetch(apiUrl, {
+  headers: {
+    "User-Agent": "KannadaBuddyPersonalPWA/0.1 (personal learning importer)"
+  }
+});
+
+if (!response.ok) {
+  throw new Error(`Wikivoyage API failed: ${response.status} ${response.statusText}`);
+}
+
+const json = await response.json();
+const wikitext = json.parse?.wikitext?.["*"];
+if (!wikitext) throw new Error("Wikivoyage response did not include wikitext.");
+
+const imported = dedupe(parseTables(wikitext));
+const now = new Date().toISOString();
+const phrases = imported.map((item, index) => ({
+  id: `wv-${slug(item.heading)}-${slug(item.english) || index}`,
+  english: item.english,
+  kannadaRoman: item.kannadaRoman,
+  kannadaScript: item.kannadaScript,
+  usageNote: `Imported from Wikivoyage section: ${item.heading}. Review before adding to lessons.`,
+  category: item.category,
+  tags: ["wikivoyage", slug(item.heading) || "phrasebook"],
+  difficulty: "survival",
+  source: "wikivoyage",
+  sourceUrl,
+  license: "CC BY-SA",
+  status: "raw_imported",
+  isBengaluruPractical: false,
+  createdAt: now,
+  updatedAt: now
+}));
+
+const file = `import type { PhraseItem } from "@/lib/types";
+
+// Generated by scripts/import-wikivoyage.mjs from ${sourceUrl}
+// Wikivoyage content is licensed under Creative Commons Attribution-ShareAlike.
+export const wikivoyagePhrases: PhraseItem[] = ${JSON.stringify(phrases, null, 2)};
+`;
+
+await writeFile("data/wikivoyage-phrases.ts", file);
+console.log(`Imported ${phrases.length} Wikivoyage phrase candidates into data/wikivoyage-phrases.ts`);
