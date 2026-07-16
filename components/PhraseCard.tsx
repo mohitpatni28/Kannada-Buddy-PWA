@@ -12,7 +12,7 @@ export function PhraseCard({ phrase, compact = false }: { phrase: PhraseItem; co
       {!compact && phrase.usageNote ? <p className="small muted">{phrase.usageNote}</p> : null}
       <div className="meta-row">
         <span className="pill">{phrase.category}</span>
-        <span className="pill">{phrase.status.replace("_", " ")}</span>
+        {phrase.status !== "approved" ? <span className="pill status-warning">Unreviewed</span> : null}
         {phrase.tags.slice(0, 3).map((tag) => (
           <span key={tag} className="pill">
             {tag}

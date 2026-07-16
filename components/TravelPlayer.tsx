@@ -12,6 +12,7 @@ export function TravelPlayer({ phrases }: { phrases: PhraseItem[] }) {
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [audioMessage, setAudioMessage] = useState("Tap Start Drill to enable audio.");
+  const [ratingMessage, setRatingMessage] = useState("");
   const current = drill[index % drill.length];
   const progress = drill.length ? ((index + 1) / drill.length) * 100 : 0;
 
@@ -30,8 +31,21 @@ export function TravelPlayer({ phrases }: { phrases: PhraseItem[] }) {
     setPlaying(false);
   };
 
-  const next = () => setIndex((value) => Math.min(value + 1, Math.max(drill.length - 1, 0)));
+  const next = () => {
+    setRatingMessage("");
+    setIndex((value) => (value + 1) % drill.length);
+  };
   const repeat = () => void playCurrent();
+
+  const rateAndContinue = (confidence: 1 | 3) => {
+    ratePhrase(current.id, confidence);
+    setRatingMessage(
+      confidence === 3
+        ? "Marked as known. We’ll bring it back for review in 7 days."
+        : "Marked for practice. We’ll bring it back tomorrow."
+    );
+    window.setTimeout(next, 800);
+  };
 
   if (!current) {
     return <p className="muted">No approved phrases are ready for travel mode.</p>;
@@ -63,13 +77,14 @@ export function TravelPlayer({ phrases }: { phrases: PhraseItem[] }) {
         </button>
       </div>
       <div className="action-row" style={{ justifyContent: "center" }}>
-        <button className="button secondary" type="button" onClick={() => ratePhrase(current.id, 3)}>
-          I know this
+        <button className="button secondary" type="button" onClick={() => rateAndContinue(3)}>
+          Know it · review in 7 days
         </button>
-        <button className="button secondary" type="button" onClick={() => ratePhrase(current.id, 1)}>
-          Need practice
+        <button className="button secondary" type="button" onClick={() => rateAndContinue(1)}>
+          Practice · review tomorrow
         </button>
       </div>
+      {ratingMessage ? <p className="small muted" role="status">{ratingMessage}</p> : null}
     </section>
   );
 }

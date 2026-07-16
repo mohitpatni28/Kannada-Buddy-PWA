@@ -227,6 +227,47 @@ h3 {
   opacity: 0.55;
 }
 
+.button:focus-visible,
+.nav-item:focus-visible,
+.search-input:focus-visible,
+.field:focus-visible,
+.textarea:focus-visible {
+  outline: 3px solid var(--marigold);
+  outline-offset: 2px;
+}
+
+.status-warning {
+  border-color: #d59a2d;
+  background: #fff0c9;
+  color: #704b08;
+}
+
+.candidate-toggle {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: fit-content;
+  min-height: 44px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.candidate-toggle input {
+  width: 18px;
+  height: 18px;
+}
+
+.library-filters {
+  padding-bottom: 2px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.library-filters .button {
+  flex: 0 0 auto;
+}
+
 .icon-button {
   width: 44px;
   height: 44px;

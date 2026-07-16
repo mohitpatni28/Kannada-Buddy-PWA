@@ -9,16 +9,18 @@ import { mergeOverrides } from "@/lib/libraryStore";
 export default function PhrasebookPage() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
+  const [includeCandidates, setIncludeCandidates] = useState(false);
   const phrases = useMemo(() => mergeOverrides(allPhrases), []);
-  const categories = categoriesFor(phrases);
-  const results = searchPhrases(phrases, query, category);
+  const searchable = includeCandidates ? phrases.filter((phrase) => phrase.status !== "rejected") : phrases.filter((phrase) => phrase.status === "approved");
+  const categories = categoriesFor(searchable);
+  const results = searchPhrases(searchable, query, category);
 
   return (
     <div className="page">
       <section className="band">
         <p className="eyebrow">Phrasebook</p>
         <h1>Find words fast</h1>
-        <p className="lede">Approved practical phrases appear first, with raw imported candidates lower in the list.</p>
+        <p className="lede">Search reviewed, practical phrases for everyday Bengaluru situations.</p>
       </section>
       <section className="panel">
         <input
@@ -38,11 +40,16 @@ export default function PhrasebookPage() {
             </button>
           ))}
         </div>
+        <label className="candidate-toggle small">
+          <input type="checkbox" checked={includeCandidates} onChange={(event) => { setIncludeCandidates(event.target.checked); setCategory("all"); }} />
+          Include unreviewed imports
+        </label>
       </section>
       <section className="grid">
         {results.map((phrase) => (
           <PhraseCard key={phrase.id} phrase={phrase} />
         ))}
+        {results.length === 0 ? <p className="panel muted">No matching phrases. Try a shorter search or another category.</p> : null}
       </section>
     </div>
   );

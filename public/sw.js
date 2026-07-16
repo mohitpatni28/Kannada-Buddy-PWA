@@ -1,4 +1,4 @@
-const CACHE_NAME = "kannada-buddy-v1";
+const CACHE_NAME = "kannada-buddy-v2";
 const APP_SHELL = [
   "/",
   "/travel",
@@ -32,16 +32,25 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
 
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request)
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request)
         .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          if (response.ok) caches.open(CACHE_NAME).then((cache) => cache.put(event.request, response.clone()));
           return response;
         })
-        .catch(() => caches.match("/"));
+        .catch(async () => (await caches.match(event.request)) || (await caches.match("/")))
+    );
+    return;
+  }
+
+  event.respondWith(
+    caches.match(event.request).then((cached) => {
+      const fresh = fetch(event.request).then((response) => {
+        if (response.ok) caches.open(CACHE_NAME).then((cache) => cache.put(event.request, response.clone()));
+        return response;
+      });
+      return cached || fresh;
     })
   );
 });
