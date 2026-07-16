@@ -44,12 +44,17 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  const fresh = fetch(event.request).then(async (response) => {
+    if (response.ok) {
+      const cache = await caches.open(CACHE_NAME);
+      await cache.put(event.request, response.clone());
+    }
+    return response;
+  });
+  event.waitUntil(fresh.then(() => undefined).catch(() => undefined));
+
   event.respondWith(
     caches.match(event.request).then((cached) => {
-      const fresh = fetch(event.request).then((response) => {
-        if (response.ok) caches.open(CACHE_NAME).then((cache) => cache.put(event.request, response.clone()));
-        return response;
-      });
       return cached || fresh;
     })
   );

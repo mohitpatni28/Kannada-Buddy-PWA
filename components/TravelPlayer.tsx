@@ -1,20 +1,36 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { PhraseItem } from "@/lib/types";
+import { mergeOverrides } from "@/lib/libraryStore";
 import { ratePhrase } from "@/lib/progress";
 import { speakEnglish, speakKannada } from "@/lib/tts";
 
 const wait = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
 
 export function TravelPlayer({ phrases }: { phrases: PhraseItem[] }) {
-  const drill = useMemo(() => phrases.filter((phrase) => phrase.status === "approved"), [phrases]);
+  const [library, setLibrary] = useState(phrases);
+  const drill = useMemo(() => library.filter((phrase) => phrase.status === "approved"), [library]);
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const [rating, setRating] = useState(false);
   const [audioMessage, setAudioMessage] = useState("Tap Start Drill to enable audio.");
   const [ratingMessage, setRatingMessage] = useState("");
+  const advanceTimer = useRef<number | null>(null);
+  const ratingLock = useRef(false);
   const current = drill[index % drill.length];
   const progress = drill.length ? ((index + 1) / drill.length) * 100 : 0;
+
+  useEffect(() => {
+    setLibrary(mergeOverrides(phrases));
+  }, [phrases]);
+
+  useEffect(
+    () => () => {
+      if (advanceTimer.current !== null) window.clearTimeout(advanceTimer.current);
+    },
+    []
+  );
 
   const playCurrent = async () => {
     if (!current) return;
@@ -32,19 +48,26 @@ export function TravelPlayer({ phrases }: { phrases: PhraseItem[] }) {
   };
 
   const next = () => {
+    if (advanceTimer.current !== null) window.clearTimeout(advanceTimer.current);
+    advanceTimer.current = null;
+    ratingLock.current = false;
+    setRating(false);
     setRatingMessage("");
     setIndex((value) => (value + 1) % drill.length);
   };
   const repeat = () => void playCurrent();
 
   const rateAndContinue = (confidence: 1 | 3) => {
+    if (!current || ratingLock.current) return;
+    ratingLock.current = true;
+    setRating(true);
     ratePhrase(current.id, confidence);
     setRatingMessage(
       confidence === 3
-        ? "Marked as known. We’ll bring it back for review in 7 days."
-        : "Marked for practice. We’ll bring it back tomorrow."
+        ? "Saved. It will be due on the Review tab in 7 days."
+        : "Saved. It will be due on the Review tab tomorrow."
     );
-    window.setTimeout(next, 800);
+    advanceTimer.current = window.setTimeout(next, 800);
   };
 
   if (!current) {
@@ -77,11 +100,11 @@ export function TravelPlayer({ phrases }: { phrases: PhraseItem[] }) {
         </button>
       </div>
       <div className="action-row" style={{ justifyContent: "center" }}>
-        <button className="button secondary" type="button" onClick={() => rateAndContinue(3)}>
-          Know it · review in 7 days
+        <button className="button secondary" type="button" disabled={rating} onClick={() => rateAndContinue(3)}>
+          Know it
         </button>
-        <button className="button secondary" type="button" onClick={() => rateAndContinue(1)}>
-          Practice · review tomorrow
+        <button className="button secondary" type="button" disabled={rating} onClick={() => rateAndContinue(1)}>
+          Needs practice
         </button>
       </div>
       {ratingMessage ? <p className="small muted" role="status">{ratingMessage}</p> : null}

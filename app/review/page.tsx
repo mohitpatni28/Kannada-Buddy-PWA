@@ -6,18 +6,21 @@ import { PhraseCard } from "@/components/PhraseCard";
 import { ReviewButtons } from "@/components/ReviewButtons";
 import { loadProgress } from "@/lib/progress";
 import { isDue } from "@/lib/spacedRepetition";
-import type { ReviewProgress } from "@/lib/types";
+import { mergeOverrides } from "@/lib/libraryStore";
+import type { PhraseItem, ReviewProgress } from "@/lib/types";
 
 export default function ReviewPage() {
   const [progress, setProgress] = useState<Record<string, ReviewProgress>>({});
+  const [phrases, setPhrases] = useState<PhraseItem[]>(allPhrases);
 
   useEffect(() => {
     setProgress(loadProgress());
+    setPhrases(mergeOverrides(allPhrases));
   }, []);
 
   const due = useMemo(
-    () => allPhrases.filter((phrase) => phrase.status === "approved").filter((phrase) => isDue(progress[phrase.id])).slice(0, 12),
-    [progress]
+    () => phrases.filter((phrase) => phrase.status === "approved").filter((phrase) => isDue(progress[phrase.id])).slice(0, 12),
+    [phrases, progress]
   );
 
   return (
