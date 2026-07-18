@@ -1,0 +1,18 @@
+{
+  "greet-hello": "/audio/greet-hello.wav",
+  "greet-thanks": "/audio/greet-thanks.wav",
+  "greet-how-are-you": "/audio/greet-how-are-you.wav",
+  "apt-come": "/audio/apt-come.wav",
+  "apt-call": "/audio/apt-call.wav",
+  "apt-water": "/audio/apt-water.wav",
+  "auto-straight": "/audio/auto-straight.wav",
+  "auto-slow": "/audio/auto-slow.wav",
+  "auto-stop": "/audio/auto-stop.wav",
+  "food-coffee": "/audio/food-coffee.wav",
+  "food-water": "/audio/food-water.wav",
+  "food-less-spicy": "/audio/food-less-spicy.wav",
+  "food-parcel": "/audio/food-parcel.wav",
+  "shop-how-much-this": "/audio/shop-how-much-this.wav",
+  "shop-want-this": "/audio/shop-want-this.wav",
+  "shop-dont-want": "/audio/shop-dont-want.wav"
+}

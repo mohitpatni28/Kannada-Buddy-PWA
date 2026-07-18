@@ -9,3 +9,9 @@ coverage/
 .env.*.local
 .DS_Store
 *.log
+audio/.venv/
+audio/generated/
+audio/model-cache/
+audio/.tools/
+__pycache__/
+*.pyc

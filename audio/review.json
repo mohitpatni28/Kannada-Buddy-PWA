@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "model": "ai4bharat/indic-parler-tts",
+  "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+  "voice": "Anu",
+  "items": [
+    { "id": "greet-hello", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "greet-thanks", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "greet-how-are-you", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "apt-come", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "apt-call", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "apt-water", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "auto-straight", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "auto-slow", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "auto-stop", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "food-coffee", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "food-water", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "food-less-spicy", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "food-parcel", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "shop-how-much-this", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "shop-want-this", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" },
+    { "id": "shop-dont-want", "status": "approved", "reviewer": "Mohit Patni", "reviewedAt": "2026-07-18T07:05:40Z", "checks": { "wording": true, "register": true, "script": true, "romanization": true, "audio": true }, "notes": "" }
+  ]
+}

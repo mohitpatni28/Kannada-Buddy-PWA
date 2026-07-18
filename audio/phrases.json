@@ -1,0 +1,18 @@
+[
+  { "id": "greet-hello", "script": "ನಮಸ್ಕಾರ", "roman": "Namaskara", "intent": "Greet someone politely" },
+  { "id": "greet-thanks", "script": "ಧನ್ಯವಾದಗಳು", "roman": "Dhanyavaadagalu", "intent": "Thank someone" },
+  { "id": "greet-how-are-you", "script": "ಹೇಗಿದ್ದೀರಾ?", "roman": "Hegiddira?", "intent": "Ask how someone is" },
+  { "id": "apt-come", "script": "ಬನ್ನಿ", "roman": "Banni", "intent": "Ask someone to come" },
+  { "id": "apt-call", "script": "ನನಗೆ ಕಾಲ್ ಮಾಡಿ", "roman": "Nanage call maadi", "intent": "Ask someone to call you" },
+  { "id": "apt-water", "script": "ನೀರು ಬರ್ತಾ ಇಲ್ಲ", "roman": "Neeru bartha illa", "intent": "Say that the water is not coming" },
+  { "id": "auto-straight", "script": "ಸ್ಟ್ರೈಟ್ ಹೋಗಿ", "roman": "Straight hogi", "intent": "Ask the driver to go straight" },
+  { "id": "auto-slow", "script": "ನಿಧಾನವಾಗಿ ಹೋಗಿ", "roman": "Nidhaanavaagi hogi", "intent": "Ask the driver to go slowly" },
+  { "id": "auto-stop", "script": "ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ", "roman": "Illi nillisi", "intent": "Ask the driver to stop here" },
+  { "id": "food-coffee", "script": "ಒಂದು ಕಾಫಿ ಕೊಡಿ", "roman": "Ondu coffee kodi", "intent": "Order one coffee" },
+  { "id": "food-water", "script": "ನೀರು ಕೊಡಿ", "roman": "Neeru kodi", "intent": "Ask for water" },
+  { "id": "food-less-spicy", "script": "ಸ್ವಲ್ಪ ಖಾರ ಕಡಿಮೆ", "roman": "Swalpa khara kadime", "intent": "Ask for less spice" },
+  { "id": "food-parcel", "script": "ಪಾರ್ಸೆಲ್ ಕೊಡಿ", "roman": "Parcel kodi", "intent": "Ask for takeaway" },
+  { "id": "shop-how-much-this", "script": "ಇದು ಎಷ್ಟು?", "roman": "Idhu eshtu?", "intent": "Ask how much this costs" },
+  { "id": "shop-want-this", "script": "ಇದು ಬೇಕು", "roman": "Idhu beku", "intent": "Say that you want this" },
+  { "id": "shop-dont-want", "script": "ಬೇಡ", "roman": "Beda", "intent": "Say that you do not want it" }
+]

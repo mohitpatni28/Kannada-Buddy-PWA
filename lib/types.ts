@@ -40,3 +40,102 @@ export type ReviewProgress = {
   correctCount: number;
   wrongCount: number;
 };
+
+export type LearningMode = "speaking" | "speaking_and_reading";
+export type RomanizationPreference = "always" | "when_needed" | "hidden";
+
+export type LearningPreferences = {
+  learningMode: LearningMode;
+  romanization: RomanizationPreference;
+  sessionMinutes: 5 | 10 | 15;
+};
+
+export type ConceptForm = {
+  phraseId: string;
+  kannadaScript: string;
+  kannadaRoman: string;
+  literalMeaning?: string;
+  register: "polite" | "neutral" | "casual" | "formal";
+  variety: "bengaluru-colloquial" | "standard-spoken" | "literary";
+  usePriority: "produce" | "recognize" | "reference";
+  review: {
+    status: "needs_native_review" | "reviewed";
+    source: "manual_course_draft" | "native_review";
+    reviewer?: string;
+    reviewedAt?: string;
+  };
+};
+
+export type LearningConcept = {
+  id: string;
+  intent: string;
+  situation: string;
+  missionId: string;
+  missionTitle: string;
+  pattern?: string;
+  pronunciationNote?: string;
+  usageNote?: string;
+  form: ConceptForm;
+  audioUrl?: string;
+};
+
+export type PracticeOutcome = "independent" | "hinted" | "missed";
+export type ReadingOutcome = "read" | "hinted" | "skipped";
+
+export type LearningEvidence = {
+  conceptId: string;
+  activity: "cued_production" | "script_reading" | "grapheme_recognition";
+  outcome: PracticeOutcome | ReadingOutcome;
+  hintsUsed: number;
+  occurredAt: string;
+  corrective?: boolean;
+  migrated?: boolean;
+};
+
+export type OrthographySymbol = {
+  grapheme: string;
+  sound: string;
+  cue: string;
+  example?: string;
+};
+
+export type OrthographyUnit = {
+  id: string;
+  order: number;
+  title: string;
+  kind: "independent_vowels" | "consonants" | "signs" | "vowel_signs" | "virama" | "conjuncts";
+  explanation: string;
+  symbols: OrthographySymbol[];
+  recognition: Array<{
+    prompt: string;
+    answer: string;
+    options: string[];
+  }>;
+};
+
+export type OrthographyProgress = {
+  unitId: string;
+  attempts: number;
+  successes: number;
+  stabilityDays: number;
+  lastSeenAt: string;
+  nextReviewAt: string;
+};
+
+export type ConceptProgress = {
+  conceptId: string;
+  attempts: number;
+  successes: number;
+  lapses: number;
+  stabilityDays: number;
+  lastSeenAt: string;
+  nextReviewAt: string;
+  readingAttempts: number;
+  readingSuccesses: number;
+};
+
+export type LearningState = {
+  concepts: Record<string, ConceptProgress>;
+  orthography: Record<string, OrthographyProgress>;
+  evidence: LearningEvidence[];
+};

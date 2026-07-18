@@ -5,10 +5,10 @@ import { usePathname } from "next/navigation";
 
 const items = [
   { href: "/", label: "Today", icon: "T" },
-  { href: "/travel", label: "Travel", icon: "A" },
+  { href: "/travel", label: "Practice", icon: "P" },
   { href: "/phrasebook", label: "Search", icon: "S" },
-  { href: "/review", label: "Review", icon: "R" },
-  { href: "/library", label: "Library", icon: "L" }
+  { href: "/review", label: "Progress", icon: "G" },
+  { href: "/settings", label: "Settings", icon: "⚙" }
 ];
 
 export function BottomNav() {

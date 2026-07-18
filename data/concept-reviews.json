@@ -1,0 +1,98 @@
+{
+  "greet-hello": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "greet-thanks": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "greet-how-are-you": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "apt-come": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "apt-call": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "apt-water": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "auto-straight": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "auto-slow": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "auto-stop": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "food-coffee": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "food-water": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "food-less-spicy": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "food-parcel": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "shop-how-much-this": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "shop-want-this": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  },
+  "shop-dont-want": {
+    "status": "reviewed",
+    "source": "native_review",
+    "reviewer": "Mohit Patni",
+    "reviewedAt": "2026-07-18T07:05:40.000Z"
+  }
+}
