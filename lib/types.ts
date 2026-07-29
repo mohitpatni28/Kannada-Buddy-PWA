@@ -1,4 +1,43 @@
-export type PhraseStatus = "raw_imported" | "approved" | "rejected" | "needs_edit";
+export type PhraseStatus =
+  | "raw_imported"
+  | "ai_draft"
+  | "ai_draft_caution"
+  | "human_review_required"
+  | "approved"
+  | "rejected"
+  | "needs_edit";
+
+export type AutomatedReviewQueue =
+  | "automated_reference"
+  | "standard_human_review"
+  | "priority_human_review";
+
+export type PhraseAutomation = {
+  draftId: string;
+  sourceId: string;
+  sourceOccurrence: number;
+  sourceHash: string;
+  risk: "low" | "medium" | "high";
+  issues: string[];
+  draftConfidence: number;
+  reviewQueue: AutomatedReviewQueue;
+  publicationEligibility: "library_ai_draft" | "library_ai_draft_caution" | "hold_for_human_review";
+  reviewClaim: "not_human_or_native_reviewed";
+  register: "polite" | "neutral" | "casual" | "formal" | "context_dependent";
+  bengaluruNaturalness:
+    | "general_kannada_candidate"
+    | "variant_selection_needed"
+    | "bookish_or_specialized"
+    | "unverified_high_stakes"
+    | "unverified";
+  sourcePhrase: {
+    english: string;
+    kannadaScript: string;
+    kannadaRoman: string;
+    category: string;
+    tags: string[];
+  };
+};
 
 export type PhraseItem = {
   id: string;
@@ -14,6 +53,7 @@ export type PhraseItem = {
   sourceUrl?: string;
   license?: string;
   status: PhraseStatus;
+  automation?: PhraseAutomation;
   isBengaluruPractical: boolean;
   createdAt: string;
   updatedAt: string;

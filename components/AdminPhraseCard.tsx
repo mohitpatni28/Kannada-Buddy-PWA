@@ -8,6 +8,7 @@ import { AudioButton } from "@/components/AudioButton";
 export function AdminPhraseCard({ phrase, onChange }: { phrase: PhraseItem; onChange: () => void }) {
   const [draft, setDraft] = useState(phrase);
   const [editing, setEditing] = useState(false);
+  const automation = phrase.automation;
 
   const setStatus = (status: PhraseStatus) => {
     setPhraseStatus(phrase.id, status);
@@ -68,13 +69,48 @@ export function AdminPhraseCard({ phrase, onChange }: { phrase: PhraseItem; onCh
           </div>
           <div className="meta-row">
             <span className="pill">{phrase.source}</span>
-            <span className="pill">{phrase.status.replace("_", " ")}</span>
+            <span className={phrase.status === "ai_draft_caution" || phrase.status === "human_review_required" ? "pill status-warning" : "pill"}>
+              {phrase.status.replaceAll("_", " ")}
+            </span>
             <span className="pill">{phrase.isBengaluruPractical ? "Bengaluru practical" : "candidate"}</span>
+            {automation ? <span className="pill">{automation.reviewQueue.replaceAll("_", " ")}</span> : null}
+            {automation ? <span className="pill">{automation.risk} risk · {Math.round(automation.draftConfidence * 100)}% draft confidence</span> : null}
             <AudioButton script={phrase.kannadaScript} roman={phrase.kannadaRoman} />
           </div>
+          {automation ? (
+            <details className="source-comparison">
+              <summary>Compare immutable source with automated draft</summary>
+              <div className="comparison-grid">
+                <section>
+                  <p className="eyebrow">Wikivoyage source</p>
+                  <p><strong>{automation.sourcePhrase.english}</strong></p>
+                  <p className="roman">{automation.sourcePhrase.kannadaRoman}</p>
+                  <p className="script kannada-font" lang="kn">{automation.sourcePhrase.kannadaScript}</p>
+                </section>
+                <section>
+                  <p className="eyebrow">Automated draft</p>
+                  <p><strong>{phrase.english}</strong></p>
+                  <p className="roman">{phrase.kannadaRoman}</p>
+                  <p className="script kannada-font" lang="kn">{phrase.kannadaScript}</p>
+                </section>
+              </div>
+              <p className="small muted">
+                Draft ID {automation.draftId} · {automation.register} register · naturalness:{" "}
+                {automation.bengaluruNaturalness.replaceAll("_", " ")}
+              </p>
+              {automation.issues.length ? (
+                <div className="meta-row">
+                  {automation.issues.map((issue) => <span className="pill status-warning" key={issue}>{issue.replaceAll("_", " ")}</span>)}
+                </div>
+              ) : <p className="small muted">No deterministic structural issue detected.</p>}
+              <p className="draft-warning small">
+                Automated reference only. It has not been reviewed by a human or native speaker and is not course/audio material.
+              </p>
+            </details>
+          ) : null}
           <div className="action-row">
             <button className="button" type="button" onClick={() => setStatus("approved")}>
-              Approve
+              Approve locally for Library
             </button>
             <button className="button secondary" type="button" onClick={() => setEditing(true)}>
               Edit

@@ -1,0 +1,1931 @@
+{
+  "schemaVersion": 1,
+  "artifactStatus": "non_canonical_ai_draft",
+  "source": {
+    "file": "data/wikivoyage-phrases.ts",
+    "license": "CC BY-SA",
+    "itemCount": 621,
+    "fingerprint": "3f769ea1e2894c437c9ef4e8ccb95d694bd83323e549622b4500f877fedd5ff3"
+  },
+  "pipeline": {
+    "name": "kannada-buddy-library-enrichment",
+    "version": "1.0.0",
+    "generatedAt": "2026-07-29T15:23:06.858Z",
+    "validationClaim": "automated_draft_not_human_or_native_review"
+  },
+  "summary": {
+    "scope": "pilot",
+    "itemCount": 40,
+    "batchCounts": {
+      "clean-basics": 10,
+      "clean-food-shop": 10,
+      "clean-transport": 10,
+      "deliberate-anomalies": 10
+    },
+    "riskCounts": {
+      "low": 30,
+      "medium": 8,
+      "high": 2
+    },
+    "reviewQueueCounts": {
+      "automated_reference": 30,
+      "standard_human_review": 8,
+      "priority_human_review": 2
+    }
+  },
+  "items": [
+    {
+      "sourceId": "wv-more-basics-is-it-good",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-basics-is-it-good#1",
+      "sourceHash": "7233baa5783a5acd59b32e0cf62c7bdd72f9d59fc574b5f3cb1c0b816bd84121",
+      "pilotBatch": "clean-basics",
+      "sourcePhrase": {
+        "english": "Is it good?",
+        "kannadaScript": "ಚೆನ್ನಾಗ್’ಇದೆಯಾ?",
+        "kannadaRoman": "cennAg'ideyA?",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics"
+        ]
+      },
+      "draft": {
+        "english": "Is it good?",
+        "kannadaScript": "ಚೆನ್ನಾಗ್’ಇದೆಯಾ?",
+        "kannadaRoman": "cennAg'ideyA?",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "General conversation and everyday interaction."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-basics-it-is-fine",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-basics-it-is-fine#1",
+      "sourceHash": "d5650675292c65529f0bad4aff75bfc226bd4ce1e25dc61a05b4b201e62aa7d9",
+      "pilotBatch": "clean-basics",
+      "sourcePhrase": {
+        "english": "It is fine",
+        "kannadaScript": "ಚೆನ್ನಾಗ್’ಇದೆ",
+        "kannadaRoman": "cennAg'ide",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics"
+        ]
+      },
+      "draft": {
+        "english": "It is fine",
+        "kannadaScript": "ಚೆನ್ನಾಗ್’ಇದೆ",
+        "kannadaRoman": "cennAg'ide",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "General conversation and everyday interaction."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-basics-it-is-not-good",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-basics-it-is-not-good#1",
+      "sourceHash": "9e5e0f0f82c156a8c5210b300a30bef8c4703799a8ace2bc37b1e1a36f593d4e",
+      "pilotBatch": "clean-basics",
+      "sourcePhrase": {
+        "english": "It is not good",
+        "kannadaScript": "ಚೆನ್ನಾಗ್’ಇಲ್ಲ",
+        "kannadaRoman": "cennAg'illa",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics"
+        ]
+      },
+      "draft": {
+        "english": "It is not good",
+        "kannadaScript": "ಚೆನ್ನಾಗ್’ಇಲ್ಲ",
+        "kannadaRoman": "cennAg'illa",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "General conversation and everyday interaction."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-basics-alright",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-basics-alright#1",
+      "sourceHash": "db5e0ec91c4083318ef855d13781cc709da946e2d87b80a4e0b58911e63c1779",
+      "pilotBatch": "clean-basics",
+      "sourcePhrase": {
+        "english": "Alright",
+        "kannadaScript": "ಸರಿ",
+        "kannadaRoman": "sari",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics"
+        ]
+      },
+      "draft": {
+        "english": "Alright",
+        "kannadaScript": "ಸರಿ",
+        "kannadaRoman": "sari",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "General conversation and everyday interaction."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-basics-that-is-all",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-basics-that-is-all#1",
+      "sourceHash": "2e23f9245434df0ccec87574b536965dead95146e2f4c1378f59f18b8dabcea9",
+      "pilotBatch": "clean-basics",
+      "sourcePhrase": {
+        "english": "That is all",
+        "kannadaScript": "ಅಷ್ಟೇ",
+        "kannadaRoman": "aShTE",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics"
+        ]
+      },
+      "draft": {
+        "english": "That is all",
+        "kannadaScript": "ಅಷ್ಟೇ",
+        "kannadaRoman": "aShTE",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "General conversation and everyday interaction."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-basics-there-is-plenty",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-basics-there-is-plenty#1",
+      "sourceHash": "02635527814a49c68fd272e419b8c2d6593d246cae9c1ea8afa24eed4e6ed4db",
+      "pilotBatch": "clean-basics",
+      "sourcePhrase": {
+        "english": "There is plenty",
+        "kannadaScript": "ಬೇಕಾದ್’ಅಷ್ಟ್’ಇದೆ",
+        "kannadaRoman": "bEkAd'aShT'ide",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics"
+        ]
+      },
+      "draft": {
+        "english": "There is plenty",
+        "kannadaScript": "ಬೇಕಾದ್’ಅಷ್ಟ್’ಇದೆ",
+        "kannadaRoman": "bEkAd'aShT'ide",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "General conversation and everyday interaction."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-basics-please-take",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-basics-please-take#1",
+      "sourceHash": "fd776232573685fb5e83cb7a493d82e1248042f931a5928dd463ce19c4f1e7c3",
+      "pilotBatch": "clean-basics",
+      "sourcePhrase": {
+        "english": "Please take",
+        "kannadaScript": "ತಗೋಳಿ, ತಗೋಳ್ರಿ",
+        "kannadaRoman": "tagOLi, tagOLri",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics"
+        ]
+      },
+      "draft": {
+        "english": "Please take",
+        "kannadaScript": "ತಗೋಳಿ, ತಗೋಳ್ರಿ",
+        "kannadaRoman": "tagOLi, tagOLri",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "polite",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "General conversation and everyday interaction."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-basics-oh-it-is-very-difficult",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-basics-oh-it-is-very-difficult#1",
+      "sourceHash": "83470d1e016a68f82fffc44b4137b1b49a37f890fd09503ed4956ba5f4d333c6",
+      "pilotBatch": "clean-basics",
+      "sourcePhrase": {
+        "english": "Oh, it is very difficult",
+        "kannadaScript": "ಅಯ್ಯೋ! ತುಂಬ ಕಷ್ಟ",
+        "kannadaRoman": "ayyO! tumba kaShTa",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics"
+        ]
+      },
+      "draft": {
+        "english": "Oh, it is very difficult",
+        "kannadaScript": "ಅಯ್ಯೋ! ತುಂಬ ಕಷ್ಟ",
+        "kannadaRoman": "ayyO! tumba kaShTa",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "General conversation and everyday interaction."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-basics-please-have-a-wash",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-basics-please-have-a-wash#1",
+      "sourceHash": "5649c77e285bffdc4f3f28ae26f6d30236d89df439c176dd1e60f77bd2d55c26",
+      "pilotBatch": "clean-basics",
+      "sourcePhrase": {
+        "english": "Please have a wash",
+        "kannadaScript": "ಕೈ ಕಾಲ್ ತೊಳ್ಕೊಳ್ಳಿ",
+        "kannadaRoman": "kai kAl toLkoLLi",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics"
+        ]
+      },
+      "draft": {
+        "english": "Please have a wash",
+        "kannadaScript": "ಕೈ ಕಾಲ್ ತೊಳ್ಕೊಳ್ಳಿ",
+        "kannadaRoman": "kai kAl toLkoLLi",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "polite",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "General conversation and everyday interaction."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-basics-are-you-not-well",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-basics-are-you-not-well#1",
+      "sourceHash": "188d017f946c94b02806f4177daec0a0da04765b31379b7d38e9236c0fa41292",
+      "pilotBatch": "clean-basics",
+      "sourcePhrase": {
+        "english": "Are you not well?",
+        "kannadaScript": "ಮೈಯಲ್ಲ್ ಚೆನ್ನಾಗ್’ಇಲ್ಲ್’ವಾ?",
+        "kannadaRoman": "maiyall chennAg'ill'vA?",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics"
+        ]
+      },
+      "draft": {
+        "english": "Are you not well?",
+        "kannadaScript": "ಮೈಯಲ್ಲ್ ಚೆನ್ನಾಗ್’ಇಲ್ಲ್’ವಾ?",
+        "kannadaRoman": "maiyall chennAg'ill'vA?",
+        "category": "basics",
+        "tags": [
+          "wikivoyage",
+          "more-basics",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "General conversation and everyday interaction."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-directions-street",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-directions-street#1",
+      "sourceHash": "3577e2d0676fe14d898237956b27998e5f9a1e1f09254d434328b3ba7d12b5a7",
+      "pilotBatch": "clean-transport",
+      "sourcePhrase": {
+        "english": "street",
+        "kannadaScript": "ಬೀದಿ",
+        "kannadaRoman": "bIdi",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions"
+        ]
+      },
+      "draft": {
+        "english": "street",
+        "kannadaScript": "ಬೀದಿ",
+        "kannadaRoman": "bIdi",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Directions, taxis, buses, trains, and local travel."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-directions-to-the-north",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-directions-to-the-north#1",
+      "sourceHash": "10bf2f028d3e46f0e33138c6a1c982a11d386ea5ccc2d25473f10029beb9bf29",
+      "pilotBatch": "clean-transport",
+      "sourcePhrase": {
+        "english": "to the north",
+        "kannadaScript": "ಉತ್ತರ’ಕ್ಕೆ",
+        "kannadaRoman": "uttara'kke;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions"
+        ]
+      },
+      "draft": {
+        "english": "to the north",
+        "kannadaScript": "ಉತ್ತರ’ಕ್ಕೆ",
+        "kannadaRoman": "uttara'kke;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Directions, taxis, buses, trains, and local travel."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-directions-to-the-east",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-directions-to-the-east#1",
+      "sourceHash": "e8e5191e1c2aaf11d9ab8b40023e822c963c5975990ab397d0ee18c71edf267c",
+      "pilotBatch": "clean-transport",
+      "sourcePhrase": {
+        "english": "to the east",
+        "kannadaScript": "ಪೂರ್ವ’ಕ್ಕೆ",
+        "kannadaRoman": "pUrva'kke;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions"
+        ]
+      },
+      "draft": {
+        "english": "to the east",
+        "kannadaScript": "ಪೂರ್ವ’ಕ್ಕೆ",
+        "kannadaRoman": "pUrva'kke;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Directions, taxis, buses, trains, and local travel."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-directions-to-the-west",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-directions-to-the-west#1",
+      "sourceHash": "ee361e053bd79301444bbea70d6655856d42625c361c912f0cbbcc453975daa6",
+      "pilotBatch": "clean-transport",
+      "sourcePhrase": {
+        "english": "to the west",
+        "kannadaScript": "ಪಶ್ಚಿಮ’ಕ್ಕೆ",
+        "kannadaRoman": "paScima'kke;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions"
+        ]
+      },
+      "draft": {
+        "english": "to the west",
+        "kannadaScript": "ಪಶ್ಚಿಮ’ಕ್ಕೆ",
+        "kannadaRoman": "paScima'kke;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Directions, taxis, buses, trains, and local travel."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-directions-to-the-south",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-directions-to-the-south#1",
+      "sourceHash": "c938fd9018d1641d84826904e36836260f8dee773490283bb105bbc30a7eb11c",
+      "pilotBatch": "clean-transport",
+      "sourcePhrase": {
+        "english": "to the south",
+        "kannadaScript": "ದಕ್ಷಿಣ’ಕ್ಕೆ",
+        "kannadaRoman": "dakShiNa'kke;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions"
+        ]
+      },
+      "draft": {
+        "english": "to the south",
+        "kannadaScript": "ದಕ್ಷಿಣ’ಕ್ಕೆ",
+        "kannadaRoman": "dakShiNa'kke;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Directions, taxis, buses, trains, and local travel."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-directions-uphill",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-directions-uphill#1",
+      "sourceHash": "43b8bd48eabe8b17a84974956801ddd4948dce898468d8898d0231189126be14",
+      "pilotBatch": "clean-transport",
+      "sourcePhrase": {
+        "english": "Uphill",
+        "kannadaScript": "ಮೇಲಕ್ಕೆ",
+        "kannadaRoman": "mElakke;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions"
+        ]
+      },
+      "draft": {
+        "english": "Uphill",
+        "kannadaScript": "ಮೇಲಕ್ಕೆ",
+        "kannadaRoman": "mElakke;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Directions, taxis, buses, trains, and local travel."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-directions-downhill",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-directions-downhill#1",
+      "sourceHash": "5568a40db328aebada7010372f27eb51adbb3d6241fd33cf14bedf0680391d0a",
+      "pilotBatch": "clean-transport",
+      "sourcePhrase": {
+        "english": "Downhill",
+        "kannadaScript": "ಕೆಳಕ್ಕೆ",
+        "kannadaRoman": "keLakke;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions"
+        ]
+      },
+      "draft": {
+        "english": "Downhill",
+        "kannadaScript": "ಕೆಳಕ್ಕೆ",
+        "kannadaRoman": "keLakke;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Directions, taxis, buses, trains, and local travel."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-more-directions-intersection",
+      "sourceOccurrence": 1,
+      "draftId": "wv-more-directions-intersection#1",
+      "sourceHash": "3062211cedae2e9bd6fdfe32ed45e070e191236d911a2981200f0bcaa61b0103",
+      "pilotBatch": "clean-transport",
+      "sourcePhrase": {
+        "english": "Intersection",
+        "kannadaScript": "ಇಂಟರ್’ಸೆಕ್ಶನ್",
+        "kannadaRoman": "Intersection;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions"
+        ]
+      },
+      "draft": {
+        "english": "Intersection",
+        "kannadaScript": "ಇಂಟರ್’ಸೆಕ್ಶನ್",
+        "kannadaRoman": "Intersection;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "more-directions",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Directions, taxis, buses, trains, and local travel."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-taxi-taxi",
+      "sourceOccurrence": 1,
+      "draftId": "wv-taxi-taxi#1",
+      "sourceHash": "c1d36b52779ea1c08a59f6783c18639edb740c90a54a8324d4b221f68a680a76",
+      "pilotBatch": "clean-transport",
+      "sourcePhrase": {
+        "english": "Taxi!",
+        "kannadaScript": "ಟ್ಯಾಕ್ಸಿ; ಆಟೊ;",
+        "kannadaRoman": "TAXI; AUTO;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "taxi"
+        ]
+      },
+      "draft": {
+        "english": "Taxi!",
+        "kannadaScript": "ಟ್ಯಾಕ್ಸಿ; ಆಟೊ;",
+        "kannadaRoman": "TAXI; AUTO;",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "taxi",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Directions, taxis, buses, trains, and local travel."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-driving-i-want-to-rent-a-car",
+      "sourceOccurrence": 1,
+      "draftId": "wv-driving-i-want-to-rent-a-car#1",
+      "sourceHash": "4ad76236a81baf1ae1430602caab7cbf765cfc24aebd54c216cf14a3d63cbec6",
+      "pilotBatch": "clean-transport",
+      "sourcePhrase": {
+        "english": "I want to rent a car",
+        "kannadaScript": "ನನಗ್ ಒಂದ್ CAR ಬಾಡಿಗೆಗೆ ಬೇಕು",
+        "kannadaRoman": "nanag ond CAR bADigege bEku",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "driving"
+        ]
+      },
+      "draft": {
+        "english": "I want to rent a car",
+        "kannadaScript": "ನನಗ್ ಒಂದ್ CAR ಬಾಡಿಗೆಗೆ ಬೇಕು",
+        "kannadaRoman": "nanag ond CAR bADigege bEku",
+        "category": "transport",
+        "tags": [
+          "wikivoyage",
+          "driving",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Directions, taxis, buses, trains, and local travel."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [
+          "mixed_latin_kannada_script"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-eating-can-i-look-at-the-menu-please",
+      "sourceOccurrence": 1,
+      "draftId": "wv-eating-can-i-look-at-the-menu-please#1",
+      "sourceHash": "9917fbd3a95bef98dd98850553219e3b18b4ad984e3758b2f2f0735d6cab8e79",
+      "pilotBatch": "clean-food-shop",
+      "sourcePhrase": {
+        "english": "Can I look at the menu, please?",
+        "kannadaScript": "MENU ಕೊಡ್ತೀರ?",
+        "kannadaRoman": "MENU koDtIra?",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating"
+        ]
+      },
+      "draft": {
+        "english": "Can I look at the menu, please?",
+        "kannadaScript": "MENU ಕೊಡ್ತೀರ?",
+        "kannadaRoman": "MENU koDtIra?",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "polite",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Ordering food, discussing ingredients, or identifying food and drink."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [
+          "mixed_latin_kannada_script"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-eating-is-there-a-house-specialty",
+      "sourceOccurrence": 1,
+      "draftId": "wv-eating-is-there-a-house-specialty#1",
+      "sourceHash": "27897e4b34001f09e94f26927764715549c4f7ccb13e99ea071e7d036d2ed3a4",
+      "pilotBatch": "clean-food-shop",
+      "sourcePhrase": {
+        "english": "Is there a house specialty?",
+        "kannadaScript": "ಯಾವದಾದ್ರೂ SPECIAL’ಆದ ಅಡುಗೆ ಇದೆಯಾ?",
+        "kannadaRoman": "yAvadAdrU SPECIAL aDuge ideyA?",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating"
+        ]
+      },
+      "draft": {
+        "english": "Is there a house specialty?",
+        "kannadaScript": "ಯಾವದಾದ್ರೂ SPECIAL’ಆದ ಅಡುಗೆ ಇದೆಯಾ?",
+        "kannadaRoman": "yAvadAdrU SPECIAL aDuge ideyA?",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Ordering food, discussing ingredients, or identifying food and drink."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [
+          "mixed_latin_kannada_script"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-eating-breakfast",
+      "sourceOccurrence": 1,
+      "draftId": "wv-eating-breakfast#1",
+      "sourceHash": "618e733c2ded773ad600fcccb1aa7a07245afe3e96a7c06a76125d9e4d42b747",
+      "pilotBatch": "clean-food-shop",
+      "sourcePhrase": {
+        "english": "Breakfast",
+        "kannadaScript": "ತಿಂಡಿ; TIFFIN",
+        "kannadaRoman": "tiNDi; TIFFIN;",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating"
+        ]
+      },
+      "draft": {
+        "english": "Breakfast",
+        "kannadaScript": "ತಿಂಡಿ; TIFFIN",
+        "kannadaRoman": "tiNDi; TIFFIN;",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Ordering food, discussing ingredients, or identifying food and drink."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [
+          "mixed_latin_kannada_script"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-eating-lunch",
+      "sourceOccurrence": 1,
+      "draftId": "wv-eating-lunch#1",
+      "sourceHash": "eed236315d1c427bae4f2b1a20b5410d8056c9a6526b8772397cc073ef918a8f",
+      "pilotBatch": "clean-food-shop",
+      "sourcePhrase": {
+        "english": "lunch",
+        "kannadaScript": "ಮಧ್ಯಾನದ್ ಊಟ",
+        "kannadaRoman": "madhyAnad UTa;",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating"
+        ]
+      },
+      "draft": {
+        "english": "lunch",
+        "kannadaScript": "ಮಧ್ಯಾನದ್ ಊಟ",
+        "kannadaRoman": "madhyAnad UTa;",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Ordering food, discussing ingredients, or identifying food and drink."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-eating-dinner",
+      "sourceOccurrence": 1,
+      "draftId": "wv-eating-dinner#1",
+      "sourceHash": "a4fdc92dae28ab5fb3810da22a8be6d9f5c07ad34a6a56315dbb8c52af814546",
+      "pilotBatch": "clean-food-shop",
+      "sourcePhrase": {
+        "english": "Dinner",
+        "kannadaScript": "ರಾತ್ರೆ ಊಟ",
+        "kannadaRoman": "rAtre UTa",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating"
+        ]
+      },
+      "draft": {
+        "english": "Dinner",
+        "kannadaScript": "ರಾತ್ರೆ ಊಟ",
+        "kannadaRoman": "rAtre UTa",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Ordering food, discussing ingredients, or identifying food and drink."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-money-do-you-accept-british-pounds",
+      "sourceOccurrence": 1,
+      "draftId": "wv-money-do-you-accept-british-pounds#1",
+      "sourceHash": "8b145c473454231fb0cbe235a7019638d4af3d259aab5c5fbd51492a8e63b1fc",
+      "pilotBatch": "clean-food-shop",
+      "sourcePhrase": {
+        "english": "Do you accept British pounds?",
+        "kannadaScript": "BRITISH POUNDS’ಅನ್ನ ಇಸ್ಕೊಣ್’ತೀರ; BRITISH POUNDS’ಅನ್ನ ತಗೊಣ್’ತೀರ",
+        "kannadaRoman": "BRITISH POUNDS'anna iskoN'tIra; BRITISH POUNDS'anna tagoN'tIra",
+        "category": "shop",
+        "tags": [
+          "wikivoyage",
+          "money"
+        ]
+      },
+      "draft": {
+        "english": "Do you accept British pounds?",
+        "kannadaScript": "BRITISH POUNDS’ಅನ್ನ ಇಸ್ಕೊಣ್’ತೀರ; BRITISH POUNDS’ಅನ್ನ ತಗೊಣ್’ತೀರ",
+        "kannadaRoman": "BRITISH POUNDS'anna iskoN'tIra; BRITISH POUNDS'anna tagoN'tIra",
+        "category": "shop",
+        "tags": [
+          "wikivoyage",
+          "money",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Shopping, prices, money, and payment."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [
+          "mixed_latin_kannada_script"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-money-do-you-accept-credit-cards",
+      "sourceOccurrence": 1,
+      "draftId": "wv-money-do-you-accept-credit-cards#1",
+      "sourceHash": "6ef38426cc46d5e9a5c82cd8973f35d7316e9d2790297f547327ea9aacff183d",
+      "pilotBatch": "clean-food-shop",
+      "sourcePhrase": {
+        "english": "Do you accept credit cards?",
+        "kannadaScript": "CREDIT CARDS’ಅನ್ನ ಇಸ್ಕೊಣ್’ತೀರ; CREDIT CARDS’ಅನ್ನ ತಗೊಣ್’ತೀರ",
+        "kannadaRoman": "CREDIT CARDS'anna iskoN'tIra; CREDIT CARDS'anna tagoN'tIra",
+        "category": "shop",
+        "tags": [
+          "wikivoyage",
+          "money"
+        ]
+      },
+      "draft": {
+        "english": "Do you accept credit cards?",
+        "kannadaScript": "CREDIT CARDS’ಅನ್ನ ಇಸ್ಕೊಣ್’ತೀರ; CREDIT CARDS’ಅನ್ನ ತಗೊಣ್’ತೀರ",
+        "kannadaRoman": "CREDIT CARDS'anna iskoN'tIra; CREDIT CARDS'anna tagoN'tIra",
+        "category": "shop",
+        "tags": [
+          "wikivoyage",
+          "money",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Shopping, prices, money, and payment."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [
+          "mixed_latin_kannada_script"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-money-where-can-i-get-money-changed",
+      "sourceOccurrence": 1,
+      "draftId": "wv-money-where-can-i-get-money-changed#1",
+      "sourceHash": "409bb42a4c1430efa9614976428ec838e3c87dd6d77fed6f8eeae77622e2076d",
+      "pilotBatch": "clean-food-shop",
+      "sourcePhrase": {
+        "english": "Where can I get money changed?",
+        "kannadaScript": "ಈ ದುಡ್ಡ್’ಅನ್ನ ಎಲ್ಲಿ ಬದಲಾಯ್ಸಿ ಕೊಡ್ತಾರೆ?",
+        "kannadaRoman": "I duDD'anna elli badalAysi koDtAre?",
+        "category": "shop",
+        "tags": [
+          "wikivoyage",
+          "money"
+        ]
+      },
+      "draft": {
+        "english": "Where can I get money changed?",
+        "kannadaScript": "ಈ ದುಡ್ಡ್’ಅನ್ನ ಎಲ್ಲಿ ಬದಲಾಯ್ಸಿ ಕೊಡ್ತಾರೆ?",
+        "kannadaRoman": "I duDD'anna elli badalAysi koDtAre?",
+        "category": "shop",
+        "tags": [
+          "wikivoyage",
+          "money",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Shopping, prices, money, and payment."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-money-what-is-the-exchange-rate",
+      "sourceOccurrence": 1,
+      "draftId": "wv-money-what-is-the-exchange-rate#1",
+      "sourceHash": "7e4a65dc020e3ff8f96f21093a4a1941183f6f53e6e47764b1d704439c9ffe3a",
+      "pilotBatch": "clean-food-shop",
+      "sourcePhrase": {
+        "english": "What is the exchange rate?",
+        "kannadaScript": "EXCHANGE RATE ಎಷ್ಟು?",
+        "kannadaRoman": "EXCHANGE RATE eShTu?",
+        "category": "shop",
+        "tags": [
+          "wikivoyage",
+          "money"
+        ]
+      },
+      "draft": {
+        "english": "What is the exchange rate?",
+        "kannadaScript": "EXCHANGE RATE ಎಷ್ಟು?",
+        "kannadaRoman": "EXCHANGE RATE eShTu?",
+        "category": "shop",
+        "tags": [
+          "wikivoyage",
+          "money",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Shopping, prices, money, and payment."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [
+          "mixed_latin_kannada_script"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-shopping-do-you-have-this-in-my-size",
+      "sourceOccurrence": 1,
+      "draftId": "wv-shopping-do-you-have-this-in-my-size#1",
+      "sourceHash": "1487237f59c51237e5800303625fadca1b0a8a55fec5db01c97e23c0f1f40bac",
+      "pilotBatch": "clean-food-shop",
+      "sourcePhrase": {
+        "english": "Do you have this in my size?",
+        "kannadaScript": "ಇದ್ ನನ್ನ್ ಅಳತೇಲ್ ಇದೆಯಾ? ಇದ್ ನನ್ನಳತೆ’ಯಲ್ ಉಂಟಾ?",
+        "kannadaRoman": "id nann aLatEl ideyA? id nannaLate'yal uNTA?",
+        "category": "shop",
+        "tags": [
+          "wikivoyage",
+          "shopping"
+        ]
+      },
+      "draft": {
+        "english": "Do you have this in my size?",
+        "kannadaScript": "ಇದ್ ನನ್ನ್ ಅಳತೇಲ್ ಇದೆಯಾ? ಇದ್ ನನ್ನಳತೆ’ಯಲ್ ಉಂಟಾ?",
+        "kannadaRoman": "id nann aLatEl ideyA? id nannaLate'yal uNTA?",
+        "category": "shop",
+        "tags": [
+          "wikivoyage",
+          "shopping",
+          "automated-draft",
+          "low-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Shopping, prices, money, and payment."
+      },
+      "assessment": {
+        "risk": "low",
+        "issues": [],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.9,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "automated_reference",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-fruits-472",
+      "sourceOccurrence": 1,
+      "draftId": "wv-fruits-472#1",
+      "sourceHash": "f7e447ebd658d67535d9d63d6c2924dfddb8b6aba072923eeaca9f50ae1046fe",
+      "pilotBatch": "deliberate-anomalies",
+      "sourcePhrase": {
+        "english": "ಅತ್ತಿ",
+        "kannadaScript": "Cluster figs",
+        "kannadaRoman": "atti",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "fruits"
+        ]
+      },
+      "draft": {
+        "english": "Cluster figs",
+        "kannadaScript": "ಅತ್ತಿ",
+        "kannadaRoman": "atti",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "fruits",
+          "automated-draft",
+          "medium-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Ordering food, discussing ingredients, or identifying food and drink."
+      },
+      "assessment": {
+        "risk": "medium",
+        "issues": [
+          "suspected_source_column_swap"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.7,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval.",
+          "The draft repairs a probable source column swap without changing the imported source record."
+        ]
+      },
+      "reviewQueue": "standard_human_review",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-fruits-473",
+      "sourceOccurrence": 1,
+      "draftId": "wv-fruits-473#1",
+      "sourceHash": "358f4b5817efe59859d41a97a911854d624772d6c2ab461d2f68241fe2f596ca",
+      "pilotBatch": "deliberate-anomalies",
+      "sourcePhrase": {
+        "english": "ಅನಾನಸ್ಸು",
+        "kannadaScript": "Pine apple",
+        "kannadaRoman": "anAnassu",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "fruits"
+        ]
+      },
+      "draft": {
+        "english": "Pine apple",
+        "kannadaScript": "ಅನಾನಸ್ಸು",
+        "kannadaRoman": "anAnassu",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "fruits",
+          "automated-draft",
+          "medium-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Ordering food, discussing ingredients, or identifying food and drink."
+      },
+      "assessment": {
+        "risk": "medium",
+        "issues": [
+          "suspected_source_column_swap"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.7,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval.",
+          "The draft repairs a probable source column swap without changing the imported source record."
+        ]
+      },
+      "reviewQueue": "standard_human_review",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-fruits-474",
+      "sourceOccurrence": 1,
+      "draftId": "wv-fruits-474#1",
+      "sourceHash": "5d62623e68303a21a86e2dee011fe3478fa5a400b4ff0bf010a087d45c8a8b77",
+      "pilotBatch": "deliberate-anomalies",
+      "sourcePhrase": {
+        "english": "ಈಚಲ ಹಣ್ಣು",
+        "kannadaScript": "Toddy palm fruit",
+        "kannadaRoman": "Icala haNNu",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "fruits"
+        ]
+      },
+      "draft": {
+        "english": "Toddy palm fruit",
+        "kannadaScript": "ಈಚಲ ಹಣ್ಣು",
+        "kannadaRoman": "Icala haNNu",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "fruits",
+          "automated-draft",
+          "medium-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Ordering food, discussing ingredients, or identifying food and drink."
+      },
+      "assessment": {
+        "risk": "medium",
+        "issues": [
+          "suspected_source_column_swap"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.7,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval.",
+          "The draft repairs a probable source column swap without changing the imported source record."
+        ]
+      },
+      "reviewQueue": "standard_human_review",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-fruits-475",
+      "sourceOccurrence": 1,
+      "draftId": "wv-fruits-475#1",
+      "sourceHash": "eb45d8beb2e1b54bdb73149733929e9b38c6afc6268484835b9f05a91d88e2c5",
+      "pilotBatch": "deliberate-anomalies",
+      "sourcePhrase": {
+        "english": "ಅಂಜೂರ",
+        "kannadaScript": "Figs",
+        "kannadaRoman": "anjUra",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "fruits"
+        ]
+      },
+      "draft": {
+        "english": "Figs",
+        "kannadaScript": "ಅಂಜೂರ",
+        "kannadaRoman": "anjUra",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "fruits",
+          "automated-draft",
+          "medium-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "general_kannada_candidate",
+        "usageContext": "Ordering food, discussing ingredients, or identifying food and drink."
+      },
+      "assessment": {
+        "risk": "medium",
+        "issues": [
+          "suspected_source_column_swap"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "surface_plausible",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.7,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval.",
+          "The draft repairs a probable source column swap without changing the imported source record."
+        ]
+      },
+      "reviewQueue": "standard_human_review",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-eating-toast",
+      "sourceOccurrence": 1,
+      "draftId": "wv-eating-toast#1",
+      "sourceHash": "2b129005130177d490d3b7ead943e94b3a2499ddeb41f0faf5144eb1b24f08e8",
+      "pilotBatch": "deliberate-anomalies",
+      "sourcePhrase": {
+        "english": "toast",
+        "kannadaScript": "BREAD TOAST;",
+        "kannadaRoman": "BREAD TOAST;",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating"
+        ]
+      },
+      "draft": {
+        "english": "toast",
+        "kannadaScript": "BREAD TOAST;",
+        "kannadaRoman": "BREAD TOAST;",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating",
+          "automated-draft",
+          "high-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "unverified",
+        "usageContext": "Ordering food, discussing ingredients, or identifying food and drink."
+      },
+      "assessment": {
+        "risk": "high",
+        "issues": [
+          "no_kannada_in_draft_script",
+          "mixed_latin_kannada_script"
+        ],
+        "scriptHasKannada": false,
+        "romanizationSurfaceCheck": "failed",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.4,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "priority_human_review",
+      "publicationEligibility": "hold_for_human_review",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-eating-beer",
+      "sourceOccurrence": 1,
+      "draftId": "wv-eating-beer#1",
+      "sourceHash": "9d13498717428a276ad7b625bb58b25eb1608828f181d41d514461d3f266afb6",
+      "pilotBatch": "deliberate-anomalies",
+      "sourcePhrase": {
+        "english": "Beer",
+        "kannadaScript": "BEER",
+        "kannadaRoman": "BEER;",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating"
+        ]
+      },
+      "draft": {
+        "english": "Beer",
+        "kannadaScript": "BEER",
+        "kannadaRoman": "BEER;",
+        "category": "food",
+        "tags": [
+          "wikivoyage",
+          "eating",
+          "automated-draft",
+          "high-risk"
+        ],
+        "register": "neutral",
+        "bengaluruNaturalness": "unverified",
+        "usageContext": "Ordering food, discussing ingredients, or identifying food and drink."
+      },
+      "assessment": {
+        "risk": "high",
+        "issues": [
+          "no_kannada_in_draft_script",
+          "mixed_latin_kannada_script"
+        ],
+        "scriptHasKannada": false,
+        "romanizationSurfaceCheck": "failed",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.4,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval."
+        ]
+      },
+      "reviewQueue": "priority_human_review",
+      "publicationEligibility": "hold_for_human_review",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-how-do-you-do-how-do-you-do-plural-with-respect",
+      "sourceOccurrence": 1,
+      "draftId": "wv-how-do-you-do-how-do-you-do-plural-with-respect#1",
+      "sourceHash": "5f209678400cdebfb4457d917dfc7e1b9a62cb0e8e37ba3732593c6c0f46cae3",
+      "pilotBatch": "deliberate-anomalies",
+      "sourcePhrase": {
+        "english": "how do you do / (plural, with respect)",
+        "kannadaScript": "ಏನ್ರಿ / ಏನ್ ಸಾರ್ / ಏನ್ ಸ್ವಾಮಿ",
+        "kannadaRoman": "Enri / En sAr / En svAmi",
+        "category": "wikivoyage",
+        "tags": [
+          "wikivoyage",
+          "how-do-you-do"
+        ]
+      },
+      "draft": {
+        "english": "how do you do / (plural, with respect)",
+        "kannadaScript": "ಏನ್ರಿ / ಏನ್ ಸಾರ್ / ಏನ್ ಸ್ವಾಮಿ",
+        "kannadaRoman": "Enri / En sAr / En svAmi",
+        "category": "wikivoyage",
+        "tags": [
+          "wikivoyage",
+          "how-do-you-do",
+          "automated-draft",
+          "medium-risk"
+        ],
+        "register": "polite",
+        "bengaluruNaturalness": "variant_selection_needed",
+        "usageContext": "Source section needs a more specific usage classification."
+      },
+      "assessment": {
+        "risk": "medium",
+        "issues": [
+          "bundled_source_variants",
+          "editorial_or_morphology_markup",
+          "source_category_needs_refinement"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "ambiguous",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.7,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval.",
+          "The source contains multiple forms; a later reviewer should select or split learner-facing variants."
+        ]
+      },
+      "reviewQueue": "standard_human_review",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-how-do-you-do-how-do-you-do-singular-with-respect-used-by-elders-for-any-young-male",
+      "sourceOccurrence": 1,
+      "draftId": "wv-how-do-you-do-how-do-you-do-singular-with-respect-used-by-elders-for-any-young-male#1",
+      "sourceHash": "413cea9431605d09997c6307f846a4364d4418e99c4d2d549b9514e59af451e2",
+      "pilotBatch": "deliberate-anomalies",
+      "sourcePhrase": {
+        "english": "how do you do / (singular, with respect) / (used by elders for any young male)",
+        "kannadaScript": "ಏನಯ್ಯ / ಏನಪ್ಪ",
+        "kannadaRoman": "Enayya| / Enappa",
+        "category": "wikivoyage",
+        "tags": [
+          "wikivoyage",
+          "how-do-you-do"
+        ]
+      },
+      "draft": {
+        "english": "how do you do / (singular, with respect) / (used by elders for any young male)",
+        "kannadaScript": "ಏನಯ್ಯ / ಏನಪ್ಪ",
+        "kannadaRoman": "Enayya| / Enappa",
+        "category": "wikivoyage",
+        "tags": [
+          "wikivoyage",
+          "how-do-you-do",
+          "automated-draft",
+          "medium-risk"
+        ],
+        "register": "polite",
+        "bengaluruNaturalness": "variant_selection_needed",
+        "usageContext": "Source section needs a more specific usage classification."
+      },
+      "assessment": {
+        "risk": "medium",
+        "issues": [
+          "bundled_source_variants",
+          "editorial_or_morphology_markup",
+          "source_category_needs_refinement"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "ambiguous",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.7,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval.",
+          "The source contains multiple forms; a later reviewer should select or split learner-facing variants."
+        ]
+      },
+      "reviewQueue": "standard_human_review",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-how-do-you-do-how-do-you-do-singular-with-respect-used-by-elders-for-any-young-female",
+      "sourceOccurrence": 1,
+      "draftId": "wv-how-do-you-do-how-do-you-do-singular-with-respect-used-by-elders-for-any-young-female#1",
+      "sourceHash": "31a028e3832ab9eb741a55970438b281eae3cdf4800dfdce0b8b57a92508a0be",
+      "pilotBatch": "deliberate-anomalies",
+      "sourcePhrase": {
+        "english": "how do you do / (singular, with respect) / (used by elders for any young female)",
+        "kannadaScript": "ಏನಮ್ಮ / (Usage: South Karnataka); / ಏನವ್ವ / (Usage: North Karnataka); /",
+        "kannadaRoman": "Enamma; / / Enavva",
+        "category": "wikivoyage",
+        "tags": [
+          "wikivoyage",
+          "how-do-you-do"
+        ]
+      },
+      "draft": {
+        "english": "how do you do / (singular, with respect) / (used by elders for any young female)",
+        "kannadaScript": "ಏನಮ್ಮ / (Usage: South Karnataka); / ಏನವ್ವ / (Usage: North Karnataka); /",
+        "kannadaRoman": "Enamma; / / Enavva",
+        "category": "wikivoyage",
+        "tags": [
+          "wikivoyage",
+          "how-do-you-do",
+          "automated-draft",
+          "medium-risk"
+        ],
+        "register": "polite",
+        "bengaluruNaturalness": "variant_selection_needed",
+        "usageContext": "Source section needs a more specific usage classification."
+      },
+      "assessment": {
+        "risk": "medium",
+        "issues": [
+          "bundled_source_variants",
+          "editorial_or_morphology_markup",
+          "source_category_needs_refinement",
+          "mixed_latin_kannada_script"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "ambiguous",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.7,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval.",
+          "The source contains multiple forms; a later reviewer should select or split learner-facing variants."
+        ]
+      },
+      "reviewQueue": "standard_human_review",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    },
+    {
+      "sourceId": "wv-how-do-you-do-how-s-it-going-how-are-things",
+      "sourceOccurrence": 1,
+      "draftId": "wv-how-do-you-do-how-s-it-going-how-are-things#1",
+      "sourceHash": "d379ea9539183db4939ad24fcac312577c538fa9c9b4e0601772ab5ac44d6750",
+      "pilotBatch": "deliberate-anomalies",
+      "sourcePhrase": {
+        "english": "How's it going? / How are things",
+        "kannadaScript": "ಹೇಗ್(ಎ) ನಡೆದಿದೆ / ಹ್ಯಾಗ್(ಎ) ನಡೆದಯ್ತೆ",
+        "kannadaRoman": "hEg(e) naD(e)dide / hyAg(e) naDedayte",
+        "category": "wikivoyage",
+        "tags": [
+          "wikivoyage",
+          "how-do-you-do"
+        ]
+      },
+      "draft": {
+        "english": "How's it going? / How are things",
+        "kannadaScript": "ಹೇಗ್(ಎ) ನಡೆದಿದೆ / ಹ್ಯಾಗ್(ಎ) ನಡೆದಯ್ತೆ",
+        "kannadaRoman": "hEg(e) naD(e)dide / hyAg(e) naDedayte",
+        "category": "wikivoyage",
+        "tags": [
+          "wikivoyage",
+          "how-do-you-do",
+          "automated-draft",
+          "medium-risk"
+        ],
+        "register": "context_dependent",
+        "bengaluruNaturalness": "variant_selection_needed",
+        "usageContext": "Source section needs a more specific usage classification."
+      },
+      "assessment": {
+        "risk": "medium",
+        "issues": [
+          "bundled_source_variants",
+          "editorial_or_morphology_markup",
+          "source_category_needs_refinement"
+        ],
+        "scriptHasKannada": true,
+        "romanizationSurfaceCheck": "ambiguous",
+        "semanticCheck": "not_automatically_verified",
+        "draftConfidence": 0.7,
+        "notes": [
+          "This is an automated reference draft, not human or native-speaker approval.",
+          "The source contains multiple forms; a later reviewer should select or split learner-facing variants."
+        ]
+      },
+      "reviewQueue": "standard_human_review",
+      "publicationEligibility": "library_ai_draft",
+      "reviewClaim": "not_human_or_native_reviewed"
+    }
+  ]
+}

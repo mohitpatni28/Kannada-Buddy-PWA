@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kannada-buddy.local/schemas/library-enrichment-v1.json",
+  "title": "Kannada Buddy non-canonical library enrichment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "artifactStatus", "source", "pipeline", "summary", "items"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "artifactStatus": { "const": "non_canonical_ai_draft" },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "license", "itemCount", "fingerprint"],
+      "properties": {
+        "file": { "const": "data/wikivoyage-phrases.ts" },
+        "license": { "const": "CC BY-SA" },
+        "itemCount": { "type": "integer", "minimum": 1 },
+        "fingerprint": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "pipeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "generatedAt", "validationClaim"],
+      "properties": {
+        "name": { "const": "kannada-buddy-library-enrichment" },
+        "version": { "type": "string", "minLength": 1 },
+        "generatedAt": { "type": "string", "format": "date-time" },
+        "validationClaim": { "const": "automated_draft_not_human_or_native_review" }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope", "itemCount", "batchCounts", "riskCounts", "reviewQueueCounts"],
+      "properties": {
+        "scope": { "enum": ["pilot", "all"] },
+        "itemCount": { "type": "integer", "minimum": 1 },
+        "batchCounts": { "$ref": "#/$defs/countMap" },
+        "riskCounts": { "$ref": "#/$defs/countMap" },
+        "reviewQueueCounts": { "$ref": "#/$defs/countMap" }
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/enrichmentItem" }
+    }
+  },
+  "$defs": {
+    "countMap": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "sourcePhrase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["english", "kannadaScript", "kannadaRoman", "category", "tags"],
+      "properties": {
+        "english": { "type": "string", "minLength": 1 },
+        "kannadaScript": { "type": "string", "minLength": 1 },
+        "kannadaRoman": { "type": "string", "minLength": 1 },
+        "category": { "type": "string", "minLength": 1 },
+        "tags": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "enrichmentItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceId",
+        "sourceOccurrence",
+        "draftId",
+        "sourceHash",
+        "pilotBatch",
+        "sourcePhrase",
+        "draft",
+        "assessment",
+        "reviewQueue",
+        "publicationEligibility",
+        "reviewClaim"
+      ],
+      "properties": {
+        "sourceId": { "type": "string", "minLength": 1 },
+        "sourceOccurrence": { "type": "integer", "minimum": 1 },
+        "draftId": { "type": "string", "pattern": "^.+#[1-9][0-9]*$" },
+        "sourceHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "pilotBatch": { "type": "string", "minLength": 1 },
+        "sourcePhrase": { "$ref": "#/$defs/sourcePhrase" },
+        "draft": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "english",
+            "kannadaScript",
+            "kannadaRoman",
+            "category",
+            "tags",
+            "register",
+            "bengaluruNaturalness",
+            "usageContext"
+          ],
+          "properties": {
+            "english": { "type": "string", "minLength": 1 },
+            "kannadaScript": { "type": "string", "minLength": 1 },
+            "kannadaRoman": { "type": "string", "minLength": 1 },
+            "category": { "type": "string", "minLength": 1 },
+            "tags": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+            "register": { "enum": ["polite", "neutral", "casual", "formal", "context_dependent"] },
+            "bengaluruNaturalness": {
+              "enum": [
+                "general_kannada_candidate",
+                "variant_selection_needed",
+                "bookish_or_specialized",
+                "unverified_high_stakes",
+                "unverified"
+              ]
+            },
+            "usageContext": { "type": "string", "minLength": 1 }
+          }
+        },
+        "assessment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "risk",
+            "issues",
+            "scriptHasKannada",
+            "romanizationSurfaceCheck",
+            "semanticCheck",
+            "draftConfidence",
+            "notes"
+          ],
+          "properties": {
+            "risk": { "enum": ["low", "medium", "high"] },
+            "issues": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+            "scriptHasKannada": { "type": "boolean" },
+            "romanizationSurfaceCheck": { "enum": ["surface_plausible", "ambiguous", "failed"] },
+            "semanticCheck": { "const": "not_automatically_verified" },
+            "draftConfidence": { "type": "number", "minimum": 0, "maximum": 1 },
+            "notes": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+          }
+        },
+        "reviewQueue": {
+          "enum": ["automated_reference", "standard_human_review", "priority_human_review"]
+        },
+        "publicationEligibility": {
+          "enum": ["library_ai_draft", "library_ai_draft_caution", "hold_for_human_review"]
+        },
+        "reviewClaim": { "const": "not_human_or_native_reviewed" }
+      }
+    }
+  }
+}

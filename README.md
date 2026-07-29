@@ -44,6 +44,60 @@ node scripts/import-wikivoyage.mjs
 
 The importer reads the Wikivoyage Kannada phrasebook through the MediaWiki API and writes `data/wikivoyage-phrases.ts`. Imported phrases are marked `raw_imported`, `source: "wikivoyage"`, and `license: "CC BY-SA"` so they can be reviewed before entering lessons.
 
+## Enrich the reference library safely
+
+The imported Wikivoyage file remains the immutable source snapshot. Automated
+enrichment is written to a separate, non-canonical draft artifact so a re-import
+cannot silently turn model output into approved content.
+
+Generate and validate the 40-item calibration pilot:
+
+```bash
+pnpm content:pilot
+pnpm content:validate
+```
+
+After auditing the pilot, generate and validate the full Library-only artifact:
+
+```bash
+pnpm content:all
+pnpm content:validate-all
+```
+
+The workflow writes:
+
+- `data/library-profile.json`: whole-corpus categories, anomaly counts, and risk tiers.
+- `data/library-enrichment-pilot.json`: four deterministic 10-item cohorts covering
+  clean basics, transport, food/shop, and deliberate source anomalies.
+- `data/library-enrichment-all.json`: all 621 source occurrences, including duplicate
+  source IDs preserved through an occurrence number and unique draft ID.
+- `data/library-enrichment.schema.json`: the contract for draft wording, register,
+  usage context, Bengaluru-naturalness assessment, confidence, and review queues.
+
+Every record is tied to the exact imported source fields with a SHA-256 hash. The
+validator rejects stale hashes, changed source fields, duplicate draft IDs, invalid
+queues, empty fields, or any claim of human/native review. It also verifies that the
+pilot does not promote a production-course/audio ID.
+
+Draft eligibility has three explicit levels:
+
+- `library_ai_draft`: may later be shown as an automated reference with clear labeling.
+- `library_ai_draft_caution`: automated reference requiring a prominent safety warning.
+- `hold_for_human_review`: structurally incomplete and not suitable for publication.
+
+None of these statuses means `approved`, `reviewed`, or course-ready. The pilot does
+not modify `data/wikivoyage-phrases.ts`, `data/learning-concepts.ts`, any lesson, or
+public audio. AI4Bharat Indic Parler-TTS is a pronunciation generator rather than a
+text-validation model, so it is intentionally not treated as evidence that draft
+Kannada wording is correct. It should only be used later for explicitly unreviewed
+audio candidates after selected text has been promoted through a separate review.
+
+The full artifact feeds only the reference Library and Admin review queues. Library
+shows `library_ai_draft` and `library_ai_draft_caution` entries with explicit automated
+labels, while `hold_for_human_review` entries remain Admin-only. Admin shows the exact
+source and draft side by side, structural issue flags, confidence, and review priority.
+Even a local Library approval does not add a phrase to lessons or claim native review.
+
 ## Generate the Kannada audio pack
 
 AI4Bharat Indic Parler-TTS generation is isolated from the web app. Generated candidates are never published automatically.

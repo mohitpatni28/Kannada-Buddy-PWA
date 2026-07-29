@@ -7,6 +7,10 @@
     "build": "next build && node scripts/generate-service-worker.mjs",
     "start": "next start",
     "lint": "next lint",
+    "content:pilot": "node scripts/enrich-library.mjs --scope pilot",
+    "content:validate": "node scripts/validate-library-enrichment.mjs data/library-enrichment-pilot.json",
+    "content:all": "node scripts/enrich-library.mjs --scope all --output data/library-enrichment-all.json",
+    "content:validate-all": "node scripts/validate-library-enrichment.mjs data/library-enrichment-all.json",
     "audio:generate": "audio/.venv/bin/python audio/generate.py",
     "audio:validate": "audio/.venv/bin/python audio/validate.py",
     "audio:package": "node scripts/package-reviewed-audio.mjs"

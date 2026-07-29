@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "file": "data/wikivoyage-phrases.ts",
+    "itemCount": 621,
+    "fingerprint": "3f769ea1e2894c437c9ef4e8ccb95d694bd83323e549622b4500f877fedd5ff3"
+  },
+  "categories": {
+    "basics": 169,
+    "food": 137,
+    "transport": 60,
+    "numbers": 56,
+    "shop": 47,
+    "emergency": 42,
+    "wikivoyage": 35,
+    "lodging": 28,
+    "time": 26,
+    "phone": 15,
+    "family": 6
+  },
+  "sourceSections": {
+    "useful-phrases": 118,
+    "eating": 72,
+    "fruits": 40,
+    "shopping": 34,
+    "lodging": 28,
+    "bars": 25,
+    "more-basics": 23,
+    "more-directions": 20,
+    "medical-emergency": 19,
+    "short-sentences": 18,
+    "on-the-phone": 15,
+    "problems": 15,
+    "frequency": 14,
+    "directions": 13,
+    "money": 13,
+    "typical-kannada-formal-expressions": 13,
+    "days": 11,
+    "numbers": 11,
+    "ordinals": 11,
+    "taxi": 11,
+    "travel-vocabulary": 11,
+    "aggregation": 10,
+    "interrogatives": 10,
+    "multiplication": 10,
+    "authority": 8,
+    "bus-and-train": 8,
+    "clock-time": 8,
+    "driving": 8,
+    "time": 7,
+    "duration": 6,
+    "family": 6,
+    "how-do-you-do": 5
+  },
+  "riskCounts": {
+    "medium": 355,
+    "low": 168,
+    "high": 98
+  },
+  "issueCounts": {
+    "editorial_or_morphology_markup": 233,
+    "bundled_source_variants": 221,
+    "mixed_latin_kannada_script": 151,
+    "high_stakes_topic": 42,
+    "suspected_source_column_swap": 40,
+    "source_category_needs_refinement": 35,
+    "kannada_detected_in_romanization": 24,
+    "duplicate_english_gloss": 18,
+    "duplicate_kannada_form": 18,
+    "unusually_long_field": 14,
+    "formal_or_specialized_source_section": 13,
+    "no_kannada_in_draft_script": 6
+  },
+  "constraints": {
+    "canonicalSourceChanged": false,
+    "productionCourseChanged": false,
+    "publicAudioChanged": false,
+    "validationClaim": "automated_draft_not_human_or_native_review"
+  }
+}
