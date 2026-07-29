@@ -83,11 +83,17 @@ export type ReviewProgress = {
 
 export type LearningMode = "speaking" | "speaking_and_reading";
 export type RomanizationPreference = "always" | "when_needed" | "hidden";
+export type ReferenceDeckPreference =
+  | "core_only"
+  | "safe_ai_drafts"
+  | "all_eligible_ai_drafts"
+  | "ai_drafts_only";
 
 export type LearningPreferences = {
   learningMode: LearningMode;
   romanization: RomanizationPreference;
   sessionMinutes: 5 | 10 | 15;
+  referenceDeck: ReferenceDeckPreference;
 };
 
 export type ConceptForm = {
@@ -95,12 +101,12 @@ export type ConceptForm = {
   kannadaScript: string;
   kannadaRoman: string;
   literalMeaning?: string;
-  register: "polite" | "neutral" | "casual" | "formal";
+  register: "polite" | "neutral" | "casual" | "formal" | "context_dependent";
   variety: "bengaluru-colloquial" | "standard-spoken" | "literary";
   usePriority: "produce" | "recognize" | "reference";
   review: {
     status: "needs_native_review" | "reviewed";
-    source: "manual_course_draft" | "native_review";
+    source: "manual_course_draft" | "automated_reference_draft" | "native_review";
     reviewer?: string;
     reviewedAt?: string;
   };
@@ -117,6 +123,8 @@ export type LearningConcept = {
   usageNote?: string;
   form: ConceptForm;
   audioUrl?: string;
+  contentTier?: "core" | "ai_draft" | "ai_draft_caution";
+  sourceRisk?: "low" | "medium" | "high";
 };
 
 export type PracticeOutcome = "independent" | "hinted" | "missed";

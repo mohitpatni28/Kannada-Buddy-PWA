@@ -540,6 +540,20 @@ h3 {
   color: #704b08;
 }
 
+.learning-content-notice {
+  padding: 10px 12px;
+  border-left: 3px solid var(--leaf);
+  border-radius: 0 8px 8px 0;
+  background: #eef5f1;
+  color: var(--muted);
+}
+
+.learning-content-notice.caution {
+  border-left-color: #c57a24;
+  background: #fff0c9;
+  color: #704b08;
+}
+
 .library-tools {
   display: grid;
   gap: 8px;

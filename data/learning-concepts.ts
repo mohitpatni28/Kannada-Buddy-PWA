@@ -26,6 +26,7 @@ const concept = (
   pronunciationNote: options.pronunciationNote,
   usageNote: options.usageNote,
   audioUrl: audioPack[id],
+  contentTier: "core",
   form: {
     phraseId: id,
     kannadaScript: kannadaScript.normalize("NFC"),

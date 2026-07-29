@@ -85,18 +85,22 @@ Draft eligibility has three explicit levels:
 - `library_ai_draft_caution`: automated reference requiring a prominent safety warning.
 - `hold_for_human_review`: structurally incomplete and not suitable for publication.
 
-None of these statuses means `approved`, `reviewed`, or course-ready. The pilot does
-not modify `data/wikivoyage-phrases.ts`, `data/learning-concepts.ts`, any lesson, or
+None of these statuses means `approved` or `reviewed`. The artifact does not modify
+`data/wikivoyage-phrases.ts`, the hand-curated core concepts, authored lessons, or
 public audio. AI4Bharat Indic Parler-TTS is a pronunciation generator rather than a
 text-validation model, so it is intentionally not treated as evidence that draft
 Kannada wording is correct. It should only be used later for explicitly unreviewed
 audio candidates after selected text has been promoted through a separate review.
 
-The full artifact feeds only the reference Library and Admin review queues. Library
-shows `library_ai_draft` and `library_ai_draft_caution` entries with explicit automated
-labels, while `hold_for_human_review` entries remain Admin-only. Admin shows the exact
-source and draft side by side, structural issue flags, confidence, and review priority.
-Even a local Library approval does not add a phrase to lessons or claim native review.
+The full artifact feeds the reference Library, Admin review queues, and an explicitly
+labelled reference-learning deck. Regular `library_ai_draft` entries are included in
+spaced-repetition sessions by default. `library_ai_draft_caution` entries require an
+explicit Settings choice, while `hold_for_human_review` entries remain Admin-only and
+can never enter a session. The learning deck stores progress on the device and retains
+AI-draft provenance in practice and history views; it does not turn a draft into an
+approved lesson or claim native review. Settings also offers a regular-AI-drafts-only
+mode for focused reference study. Admin shows the exact source and draft side by side,
+structural issue flags, confidence, and review priority.
 
 ## Generate the Kannada audio pack
 

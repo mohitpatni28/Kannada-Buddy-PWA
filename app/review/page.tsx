@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { learningConcepts } from "@/data/learning-concepts";
 import { orthographyUnits } from "@/data/orthography-units";
+import { eligibleReferenceLearningConcepts } from "@/data/reference-learning-concepts";
 import { loadLearningState } from "@/lib/learningStore";
 import type { LearningState } from "@/lib/types";
 
@@ -23,7 +24,8 @@ export default function ProgressPage() {
     };
   }, [state]);
 
-  const startedConcepts = learningConcepts.filter((concept) => state.concepts[concept.id]);
+  const allConcepts = [...learningConcepts, ...eligibleReferenceLearningConcepts];
+  const startedConcepts = allConcepts.filter((concept) => state.concepts[concept.id]);
 
   return (
     <div className="page">
@@ -74,7 +76,13 @@ export default function ProgressPage() {
                 <span className="pill">{progress.attempts} attempts</span>
                 <span className="pill">{Math.round(progress.stabilityDays)} day stability</span>
                 <span className="pill">due {new Date(progress.nextReviewAt).toLocaleDateString()}</span>
-                <span className={concept.form.review.status === "reviewed" ? "pill" : "pill status-warning"}>{concept.form.review.status === "reviewed" ? "native reviewed" : "review pending"}</span>
+                <span className={concept.form.review.status === "reviewed" ? "pill" : "pill status-warning"}>
+                  {concept.form.review.status === "reviewed"
+                    ? "native reviewed"
+                    : concept.form.review.source === "automated_reference_draft"
+                      ? concept.contentTier === "ai_draft_caution" ? "AI caution draft" : "AI reference draft"
+                      : "review pending"}
+                </span>
               </div>
             </article>
           );

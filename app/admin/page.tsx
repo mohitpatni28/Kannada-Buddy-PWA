@@ -50,8 +50,9 @@ export default function AdminPage() {
         <p className="eyebrow">Admin</p>
         <h1>Review reference drafts</h1>
         <p className="lede">
-          Compare immutable source rows with automated drafts, then triage by risk. Local actions never add an item
-          to the production course or claim native-speaker review.
+          Compare immutable source rows with automated drafts, then triage by risk. Eligible drafts can appear in
+          the labelled reference-learning deck, but local actions never claim native-speaker review and held items
+          never enter learning sessions.
         </p>
       </section>
       <section className="panel">

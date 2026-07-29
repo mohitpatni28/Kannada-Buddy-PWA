@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import audioPack from "@/data/audio-pack.json";
+import { cautionReferenceLearningConcepts, safeReferenceLearningConcepts } from "@/data/reference-learning-concepts";
 import { defaultSpeakingPreferences, loadPreferences, savePreferences } from "@/lib/preferences";
-import type { LearningMode, LearningPreferences, RomanizationPreference } from "@/lib/types";
+import type { LearningMode, LearningPreferences, ReferenceDeckPreference, RomanizationPreference } from "@/lib/types";
 
 export default function SettingsPage() {
   const packagedAudioCount = Object.keys(audioPack).length;
@@ -44,6 +45,32 @@ export default function SettingsPage() {
             <button key={value} className={preferences.learningMode === value ? "button" : "button secondary"} aria-pressed={preferences.learningMode === value} type="button" onClick={() => update({ learningMode: value })}>{label}</button>
           ))}
         </div>
+      </section>
+
+      <section className="panel settings-section">
+        <div>
+          <h2>Learning content</h2>
+          <p className="small muted">
+            Add source-linked AI drafts to the same spaced-repetition schedule as the core course. Progress stays
+            on this device. Draft labels remain visible while practising.
+          </p>
+        </div>
+        <select
+          className="select"
+          value={preferences.referenceDeck}
+          onChange={(event) => update({ referenceDeck: event.target.value as ReferenceDeckPreference })}
+        >
+          <option value="safe_ai_drafts">Core + {safeReferenceLearningConcepts.length} regular AI drafts</option>
+          <option value="all_eligible_ai_drafts">
+            Core + all eligible drafts ({safeReferenceLearningConcepts.length + cautionReferenceLearningConcepts.length}, including {cautionReferenceLearningConcepts.length} caution)
+          </option>
+          <option value="ai_drafts_only">Regular AI drafts only ({safeReferenceLearningConcepts.length})</option>
+          <option value="core_only">Core course only</option>
+        </select>
+        <p className="small muted">
+          Structurally held phrases never enter learning sessions. AI drafts have no approved audio and do not claim
+          human or native review.
+        </p>
       </section>
 
       <section className="panel settings-section">

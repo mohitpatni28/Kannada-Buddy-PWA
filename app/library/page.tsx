@@ -43,8 +43,10 @@ export default function LibraryPage() {
         <p className="small muted">
           {libraryDraftCounts.safe} source-linked AI drafts are available; {libraryDraftCounts.caution} high-stakes
           entries carry caution labels. {libraryDraftCounts.held} structurally incomplete entries are excluded and
-          remain in Admin for later review. None are added to your learning course or packaged audio.
+          remain in Admin for later review. Regular drafts are included in spaced-repetition sessions by default;
+          caution drafts require an explicit Settings choice. No AI draft receives packaged audio or a human-review claim.
         </p>
+        <Link className="button secondary" href="/settings">Choose learning content</Link>
       </section>
       <section className="panel library-tools">
         <label className="small" htmlFor="library-search">Search English, Kannada, romanization, or tags</label>

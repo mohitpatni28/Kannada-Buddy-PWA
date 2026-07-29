@@ -46,6 +46,16 @@ export function ConceptPractice({
         <span>{position} of {total}</span>
         <span>{corrective ? "Corrective retry" : concept.missionTitle}</span>
       </div>
+      {concept.contentTier === "ai_draft" ? (
+        <p className="learning-content-notice small">
+          <strong>AI reference draft</strong> · Not human or native reviewed. Learn it as provisional reference content.
+        </p>
+      ) : null}
+      {concept.contentTier === "ai_draft_caution" ? (
+        <p className="learning-content-notice caution small">
+          <strong>AI draft · use caution</strong> · Higher-risk reference content, not human or native reviewed.
+        </p>
+      ) : null}
       <div className="progress-bar" aria-label={`Practice item ${position} of ${total}`}>
         <span style={{ width: `${(position / total) * 100}%` }} />
       </div>

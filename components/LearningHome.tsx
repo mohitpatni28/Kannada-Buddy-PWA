@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { learningConcepts } from "@/data/learning-concepts";
 import { orthographyUnits } from "@/data/orthography-units";
+import { referenceConceptsFor } from "@/data/reference-learning-concepts";
 import { ConceptPractice } from "@/components/ConceptPractice";
 import { Onboarding } from "@/components/Onboarding";
 import { OrthographyPractice } from "@/components/OrthographyPractice";
@@ -26,7 +27,14 @@ export function LearningHome() {
   }, []);
 
   const session = useMemo(
-    () => preferences ? selectSessionConcepts(learningConcepts, learningState, preferences.sessionMinutes) : [],
+    () => {
+      if (!preferences) return [];
+      const courseConcepts = [
+        ...(preferences.referenceDeck === "ai_drafts_only" ? [] : learningConcepts),
+        ...referenceConceptsFor(preferences.referenceDeck)
+      ];
+      return selectSessionConcepts(courseConcepts, learningState, preferences.sessionMinutes);
+    },
     // Keep the selected session stable while rating; a new session is calculated after reload.
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [preferences]
@@ -70,7 +78,7 @@ export function LearningHome() {
 
   const corrective = index >= session.length;
   const currentId = corrective ? relearningIds[index - session.length] : session[index]?.id;
-  const current = currentId ? learningConcepts.find((concept) => concept.id === currentId) : undefined;
+  const current = currentId ? session.find((concept) => concept.id === currentId) : undefined;
   const complete = (outcome: PracticeOutcome, reading?: ReadingOutcome) => {
     if (!current) return;
     if (!corrective && outcome !== "independent" && !relearningIds.includes(current.id)) {
@@ -121,6 +129,11 @@ export function LearningHome() {
         <span className="pill">{completed} concepts started</span>
         <span className="pill">prompt first</span>
         <span className="pill">progress stored locally</span>
+        {preferences.referenceDeck !== "core_only" ? (
+          <span className="pill">
+            {preferences.referenceDeck === "ai_drafts_only" ? "AI reference deck" : "AI reference deck included"}
+          </span>
+        ) : null}
       </div>
       <ConceptPractice
         key={`${current.id}-${corrective ? "corrective" : "scheduled"}`}
