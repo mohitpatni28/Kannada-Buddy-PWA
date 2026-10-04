@@ -87,6 +87,24 @@ pnpm test:e2e
 
 `pnpm lint` runs ESLint directly with the Next.js Core Web Vitals and TypeScript flat configurations and rejects warnings. `pnpm test` runs the Vitest unit, integration, and regression tests. `pnpm test:e2e` runs Playwright against a production server; run `pnpm build` first and install Chromium with `pnpm exec playwright install chromium`. An existing Chromium executable can be selected with `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`. The initial tests cover lint enforcement, storage subscriptions, learning sessions, preferences, and library/admin flows; extend coverage for every subsequent behavior change rather than assuming the rest of the app is already fully covered. Run `pnpm content:validate` and `pnpm content:validate-all` for reference-content changes. A build or typecheck is not a substitute for tests. Update this section when commands or tooling change.
 
+## GitHub identity and Vercel deployments
+
+This repository's Vercel integration requires commits attributed to the GitHub account **`fakecoder28`**. Authenticating a push as `fakecoder28` is insufficient if the commit was authored with another account's email.
+
+- Before creating any commit, configure and verify the repository-local author and committer identity. Use the verified account's GitHub noreply address; do not change global Git settings:
+
+  ```sh
+  git config --local user.name fakecoder28
+  git config --local user.email 218176506+fakecoder28@users.noreply.github.com
+  git var GIT_AUTHOR_IDENT
+  git var GIT_COMMITTER_IDENT
+  ```
+
+- Ensure environment variables or command flags do not override this identity. After committing, inspect `git show -s --format=fuller HEAD` and verify both identities before pushing.
+- Authenticate GitHub operations with the authorized `fakecoder28` account. Keep credentials out of files, command output, and commits; repository-local Git identity and GitHub authentication are separate requirements.
+- After pushing, confirm GitHub maps the commit author to `fakecoder28` and inspect the Vercel check/status for that exact commit. A successful Git push does not prove deployment success; report pending, failed, and successful deployments accurately.
+- If Vercel rejects an earlier commit's author, use a correctly attributed follow-up commit to trigger a fresh deployment when authorized. Do not rewrite published history or force-push without explicit authorization.
+
 ## Engineering and product safeguards
 
 - Keep TypeScript strict. Avoid unjustified `any`, unchecked casts, ignored errors, and new dependencies when existing tools suffice.
