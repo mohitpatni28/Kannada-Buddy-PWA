@@ -66,9 +66,10 @@ export default function LibraryPage() {
             {item === "reference" ? "all references" : item === "ai_draft_caution" ? "AI caution" : item.replaceAll("_", " ")} ({counts[item]})
           </button>
         ))}
-        <Link className="button secondary" href="/admin">
+        {/* A full document navigation lets the browser show the HTTP Basic auth prompt. */}
+        <a className="button secondary" href="/admin">
           Review queues
-        </Link>
+        </a>
       </div>
       <p className="small muted" role="status">
         Showing {visible.length} of {results.length} matching references

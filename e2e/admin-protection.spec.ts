@@ -43,8 +43,37 @@ test("authenticated admin cannot be revisited from offline caches", async ({ pag
   });
   expect(cached.some((path) => path === "/admin" || path.startsWith("/admin/"))).toBe(false);
   await context.setOffline(true);
-  const response = await page.goto("/admin");
-  expect(response?.status()).toBe(503);
+  await expect(page.goto("/admin")).rejects.toThrow("ERR_INTERNET_DISCONNECTED");
   await expect(page.getByRole("button", { name: /^priority queue/ })).toHaveCount(0);
   await context.setOffline(false);
+});
+
+test("review queues triggers browser authentication through a full navigation with an active worker", async ({ page, context }) => {
+  await page.goto("/library");
+  await page.evaluate(async () => { await navigator.serviceWorker.ready; });
+  await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller))).toBe(true);
+  const client = await context.newCDPSession(page);
+  const challenges: string[] = [];
+  const navigationRequests: string[] = [];
+  page.on("request", (request) => {
+    if (request.isNavigationRequest()) navigationRequests.push(new URL(request.url()).pathname);
+  });
+  await client.send("Fetch.enable", { handleAuthRequests: true });
+  client.on("Fetch.requestPaused", (event) => { void client.send("Fetch.continueRequest", { requestId: event.requestId }); });
+  client.on("Fetch.authRequired", (event) => {
+    challenges.push(event.authChallenge.realm);
+    void client.send("Fetch.continueWithAuth", {
+      requestId: event.requestId,
+      authChallengeResponse: { response: "ProvideCredentials", ...credentials }
+    });
+  });
+  try {
+    await page.getByRole("link", { name: "Review queues", exact: true }).click();
+    await expect.poll(() => challenges, { timeout: 5000 }).toContain("Kannada Buddy admin");
+    await expect(page.getByRole("heading", { name: "Review reference drafts", exact: true })).toBeVisible();
+    expect(navigationRequests).toContain("/admin");
+  } finally {
+    await client.send("Fetch.disable");
+    await client.detach();
+  }
 });

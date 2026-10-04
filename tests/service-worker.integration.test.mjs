@@ -53,29 +53,27 @@ describe("generated service worker authentication boundaries", () => {
     expect(instance.cache.delete.mock.calls.map(([request]) => new URL(request.url).pathname)).toEqual(["/admin", "/api/admin/reviews"]);
     expect(instance.self.clients.claim).toHaveBeenCalledOnce();
   });
-  it.each(["/admin", "/admin/review?x=1", "/api/admin/reviews", "/%61dmin"]) ("never falls back to cached protected responses when offline: %s", async (pathname) => {
-    const instance = worker(async () => { throw new Error("offline"); });
-    const response = await request(instance, `https://example.test${pathname}`);
-    expect(response.status).toBe(503);
-    expect(response.headers.get("cache-control")).toContain("no-store");
+  it.each(["/admin", "/admin/review?x=1", "/api/admin/reviews", "/%61dmin"]) ("leaves protected navigation to the browser so HTTP auth can prompt: %s", async (pathname) => {
+    const fetch = vi.fn(async () => new Response("authentication required", { status: 401 }));
+    const instance = worker(fetch);
+    const respondWith = vi.fn();
+    instance.listeners.fetch({ request: new Request(`https://example.test${pathname}`), respondWith });
+    expect(respondWith).not.toHaveBeenCalled();
+    expect(fetch).not.toHaveBeenCalled();
     expect(instance.caches.match).not.toHaveBeenCalled();
     expect(instance.cache.put).not.toHaveBeenCalled();
   });
-  it("does not cache authenticated requests or private server responses", async () => {
-    const instance = worker(async () => new Response("secret", { headers: { "Cache-Control": "private, no-store" } }));
+  it("does not intercept authenticated requests or cache private server responses", async () => {
+    const fetch = vi.fn(async () => new Response("secret", { headers: { "Cache-Control": "private, no-store" } }));
+    const instance = worker(fetch);
     expect(await (await request(instance, "https://example.test/resource")).text()).toBe("secret");
-    await request(instance, "https://example.test/library", { headers: { Authorization: "Basic test" } });
+    fetch.mockClear();
+    const respondWith = vi.fn();
+    instance.listeners.fetch({ request: new Request("https://example.test/library", { headers: { Authorization: "Basic test" } }), respondWith });
+    expect(respondWith).not.toHaveBeenCalled();
+    expect(fetch).not.toHaveBeenCalled();
     expect(instance.cache.put).not.toHaveBeenCalled();
     expect(instance.caches.match).not.toHaveBeenCalled();
-  });
-  it("returns online admin responses without storing them, including auth challenges", async () => {
-    const authorized = worker(async () => new Response("admin page"));
-    expect(await (await request(authorized, "https://example.test/admin")).text()).toBe("admin page");
-    expect(authorized.cache.put).not.toHaveBeenCalled();
-    const challenge = worker(async () => new Response("authentication required", { status: 401 }));
-    expect((await request(challenge, "https://example.test/admin")).status).toBe(401);
-    expect(challenge.caches.match).not.toHaveBeenCalled();
-    expect(challenge.cache.put).not.toHaveBeenCalled();
   });
   it("retains public caching and offline fallback", async () => {
     const online = worker();

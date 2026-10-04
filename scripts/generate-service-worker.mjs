@@ -78,13 +78,10 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  if (isProtectedRequest(request)) {
-    event.respondWith(fetch(request).catch(() => new Response("Admin access requires an online connection.", {
-      status: 503,
-      headers: { "Content-Type": "text/plain", "Cache-Control": "private, no-store" }
-    })));
-    return;
-  }
+  // Let the browser perform protected requests directly: service-worker fetch()
+  // suppresses the native HTTP Basic authentication prompt in Chromium.
+  // No respondWith means no cache lookup, offline fallback, or response storage.
+  if (isProtectedRequest(request)) return;
 
   const isStaticAsset = url.pathname.startsWith("/_next/static/") || PRECACHE_URLS.includes(url.pathname);
   const isRscRequest = request.headers.get("RSC") === "1" || request.headers.has("Next-Router-State-Tree");
