@@ -7,6 +7,10 @@ const publicDir = path.join(root, "public");
 const nextStaticDir = path.join(root, ".next", "static");
 const outputPath = path.join(publicDir, "sw.js");
 const routes = ["/", "/today", "/travel", "/phrasebook", "/review", "/settings", "/library", "/sources"];
+// Next emits these Pages Router manifests locally, but Vercel does not serve
+// them for this App Router project. Any missing URL would abort cache.addAll
+// and prevent the worker (including authentication fixes) from activating.
+const unpublishedNextManifests = new Set(["_buildManifest.js", "_clientMiddlewareManifest.js", "_ssgManifest.js"]);
 
 async function filesBelow(directory) {
   const entries = await fs.readdir(directory, { withFileTypes: true });
@@ -22,7 +26,7 @@ const publicAbsoluteFiles = (await filesBelow(publicDir))
 const publicFiles = publicAbsoluteFiles
   .map((file) => `/${path.relative(publicDir, file).split(path.sep).join("/")}`);
 const nextFiles = (await filesBelow(nextStaticDir))
-  .filter((file) => !file.endsWith(".map") && !file.endsWith(".DS_Store"))
+  .filter((file) => !file.endsWith(".map") && !file.endsWith(".DS_Store") && !unpublishedNextManifests.has(path.basename(file)))
   .map((file) => `/_next/static/${path.relative(nextStaticDir, file).split(path.sep).join("/")}`);
 const precache = [...new Set([...routes, ...publicFiles, ...nextFiles])].sort();
 const revisionHash = createHash("sha256").update(precache.join("\n")).update(await fs.readFile(new URL(import.meta.url)));

@@ -13,6 +13,10 @@ beforeAll(async () => {
   await fs.mkdir(path.join(directory, "public"));
   await fs.mkdir(path.join(directory, ".next/static"), { recursive: true });
   await fs.writeFile(path.join(directory, "public/manifest.webmanifest"), "{}");
+  await fs.mkdir(path.join(directory, ".next/static/test-build"));
+  for (const filename of ["_buildManifest.js", "_clientMiddlewareManifest.js", "_ssgManifest.js", "app-chunk.js"]) {
+    await fs.writeFile(path.join(directory, ".next/static/test-build", filename), "/* fixture */");
+  }
   execFileSync(process.execPath, [path.resolve("scripts/generate-service-worker.mjs")], { cwd: directory });
   source = await fs.readFile(path.join(directory, "public/sw.js"), "utf8");
 });
@@ -42,6 +46,17 @@ describe("generated service worker authentication boundaries", () => {
     const urls = instance.cache.addAll.mock.calls[0][0];
     expect(urls).toContain("/today");
     expect(urls).not.toContain("/admin");
+  });
+  it("excludes Pages Router manifests absent on Vercel while retaining application chunks", async () => {
+    const instance = worker();
+    let promise;
+    instance.listeners.install({ waitUntil: (value) => { promise = value; } });
+    await promise;
+    const urls = instance.cache.addAll.mock.calls[0][0];
+    expect(urls).toContain("/_next/static/test-build/app-chunk.js");
+    for (const filename of ["_buildManifest.js", "_clientMiddlewareManifest.js", "_ssgManifest.js"]) {
+      expect(urls).not.toContain(`/_next/static/test-build/${filename}`);
+    }
   });
   it("purges previous app caches and protected entries before claiming clients", async () => {
     const instance = worker();
