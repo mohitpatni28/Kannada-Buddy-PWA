@@ -138,6 +138,8 @@ export type LearningEvidence = {
   occurredAt: string;
   corrective?: boolean;
   migrated?: boolean;
+  scheduled?: boolean;
+  gapDays?: number;
 };
 
 export type OrthographySymbol = {
@@ -170,6 +172,14 @@ export type OrthographyProgress = {
   nextReviewAt: string;
 };
 
+export type RecallEvidence = {
+  days: string[];
+  delayedSuccesses: number;
+  lastGapDays: number;
+  lastOutcome: PracticeOutcome | ReadingOutcome;
+  lastOccurredAt: string;
+};
+
 export type ConceptProgress = {
   conceptId: string;
   attempts: number;
@@ -180,6 +190,9 @@ export type ConceptProgress = {
   nextReviewAt: string;
   readingAttempts: number;
   readingSuccesses: number;
+  speakingRecall?: RecallEvidence;
+  readingRecall?: RecallEvidence;
+  readingNextReviewAt?: string;
 };
 
 export type LearningState = {

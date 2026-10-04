@@ -4,14 +4,15 @@ import AdminPage from "@/app/admin/page";
 import LibraryPage from "@/app/library/page";
 import PhrasebookPage from "@/app/phrasebook/page";
 import { TravelPlayer } from "@/components/TravelPlayer";
-import { learningConcepts, missionOrder } from "@/data/learning-concepts";
+import { courseLearningConcepts, courseScenarios } from "@/data/course-catalog";
 import { setPhraseStatus, updatePhraseOverride } from "@/lib/libraryStore";
 import { phrases } from "./fixtures";
 
-vi.mock("@/data/library-reference", async () => {
+vi.mock("@/data/library-reference", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/data/library-reference")>();
   const { adminPhrases } = await import("./fixtures");
   const batch = Array.from({ length: 125 }, (_, index) => ({ ...adminPhrases[2], id: `batch-${index}`, english: `Batch phrase ${String(index).padStart(3, "0")}`, status: "approved" }));
-  return { adminLibraryPhrases: batch, libraryPhrases: batch, libraryDraftCounts: { safe: 0, caution: 0, priority: 125, held: 0 } };
+  return { ...actual, adminLibraryPhrases: batch, libraryPhrases: batch, libraryDraftCounts: { safe: 0, caution: 0, priority: 125, held: 0 } };
 });
 beforeEach(() => window.localStorage.clear());
 afterEach(() => vi.useRealTimers());
@@ -46,10 +47,10 @@ describe("catalog pagination and filter regressions", () => {
 
   it("filters the course by mission and a case-insensitive script/meaning query", () => {
     render(<PhrasebookPage />);
-    const concept = learningConcepts.find((item) => item.missionId === missionOrder[0])!;
+    const concept = courseLearningConcepts.find((item) => item.missionId === courseScenarios[0].id)!;
     fireEvent.click(screen.getByRole("button", { name: concept.missionTitle }));
     const results = screen.getByRole("region", { name: "Phrase results" });
-    expect(results.querySelectorAll("article")).toHaveLength(learningConcepts.filter((item) => item.missionId === concept.missionId).length);
+    expect(results.querySelectorAll("article")).toHaveLength(courseLearningConcepts.filter((item) => item.missionId === concept.missionId).length);
     fireEvent.change(screen.getByRole("searchbox"), { target: { value: `  ${concept.form.kannadaScript}  ` } });
     expect(within(results).getByText(concept.intent)).toBeTruthy();
     fireEvent.change(screen.getByRole("searchbox"), { target: { value: "no-such-fixture-phrase" } });

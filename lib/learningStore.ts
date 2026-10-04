@@ -10,6 +10,7 @@ import type {
   OrthographyUnit,
   PracticeOutcome,
   ReadingOutcome,
+  RecallEvidence,
   ReviewProgress
 } from "@/lib/types";
 
@@ -148,6 +149,22 @@ function intervalFor(outcome: PracticeOutcome, previous?: ConceptProgress, corre
   return { days: Math.max(4, Math.round(stability)), stability };
 }
 
+function calendarDay(date: Date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
+function updateRecall(previous: RecallEvidence | undefined, outcome: PracticeOutcome | ReadingOutcome, now: Date, scheduled: boolean, gapDays: number): RecallEvidence {
+  const successful = outcome === "independent" || outcome === "read";
+  const days = successful && scheduled ? [...new Set([...(previous?.days ?? []), calendarDay(now)])].slice(-2) : previous?.days ?? [];
+  return {
+    days,
+    delayedSuccesses: (previous?.delayedSuccesses ?? 0) + (successful && scheduled ? 1 : 0),
+    lastGapDays: gapDays,
+    lastOutcome: outcome,
+    lastOccurredAt: now.toISOString()
+  };
+}
+
 export function recordPractice(
   conceptId: string,
   outcome: PracticeOutcome,
@@ -157,7 +174,12 @@ export function recordPractice(
   const state = loadLearningState();
   const previous = state.concepts[conceptId];
   const now = new Date();
-  const interval = intervalFor(outcome, previous, options.corrective);
+  const gapDays = previous ? Math.max(0, (now.getTime() - new Date(previous.lastSeenAt).getTime()) / dayMs) : 0;
+  const scheduled = Boolean(previous && !options.corrective && gapDays >= 1
+    && new Date(previous.nextReviewAt).getTime() <= now.getTime());
+  // Repeated same-day attempts never extend a future schedule or prove retention.
+  const interval = intervalFor(outcome, previous, options.corrective || Boolean(previous && !scheduled));
+  const readingGap = previous?.readingRecall ? Math.max(0, (now.getTime() - new Date(previous.readingRecall.lastOccurredAt).getTime()) / dayMs) : 0;
   const next: ConceptProgress = {
     conceptId,
     attempts: (previous?.attempts ?? 0) + 1,
@@ -167,7 +189,12 @@ export function recordPractice(
     lastSeenAt: now.toISOString(),
     nextReviewAt: new Date(now.getTime() + interval.days * dayMs).toISOString(),
     readingAttempts: (previous?.readingAttempts ?? 0) + (reading && reading !== "skipped" ? 1 : 0),
-    readingSuccesses: (previous?.readingSuccesses ?? 0) + (reading === "read" ? 1 : 0)
+    readingSuccesses: (previous?.readingSuccesses ?? 0) + (reading === "read" ? 1 : 0),
+    speakingRecall: updateRecall(previous?.speakingRecall, outcome, now, scheduled, gapDays),
+    ...(reading && reading !== "skipped"
+      ? { readingNextReviewAt: new Date(now.getTime() + interval.days * dayMs).toISOString() }
+      : previous?.readingNextReviewAt ? { readingNextReviewAt: previous.readingNextReviewAt } : {}),
+    ...(reading && reading !== "skipped" ? { readingRecall: updateRecall(previous?.readingRecall, reading, now, scheduled && readingGap >= 1, readingGap) } : previous?.readingRecall ? { readingRecall: previous.readingRecall } : {})
   };
   const evidence: LearningEvidence[] = [
     ...state.evidence,
@@ -177,6 +204,8 @@ export function recordPractice(
       outcome,
       hintsUsed: outcome === "independent" ? 0 : 1,
       occurredAt: now.toISOString(),
+      scheduled,
+      gapDays,
       corrective: options.corrective
     },
     ...(reading && reading !== "skipped"
@@ -186,6 +215,8 @@ export function recordPractice(
           outcome: reading,
           hintsUsed: reading === "read" ? 0 : 1,
           occurredAt: now.toISOString(),
+          scheduled: scheduled && readingGap >= 1,
+          gapDays: readingGap,
           corrective: options.corrective
         }]
       : [])

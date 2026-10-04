@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { learningConcepts } from "@/data/learning-concepts";
 import { orthographyUnits } from "@/data/orthography-units";
-import { referenceConceptsFor } from "@/data/reference-learning-concepts";
+import { activeLearningConcepts, learningMetrics } from "@/lib/learningMetrics";
 import { ConceptPractice } from "@/components/ConceptPractice";
 import { Onboarding } from "@/components/Onboarding";
 import { OrthographyPractice } from "@/components/OrthographyPractice";
@@ -13,6 +12,7 @@ import { savePreferences } from "@/lib/preferences";
 import { usePreferences } from "@/lib/usePreferences";
 import { useLearningState } from "@/lib/useLearningState";
 import { useHydrated } from "@/lib/useHydrated";
+import { useCurrentTime } from "@/lib/useCurrentTime";
 import type { LearningPreferences, LearningState, PracticeOutcome, ReadingOutcome } from "@/lib/types";
 
 export function LearningHome() {
@@ -25,6 +25,7 @@ export function LearningHome() {
 }
 
 function LearningSession({ preferences, initialState }: { preferences: LearningPreferences; initialState: LearningState }) {
+  const now = useCurrentTime();
   const [learningState, setLearningState] = useState(initialState);
   const [index, setIndex] = useState(0);
   const [relearningIds, setRelearningIds] = useState<string[]>([]);
@@ -32,10 +33,7 @@ function LearningSession({ preferences, initialState }: { preferences: LearningP
 
   // Choose once at session start; ratings update progress without replacing the queue.
   const [session] = useState(() => {
-    const courseConcepts = [
-      ...(preferences.referenceDeck === "ai_drafts_only" ? [] : learningConcepts),
-      ...referenceConceptsFor(preferences.referenceDeck)
-    ];
+    const courseConcepts = activeLearningConcepts(preferences.referenceDeck);
     return selectSessionConcepts(courseConcepts, initialState, preferences.sessionMinutes);
   });
   const [orthographyUnit] = useState(() => preferences.learningMode === "speaking_and_reading"
@@ -78,7 +76,8 @@ function LearningSession({ preferences, initialState }: { preferences: LearningP
   };
 
   if (!current) {
-    const learned = Object.keys(learningState.concepts).length;
+    const metrics = learningMetrics(activeLearningConcepts(preferences.referenceDeck), learningState, now, preferences.learningMode === "speaking_and_reading");
+    const learned = metrics.total - metrics.new;
     const caughtUp = session.length === 0 && relearningIds.length === 0;
     return (
       <div className="page completion-page">
@@ -91,7 +90,7 @@ function LearningSession({ preferences, initialState }: { preferences: LearningP
         </section>
         <div className="stat-row">
           <span className="pill">{learned} concepts started</span>
-          <span className="pill">{learningState.evidence.length} learning attempts</span>
+          <span className="pill">{metrics.lifetime.speaking} lifetime speaking attempts</span>
           {preferences.learningMode === "speaking_and_reading" ? <span className="pill">{Object.keys(learningState.orthography).length} script units started</span> : null}
           <span className="pill">{preferences.learningMode === "speaking_and_reading" ? "speaking + reading" : "speaking"}</span>
         </div>
@@ -103,7 +102,7 @@ function LearningSession({ preferences, initialState }: { preferences: LearningP
     );
   }
 
-  const completed = Object.keys(learningState.concepts).length;
+  const completed = activeLearningConcepts(preferences.referenceDeck).filter((concept) => learningState.concepts[concept.id]).length;
   return (
     <div className="page learning-page">
       <header className="learning-header">

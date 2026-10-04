@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { LocalBackup } from "@/components/LocalBackup";
 import audioPack from "@/data/audio-pack.json";
 import { cautionReferenceLearningConcepts, safeReferenceLearningConcepts } from "@/data/reference-learning-concepts";
 import { defaultSpeakingPreferences, savePreferences } from "@/lib/preferences";
@@ -52,6 +53,7 @@ export default function SettingsPage() {
         </div>
         <select
           className="select"
+          aria-label="Learning content"
           value={preferences.referenceDeck}
           onChange={(event) => update({ referenceDeck: event.target.value as ReferenceDeckPreference })}
         >
@@ -73,7 +75,7 @@ export default function SettingsPage() {
           <h2>Romanization</h2>
           <p className="small muted">In reading mode, “when needed” lets you attempt Kannada script before showing help.</p>
         </div>
-        <select className="select" value={preferences.romanization} onChange={(event) => update({ romanization: event.target.value as RomanizationPreference })}>
+        <select className="select" aria-label="Romanization" value={preferences.romanization} onChange={(event) => update({ romanization: event.target.value as RomanizationPreference })}>
           <option value="always">Always show</option>
           <option value="when_needed">Show when needed</option>
           <option value="hidden">Hide by default</option>
@@ -97,6 +99,7 @@ export default function SettingsPage() {
         <p className="muted">Lessons prefer packaged Kannada audio only after each synthetic clip passes listening and linguistic review. {packagedAudioCount === 0 ? "No clip is currently approved, so playback is optional device-generated exposure—not a pronunciation authority." : `${packagedAudioCount} reviewed ${packagedAudioCount === 1 ? "clip is" : "clips are"} packaged for offline playback.`}</p>
         <span className={packagedAudioCount ? "pill" : "pill status-warning"}>{packagedAudioCount ? `${packagedAudioCount} reviewed clips installed` : "Audio pack not installed"}</span>
       </section>
+      <LocalBackup />
       {saved ? <p className="small muted" role="status">Settings saved on this device.</p> : null}
     </div>
   );

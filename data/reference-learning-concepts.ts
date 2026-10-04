@@ -1,3 +1,4 @@
+import { selectedReferenceScenario } from "@/data/course-scenarios";
 import { automatedReferencePhrases } from "@/data/library-reference";
 import type { LearningConcept, PhraseItem, ReferenceDeckPreference } from "@/lib/types";
 
@@ -7,12 +8,14 @@ function toLearningConcept(phrase: PhraseItem): LearningConcept {
     throw new Error(`Reference learning phrase is incomplete: ${phrase.id}`);
   }
 
+  const scenario = selectedReferenceScenario.get(phrase.id);
+
   return {
     id: phrase.id,
     intent: phrase.english,
     situation: phrase.usageNote || `Use this in a ${phrase.category.toLowerCase()} situation.`,
-    missionId: `reference-${phrase.category.toLowerCase().replaceAll(/[^a-z0-9]+/g, "-")}`,
-    missionTitle: phrase.category,
+    missionId: scenario?.id ?? `reference-${phrase.category.toLowerCase().replaceAll(/[^a-z0-9]+/g, "-")}`,
+    missionTitle: scenario?.title ?? phrase.category,
     usageNote: phrase.usageNote,
     contentTier: phrase.status === "ai_draft_caution" ? "ai_draft_caution" : "ai_draft",
     sourceRisk: automation.risk,

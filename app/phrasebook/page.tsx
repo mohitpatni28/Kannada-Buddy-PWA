@@ -2,18 +2,15 @@
 
 import { useState } from "react";
 import { AudioButton } from "@/components/AudioButton";
-import { learningConcepts, missionOrder } from "@/data/learning-concepts";
+import { courseLearningConcepts, courseScenarios, courseSourcePhrases } from "@/data/course-catalog";
 
 export default function PhrasebookPage() {
   const [query, setQuery] = useState("");
   const [mission, setMission] = useState("all");
-  const missions = missionOrder.map((id) => ({
-    id,
-    title: learningConcepts.find((concept) => concept.missionId === id)?.missionTitle ?? id
-  }));
+  const missions = courseScenarios;
 
   const needle = query.trim().toLocaleLowerCase();
-  const results = learningConcepts.filter((concept) => {
+  const results = courseLearningConcepts.filter((concept) => {
     if (mission !== "all" && concept.missionId !== mission) return false;
     if (!needle) return true;
     return [
@@ -31,7 +28,7 @@ export default function PhrasebookPage() {
       <section className="band">
         <p className="eyebrow">Course phrasebook</p>
         <h1>Find a useful phrase</h1>
-        <p className="lede">Only the compact course set appears here. Search by situation, English meaning, romanization, or Kannada script. Linguistic review status is shown per phrase.</p>
+        <p className="lede">100 everyday phrases and useful words across eight situations. The original 16 have native review; 84 source-linked AI drafts await native review. Search by situation, English meaning, romanization, or Kannada script. Linguistic review status is shown per phrase.</p>
       </section>
       <section className="panel">
         <label className="small" htmlFor="phrase-search">Search the course</label>
@@ -44,9 +41,9 @@ export default function PhrasebookPage() {
           onChange={(event) => setQuery(event.target.value)}
         />
         <div className="filter-row" aria-label="Situation filter">
-          <button className={mission === "all" ? "button" : "button secondary"} type="button" onClick={() => setMission("all")}>All</button>
+          <button className={mission === "all" ? "button" : "button secondary"} type="button" aria-pressed={mission === "all"} onClick={() => setMission("all")}>All</button>
           {missions.map((item) => (
-            <button key={item.id} className={mission === item.id ? "button" : "button secondary"} type="button" onClick={() => setMission(item.id)}>{item.title}</button>
+            <button key={item.id} className={mission === item.id ? "button" : "button secondary"} type="button" aria-pressed={mission === item.id} onClick={() => setMission(item.id)}>{item.title}</button>
           ))}
         </div>
       </section>
@@ -58,7 +55,7 @@ export default function PhrasebookPage() {
               <span className="pill">{concept.missionTitle}</span>
               <span className="pill">{concept.form.register} register</span>
               <span className={concept.form.review.status === "reviewed" ? "pill" : "pill status-warning"}>
-                {concept.form.review.status === "reviewed" ? "native reviewed" : "native review pending"}
+                {concept.form.review.status === "reviewed" ? "native reviewed" : "AI draft · native review pending"}
               </span>
             </div>
             <div className="phrase-main">
@@ -68,6 +65,11 @@ export default function PhrasebookPage() {
             </div>
             <p className="small muted">{concept.situation}</p>
             <AudioButton script={concept.form.kannadaScript} roman={concept.form.kannadaRoman} audioUrl={concept.audioUrl} label={`Play ${concept.intent} in Kannada`} />
+            {courseSourcePhrases.has(concept.id) ? (
+              <p className="small muted">
+                AI draft adapted from <a href={courseSourcePhrases.get(concept.id)!.sourceUrl}>Wikivoyage</a> · {courseSourcePhrases.get(concept.id)!.license}. Editorial selection is not linguistic approval. <a href="/sources">Attribution and changes</a>
+              </p>
+            ) : null}
             {concept.usageNote ? <p className="small"><strong>Use:</strong> {concept.usageNote}</p> : null}
             {concept.pattern ? <p className="small"><strong>Pattern:</strong> {concept.pattern}</p> : null}
           </article>

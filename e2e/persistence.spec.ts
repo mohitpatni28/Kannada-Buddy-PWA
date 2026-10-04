@@ -13,7 +13,7 @@ const savedConcept = (id: string, nextReviewAt = "2100-01-01T00:00:00.000Z") => 
 
 test("learning progress responds to real cross-tab updates and clearing", async ({ page, context }) => {
   await page.goto("/review");
-  const started = page.locator(".stat-card").filter({ hasText: "concepts started" }).locator("strong");
+  const started = page.locator(".stat-card").filter({ hasText: "learning" }).locator("strong");
   await expect(started).toHaveText("0");
   const otherTab = await context.newPage();
   await otherTab.goto("/");
@@ -50,11 +50,12 @@ test("adaptive session stays stable while rating and persists progress on reload
   await page.goto("/review");
   await expect(page.locator(".stat-card").filter({ hasText: "due now" }).locator("strong")).toHaveText("0");
   await page.reload();
-  await expect(page.locator(".stat-card").filter({ hasText: "concepts started" }).locator("strong")).toHaveText(String(learningConcepts.length));
+  await expect(page.locator(".stat-card").filter({ hasText: "learning" }).locator("strong")).toHaveText(String(learningConcepts.length));
   expect(errors).toEqual([]);
 });
 
-test("admin hydrates edited drafts and preserves edits through approval", async ({ page }) => {
+test("admin hydrates edited drafts and preserves edits through approval", async ({ page, context }) => {
+  await context.setHTTPCredentials({ username: "test-reviewer", password: "local-e2e-password-only" });
   const id = "wv-how-do-you-do-how-do-you-do-plural-with-respect#1";
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));

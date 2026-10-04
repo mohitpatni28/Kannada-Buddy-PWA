@@ -10,7 +10,11 @@ import { orthographyUnits } from "@/data/orthography-units";
 import { recordPractice, recordOrthography } from "@/lib/learningStore";
 import type { ConceptProgress, LearningState } from "@/lib/types";
 
-vi.mock("@/data/library-reference", async () => ({ adminLibraryPhrases: (await import("./fixtures")).adminPhrases, automatedReferencePhrases: [], libraryDraftCounts: { priority: 1, held: 1, caution: 0 } }));
+vi.mock("@/data/library-reference", async (importOriginal) => ({
+  ...await importOriginal<typeof import("@/data/library-reference")>(),
+  adminLibraryPhrases: (await import("./fixtures")).adminPhrases,
+  libraryDraftCounts: { priority: 1, held: 1, caution: 0 }
+}));
 
 const progressKey = "kannada-buddy-learning-state-v2";
 const overridesKey = "kannada-buddy-library-overrides";
@@ -28,8 +32,8 @@ function conceptProgress(nextReviewAt = "2026-10-11T06:00:00.000Z"): ConceptProg
   return { conceptId: concept.id, attempts: 2, successes: 2, lapses: 0, stabilityDays: 7,
     lastSeenAt: now, nextReviewAt, readingAttempts: 1, readingSuccesses: 1 };
 }
-function assertStat(label: string, expected: number, scope: Pick<typeof screen, "getByText"> = screen) {
-  const card = scope.getByText(label).closest("article");
+function assertStat(label: string, expected: number, scope: Pick<typeof screen, "getByRole"> = screen) {
+  const card = within(scope.getByRole("region", { name: "Active deck progress" })).getByText(label).closest("article");
   expect(card?.querySelector("strong")?.textContent).toBe(String(expected));
 }
 
@@ -49,10 +53,10 @@ describe("adaptive progress UI and persisted learning state", () => {
       expect(errors).toEqual([]);
       expect(within(container).getByRole("heading", { name: concept.intent })).toBeTruthy();
       expect(within(container).getByRole("heading", { name: unit.title })).toBeTruthy();
-      assertStat("concepts started", 1, within(container));
-      assertStat("stable for 7+ days", 1, within(container));
-      assertStat("due now", 1, within(container));
-      assertStat("script units started", 1, within(container));
+      assertStat("learning", 1, within(container));
+      assertStat("retained speaking", 0, within(container));
+      assertStat("due now", 0, within(container));
+      expect(within(container).getByText(/Lifetime: 2 speaking attempts · 1 reading attempts · 3 script checks/)).toBeTruthy();
       expect(JSON.parse(window.localStorage.getItem(progressKey) ?? "{}")).toEqual(state);
     } finally {
       await act(async () => root?.unmount());
@@ -62,11 +66,11 @@ describe("adaptive progress UI and persisted learning state", () => {
 
   it("updates visible progress after same-tab practice and script attempts", () => {
     render(<ReviewPage />);
-    assertStat("concepts started", 0);
+    assertStat("learning", 0);
     expect(screen.getByText(/Complete your first lesson/)).toBeTruthy();
     act(() => { recordPractice(concept.id, "independent"); recordOrthography(unit.id, "independent"); });
-    assertStat("concepts started", 1);
-    assertStat("script units started", 1);
+    assertStat("learning", 1);
+    expect(screen.getByText(/Lifetime: 1 speaking attempts · 0 reading attempts · 1 script checks/)).toBeTruthy();
     assertStat("due now", 0);
     expect(screen.getByRole("heading", { name: concept.intent })).toBeTruthy();
     expect(screen.getByRole("heading", { name: unit.title })).toBeTruthy();
@@ -83,13 +87,13 @@ describe("adaptive progress UI and persisted learning state", () => {
       window.localStorage.setItem(progressKey, newValue);
       window.dispatchEvent(new StorageEvent("storage", { key: progressKey, newValue, storageArea: window.localStorage }));
     });
-    assertStat("concepts started", 1);
+    assertStat("learning", 0);
     assertStat("due now", 1);
     act(() => {
       window.localStorage.clear();
       window.dispatchEvent(new StorageEvent("storage", { key: null, storageArea: window.localStorage }));
     });
-    assertStat("concepts started", 0);
+    assertStat("learning", 0);
     expect(screen.queryByRole("heading", { name: concept.intent })).toBeNull();
   });
 
@@ -99,7 +103,7 @@ describe("adaptive progress UI and persisted learning state", () => {
     assertStat("due now", 1);
     act(() => recordPractice(concept.id, "independent"));
     assertStat("due now", 0);
-    assertStat("stable for 7+ days", 1);
+    assertStat("retained speaking", 0);
   });
 });
 

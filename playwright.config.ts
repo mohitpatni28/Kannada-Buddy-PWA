@@ -15,6 +15,7 @@ export default defineConfig({
   webServer: {
     command: "pnpm start --hostname 127.0.0.1 --port 3100",
     url: "http://127.0.0.1:3100",
-    reuseExistingServer: false
+    reuseExistingServer: false,
+    env: { ADMIN_USERNAME: "test-reviewer", ADMIN_PASSWORD: "local-e2e-password-only" }
   }
 });
