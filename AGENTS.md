@@ -81,9 +81,11 @@ pnpm dev
 pnpm exec tsc --noEmit
 pnpm build
 pnpm lint
+pnpm test
+pnpm test:e2e
 ```
 
-At the time this agreement was created, `package.json` had no test scripts or test-runner dependencies. Do not claim that a unit, integration, or regression suite exists until one is established. The lint script currently invokes `next lint`; verify compatibility with the installed Next.js version and replace it with a working lint setup when undertaking the validation-tooling work. A build or typecheck is not a substitute for tests. Update this section when commands or tooling change.
+`pnpm lint` runs ESLint directly with the Next.js Core Web Vitals and TypeScript flat configurations and rejects warnings. `pnpm test` runs the Vitest unit, integration, and regression tests. `pnpm test:e2e` runs Playwright against a production server; run `pnpm build` first and install Chromium with `pnpm exec playwright install chromium`. An existing Chromium executable can be selected with `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`. The initial tests cover lint enforcement, storage subscriptions, learning sessions, preferences, and library/admin flows; extend coverage for every subsequent behavior change rather than assuming the rest of the app is already fully covered. Run `pnpm content:validate` and `pnpm content:validate-all` for reference-content changes. A build or typecheck is not a substitute for tests. Update this section when commands or tooling change.
 
 ## Engineering and product safeguards
 

@@ -15,20 +15,20 @@ import type {
 
 const learningKey = "kannada-buddy-learning-state-v2";
 const legacyKey = "kannada-buddy-progress";
+const changeEvent = "kannada-buddy-learning-state-change";
 const dayMs = 24 * 60 * 60 * 1000;
 
 const newEmptyState = (): LearningState => ({ concepts: {}, orthography: {}, evidence: [] });
 
 function normalizeState(value: Partial<LearningState>): LearningState {
   return {
-    concepts: value.concepts ?? {},
-    orthography: value.orthography ?? {},
-    evidence: value.evidence ?? []
+    concepts: value.concepts && typeof value.concepts === "object" && !Array.isArray(value.concepts) ? value.concepts : {},
+    orthography: value.orthography && typeof value.orthography === "object" && !Array.isArray(value.orthography) ? value.orthography : {},
+    evidence: Array.isArray(value.evidence) ? value.evidence : []
   };
 }
 
-function migrateLegacyProgress(): LearningState | null {
-  const raw = window.localStorage.getItem(legacyKey);
+function parseLegacyProgress(raw: string | null): LearningState | null {
   if (!raw) return null;
 
   try {
@@ -64,18 +64,23 @@ function migrateLegacyProgress(): LearningState | null {
 
     if (Object.keys(concepts).length === 0) return null;
     const migrated = { concepts, orthography: {}, evidence };
-    window.localStorage.setItem(learningKey, JSON.stringify(migrated));
     return migrated;
   } catch {
     return null;
   }
 }
 
+function migrateLegacyProgress(): LearningState | null {
+  const migrated = parseLegacyProgress(window.localStorage.getItem(legacyKey));
+  if (migrated) window.localStorage.setItem(learningKey, JSON.stringify(migrated));
+  return migrated;
+}
+
 export function loadLearningState(): LearningState {
   if (typeof window === "undefined") return newEmptyState();
   try {
     const stored = window.localStorage.getItem(learningKey);
-    if (stored) return normalizeState(JSON.parse(stored) as Partial<LearningState>);
+    if (stored) return parseLearningSnapshot(stored);
     return migrateLegacyProgress() ?? newEmptyState();
   } catch {
     return newEmptyState();
@@ -84,6 +89,51 @@ export function loadLearningState(): LearningState {
 
 function saveLearningState(state: LearningState) {
   window.localStorage.setItem(learningKey, JSON.stringify(state));
+  window.dispatchEvent(new Event(changeEvent));
+}
+
+export function getLearningSnapshot(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const stored = window.localStorage.getItem(learningKey);
+    if (stored !== null) return stored;
+    const legacy = parseLegacyProgress(window.localStorage.getItem(legacyKey));
+    return legacy ? JSON.stringify(legacy) : null;
+  } catch {
+    return null;
+  }
+}
+
+export function parseLearningSnapshot(snapshot: string | null): LearningState {
+  try {
+    const value: unknown = JSON.parse(snapshot ?? "{}");
+    if (!value || typeof value !== "object" || Array.isArray(value)) return newEmptyState();
+    return normalizeState(value as Partial<LearningState>);
+  } catch {
+    return newEmptyState();
+  }
+}
+
+export function subscribeLearning(onChange: () => void): () => void {
+  if (typeof window === "undefined") return () => {};
+  // Preserve legacy migration after hydration, outside render and snapshot reads.
+  loadLearningState();
+  const onStorage = (event: StorageEvent) => {
+    if (event.key !== learningKey && event.key !== legacyKey && event.key !== null) return;
+    try {
+      if (event.storageArea !== window.localStorage) return;
+    } catch {
+      return;
+    }
+    loadLearningState();
+    onChange();
+  };
+  window.addEventListener(changeEvent, onChange);
+  window.addEventListener("storage", onStorage);
+  return () => {
+    window.removeEventListener(changeEvent, onChange);
+    window.removeEventListener("storage", onStorage);
+  };
 }
 
 function intervalFor(outcome: PracticeOutcome, previous?: ConceptProgress, corrective = false) {

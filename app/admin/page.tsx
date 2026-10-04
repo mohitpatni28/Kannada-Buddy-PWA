@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { adminLibraryPhrases, libraryDraftCounts } from "@/data/library-reference";
 import { AdminPhraseCard } from "@/components/AdminPhraseCard";
-import { mergeOverrides } from "@/lib/libraryStore";
+import { useLibraryPhrases } from "@/lib/useLibraryPhrases";
 import { searchPhrases } from "@/lib/search";
 
 const filters = [
@@ -17,11 +17,10 @@ const filters = [
 ];
 
 export default function AdminPage() {
-  const [version, setVersion] = useState(0);
   const [filter, setFilter] = useState("priority_human_review");
   const [query, setQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(50);
-  const phrases = useMemo(() => mergeOverrides(adminLibraryPhrases), [version]);
+  const phrases = useLibraryPhrases(adminLibraryPhrases);
   const filtered = phrases.filter((phrase) => {
     if (filter === "all") return true;
     if (filter.endsWith("_review") || filter === "automated_reference") {
@@ -39,10 +38,6 @@ export default function AdminPage() {
         ? phrases.filter((phrase) => phrase.automation?.reviewQueue === id).length
         : phrases.filter((phrase) => phrase.status === id).length
   ]));
-
-  useEffect(() => {
-    setVisibleCount(50);
-  }, [filter, query]);
 
   return (
     <div className="page">
@@ -70,11 +65,11 @@ export default function AdminPage() {
           type="search"
           placeholder="Search source or draft wording…"
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={(event) => { setQuery(event.target.value); setVisibleCount(50); }}
         />
         <div className="filter-row">
           {filters.map((item) => (
-            <button key={item.id} className={filter === item.id ? "button" : "button secondary"} type="button" onClick={() => setFilter(item.id)}>
+            <button key={item.id} className={filter === item.id ? "button" : "button secondary"} type="button" onClick={() => { setFilter(item.id); setVisibleCount(50); }}>
               {item.label} ({counts[item.id]})
             </button>
           ))}
@@ -83,7 +78,7 @@ export default function AdminPage() {
       <p className="small muted" role="status">Showing {visible.length} of {results.length} matching review items</p>
       <section className="grid">
         {visible.map((phrase) => (
-          <AdminPhraseCard key={phrase.id} phrase={phrase} onChange={() => setVersion((value) => value + 1)} />
+          <AdminPhraseCard key={phrase.id} phrase={phrase} />
         ))}
       </section>
       {visible.length < results.length ? (

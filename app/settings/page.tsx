@@ -1,24 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import audioPack from "@/data/audio-pack.json";
 import { cautionReferenceLearningConcepts, safeReferenceLearningConcepts } from "@/data/reference-learning-concepts";
-import { defaultSpeakingPreferences, loadPreferences, savePreferences } from "@/lib/preferences";
+import { defaultSpeakingPreferences, savePreferences } from "@/lib/preferences";
+import { usePreferences } from "@/lib/usePreferences";
 import type { LearningMode, LearningPreferences, ReferenceDeckPreference, RomanizationPreference } from "@/lib/types";
 
 export default function SettingsPage() {
   const packagedAudioCount = Object.keys(audioPack).length;
-  const [preferences, setPreferences] = useState<LearningPreferences>(defaultSpeakingPreferences);
+  const preferences = usePreferences() ?? defaultSpeakingPreferences;
   const [saved, setSaved] = useState(false);
-
-  useEffect(() => {
-    const existing = loadPreferences();
-    if (existing) setPreferences(existing);
-  }, []);
 
   const update = (patch: Partial<LearningPreferences>) => {
     const next = { ...preferences, ...patch };
-    setPreferences(next);
     savePreferences(next);
     setSaved(true);
     window.setTimeout(() => setSaved(false), 1200);

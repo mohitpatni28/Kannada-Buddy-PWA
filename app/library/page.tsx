@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { PhraseCard } from "@/components/PhraseCard";
 import { libraryDraftCounts, libraryPhrases } from "@/data/library-reference";
-import { mergeOverrides } from "@/lib/libraryStore";
+import { useLibraryPhrases } from "@/lib/useLibraryPhrases";
 import { categoriesFor, searchPhrases } from "@/lib/search";
 
 export default function LibraryPage() {
@@ -12,7 +12,7 @@ export default function LibraryPage() {
   const [category, setCategory] = useState("all");
   const [query, setQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(60);
-  const phrases = useMemo(() => mergeOverrides(libraryPhrases), []);
+  const phrases = useLibraryPhrases(libraryPhrases);
   const statusFiltered = phrases.filter((phrase) => status === "reference" || phrase.status === status);
   const results = searchPhrases(statusFiltered, query, category);
   const visible = results.slice(0, visibleCount);
@@ -23,10 +23,6 @@ export default function LibraryPage() {
       item === "reference" ? phrases.length : phrases.filter((phrase) => phrase.status === item).length
     ])
   );
-
-  useEffect(() => {
-    setVisibleCount(60);
-  }, [category, query, status]);
 
   return (
     <div className="page">
@@ -56,17 +52,17 @@ export default function LibraryPage() {
           type="search"
           placeholder="Try airport, water, ಸಮಯ, shopping…"
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={(event) => { setQuery(event.target.value); setVisibleCount(60); }}
         />
         <label className="small" htmlFor="library-category">Category</label>
-        <select id="library-category" className="select" value={category} onChange={(event) => setCategory(event.target.value)}>
+        <select id="library-category" className="select" value={category} onChange={(event) => { setCategory(event.target.value); setVisibleCount(60); }}>
           <option value="all">All categories</option>
           {categories.map((item) => <option key={item} value={item}>{item}</option>)}
         </select>
       </section>
       <div className="filter-row library-filters" role="group" aria-label="Filter library by review status">
         {["reference", "approved", "ai_draft", "ai_draft_caution"].map((item) => (
-          <button key={item} className={status === item ? "button" : "button secondary"} type="button" aria-pressed={status === item} onClick={() => setStatus(item)}>
+          <button key={item} className={status === item ? "button" : "button secondary"} type="button" aria-pressed={status === item} onClick={() => { setStatus(item); setVisibleCount(60); }}>
             {item === "reference" ? "all references" : item === "ai_draft_caution" ? "AI caution" : item.replaceAll("_", " ")} ({counts[item]})
           </button>
         ))}

@@ -19,6 +19,8 @@ A personal, mobile-first Kannada learning PWA for everyday Bengaluru situations:
 
 ## Run locally
 
+Use Node.js 22 (22.22.2 or newer), Node.js 24 (24.15.0 or newer), or Node.js 26 or newer, and pnpm. These versions support both the app and its test tools.
+
 ```bash
 pnpm install
 pnpm dev
@@ -35,6 +37,21 @@ http://127.0.0.1:3000
 ```bash
 pnpm build
 ```
+
+## Validate changes
+
+```bash
+pnpm lint
+pnpm exec tsc --noEmit
+pnpm test
+pnpm content:validate
+pnpm content:validate-all
+pnpm build
+pnpm exec playwright install chromium
+pnpm test:e2e
+```
+
+Lint uses ESLint directly with Next.js Core Web Vitals and TypeScript rules; Next.js 16 removed `next lint`. Vitest covers storage, hydration, UI regressions, and lint enforcement. Playwright runs against a production server in an isolated mobile-sized Chromium browser; build first. To use an existing Chromium executable, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`. Initial coverage does not cover every app feature. See [AGENTS.md](AGENTS.md) for the independent review and testing requirements.
 
 ## Import Wikivoyage
 
@@ -146,3 +163,13 @@ The packaging command refuses incomplete approvals, copies passed WAV files to `
 The app is local-first. Learning progress and admin edits are stored in the browser, not synced to a server yet. Compatible v1 phrase progress is migrated into the current concept store on first load.
 
 Course phrases remain marked `needs_native_review` until a fluent Kannada reviewer validates wording, register, script, romanization, and any packaged synthetic audio. Generated audio must not be assigned to `audioUrl` before that review passes.
+
+The admin screen edits only the current browser's library; it has no authentication or shared publishing backend. Clearing site data deletes local progress, preferences, and edits. There is no device synchronization or backup/export flow. The service worker registers in production; offline availability depends on an initial online visit and successful caching. Device speech availability depends on installed voices and browser support.
+
+## License and attribution
+
+Project code is licensed under the [MIT License](LICENSE), copyright © 2026 fakecoder28.
+
+Third-party content retains its own licenses and attribution and is **not relicensed under MIT**. Wikivoyage imports and source-derived reference material retain Creative Commons Attribution-ShareAlike requirements; see the [Kannada phrasebook and its contributors](https://en.wikivoyage.org/wiki/Kannada_phrasebook) for applicable terms and history. Bundled Noto Sans Kannada fonts retain the [SIL Open Font License](public/fonts/OFL.txt). Audio model weights and generated or packaged content retain applicable source/model terms and review requirements; this code license does not grant rights to model weights or separately licensed content.
+
+Source metadata is recorded in [data/source-attribution.ts](data/source-attribution.ts) and displayed on `/sources`. Manually curated content still has its existing content metadata; MIT covers project code and does not establish a separate content license for the learning deck.

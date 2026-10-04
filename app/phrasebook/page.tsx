@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { AudioButton } from "@/components/AudioButton";
 import { learningConcepts, missionOrder } from "@/data/learning-concepts";
 
@@ -12,21 +12,19 @@ export default function PhrasebookPage() {
     title: learningConcepts.find((concept) => concept.missionId === id)?.missionTitle ?? id
   }));
 
-  const results = useMemo(() => {
-    const needle = query.trim().toLocaleLowerCase();
-    return learningConcepts.filter((concept) => {
-      if (mission !== "all" && concept.missionId !== mission) return false;
-      if (!needle) return true;
-      return [
-        concept.intent,
-        concept.situation,
-        concept.form.kannadaRoman,
-        concept.form.kannadaScript,
-        concept.pattern,
-        concept.usageNote
-      ].some((value) => value?.toLocaleLowerCase().includes(needle));
-    });
-  }, [mission, query]);
+  const needle = query.trim().toLocaleLowerCase();
+  const results = learningConcepts.filter((concept) => {
+    if (mission !== "all" && concept.missionId !== mission) return false;
+    if (!needle) return true;
+    return [
+      concept.intent,
+      concept.situation,
+      concept.form.kannadaRoman,
+      concept.form.kannadaScript,
+      concept.pattern,
+      concept.usageNote
+    ].some((value) => value?.toLocaleLowerCase().includes(needle));
+  });
 
   return (
     <div className="page">

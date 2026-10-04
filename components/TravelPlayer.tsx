@@ -2,14 +2,14 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { PhraseItem } from "@/lib/types";
-import { mergeOverrides } from "@/lib/libraryStore";
+import { useLibraryPhrases } from "@/lib/useLibraryPhrases";
 import { ratePhrase } from "@/lib/progress";
 import { speakEnglish, speakKannada } from "@/lib/tts";
 
 const wait = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
 
 export function TravelPlayer({ phrases }: { phrases: PhraseItem[] }) {
-  const [library, setLibrary] = useState(phrases);
+  const library = useLibraryPhrases(phrases);
   const drill = useMemo(() => library.filter((phrase) => phrase.status === "approved"), [library]);
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -18,12 +18,9 @@ export function TravelPlayer({ phrases }: { phrases: PhraseItem[] }) {
   const [ratingMessage, setRatingMessage] = useState("");
   const advanceTimer = useRef<number | null>(null);
   const ratingLock = useRef(false);
-  const current = drill[index % drill.length];
-  const progress = drill.length ? ((index + 1) / drill.length) * 100 : 0;
-
-  useEffect(() => {
-    setLibrary(mergeOverrides(phrases));
-  }, [phrases]);
+  const position = drill.length ? index % drill.length : 0;
+  const current = drill[position];
+  const progress = drill.length ? ((position + 1) / drill.length) * 100 : 0;
 
   useEffect(
     () => () => {
@@ -81,7 +78,7 @@ export function TravelPlayer({ phrases }: { phrases: PhraseItem[] }) {
       </div>
       <div className="travel-prompt">
         <p className="pill" style={{ justifySelf: "center" }}>
-          {index + 1} of {drill.length}
+          {position + 1} of {drill.length}
         </p>
         <p className="english">{current.english}</p>
         <p className="roman">{current.kannadaRoman}</p>

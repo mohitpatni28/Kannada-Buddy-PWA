@@ -5,14 +5,13 @@ import type { PhraseItem, PhraseStatus } from "@/lib/types";
 import { setPhraseStatus, updatePhraseOverride } from "@/lib/libraryStore";
 import { AudioButton } from "@/components/AudioButton";
 
-export function AdminPhraseCard({ phrase, onChange }: { phrase: PhraseItem; onChange: () => void }) {
+export function AdminPhraseCard({ phrase }: { phrase: PhraseItem }) {
   const [draft, setDraft] = useState(phrase);
   const [editing, setEditing] = useState(false);
   const automation = phrase.automation;
 
   const setStatus = (status: PhraseStatus) => {
     setPhraseStatus(phrase.id, status);
-    onChange();
   };
 
   const save = () => {
@@ -27,19 +26,19 @@ export function AdminPhraseCard({ phrase, onChange }: { phrase: PhraseItem; onCh
       status: draft.status
     });
     setEditing(false);
-    onChange();
   };
 
   return (
     <article className="phrase-card">
       {editing ? (
         <div className="grid">
-          <input className="field" value={draft.english} onChange={(event) => setDraft({ ...draft, english: event.target.value })} />
-          <input className="field" value={draft.kannadaRoman} onChange={(event) => setDraft({ ...draft, kannadaRoman: event.target.value })} />
-          <input className="field" value={draft.kannadaScript ?? ""} onChange={(event) => setDraft({ ...draft, kannadaScript: event.target.value })} />
-          <input className="field" value={draft.category} onChange={(event) => setDraft({ ...draft, category: event.target.value })} />
+          <input aria-label="English meaning" className="field" value={draft.english} onChange={(event) => setDraft({ ...draft, english: event.target.value })} />
+          <input aria-label="Romanized Kannada" className="field" value={draft.kannadaRoman} onChange={(event) => setDraft({ ...draft, kannadaRoman: event.target.value })} />
+          <input aria-label="Kannada script" className="field" value={draft.kannadaScript ?? ""} onChange={(event) => setDraft({ ...draft, kannadaScript: event.target.value })} />
+          <input aria-label="Category" className="field" value={draft.category} onChange={(event) => setDraft({ ...draft, category: event.target.value })} />
           <textarea
             className="textarea"
+            aria-label="Usage note"
             value={draft.usageNote ?? ""}
             onChange={(event) => setDraft({ ...draft, usageNote: event.target.value })}
           />
@@ -112,7 +111,7 @@ export function AdminPhraseCard({ phrase, onChange }: { phrase: PhraseItem; onCh
             <button className="button" type="button" onClick={() => setStatus("approved")}>
               Approve locally for Library
             </button>
-            <button className="button secondary" type="button" onClick={() => setEditing(true)}>
+            <button className="button secondary" type="button" onClick={() => { setDraft(phrase); setEditing(true); }}>
               Edit
             </button>
             <button className="button secondary" type="button" onClick={() => setStatus("needs_edit")}>

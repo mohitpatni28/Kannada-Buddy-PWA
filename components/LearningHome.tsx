@@ -1,58 +1,46 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { learningConcepts } from "@/data/learning-concepts";
 import { orthographyUnits } from "@/data/orthography-units";
 import { referenceConceptsFor } from "@/data/reference-learning-concepts";
 import { ConceptPractice } from "@/components/ConceptPractice";
 import { Onboarding } from "@/components/Onboarding";
 import { OrthographyPractice } from "@/components/OrthographyPractice";
-import { loadLearningState, recordOrthography, recordPractice, selectOrthographyUnit, selectSessionConcepts } from "@/lib/learningStore";
-import { loadPreferences, savePreferences } from "@/lib/preferences";
+import { recordOrthography, recordPractice, selectOrthographyUnit, selectSessionConcepts } from "@/lib/learningStore";
+import { savePreferences } from "@/lib/preferences";
+import { usePreferences } from "@/lib/usePreferences";
+import { useLearningState } from "@/lib/useLearningState";
+import { useHydrated } from "@/lib/useHydrated";
 import type { LearningPreferences, LearningState, PracticeOutcome, ReadingOutcome } from "@/lib/types";
 
 export function LearningHome() {
-  const [ready, setReady] = useState(false);
-  const [preferences, setPreferences] = useState<LearningPreferences | null>(null);
-  const [learningState, setLearningState] = useState<LearningState>({ concepts: {}, orthography: {}, evidence: [] });
+  const ready = useHydrated();
+  const preferences = usePreferences();
+  const learningState = useLearningState();
+  if (!ready) return <p className="panel muted">Preparing today’s lesson…</p>;
+  if (!preferences) return <Onboarding onChoose={savePreferences} />;
+  return <LearningSession key={JSON.stringify(preferences)} preferences={preferences} initialState={learningState} />;
+}
+
+function LearningSession({ preferences, initialState }: { preferences: LearningPreferences; initialState: LearningState }) {
+  const [learningState, setLearningState] = useState(initialState);
   const [index, setIndex] = useState(0);
   const [relearningIds, setRelearningIds] = useState<string[]>([]);
   const [orthographyComplete, setOrthographyComplete] = useState(false);
 
-  useEffect(() => {
-    setPreferences(loadPreferences());
-    setLearningState(loadLearningState());
-    setReady(true);
-  }, []);
-
-  const session = useMemo(
-    () => {
-      if (!preferences) return [];
-      const courseConcepts = [
-        ...(preferences.referenceDeck === "ai_drafts_only" ? [] : learningConcepts),
-        ...referenceConceptsFor(preferences.referenceDeck)
-      ];
-      return selectSessionConcepts(courseConcepts, learningState, preferences.sessionMinutes);
-    },
-    // Keep the selected session stable while rating; a new session is calculated after reload.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [preferences]
-  );
-  const orthographyUnit = useMemo(
-    () => preferences?.learningMode === "speaking_and_reading" ? selectOrthographyUnit(orthographyUnits, learningState) : undefined,
-    // Keep this session's script unit stable while the learner works through it.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [preferences]
-  );
-
-  const chooseMode = (next: LearningPreferences) => {
-    savePreferences(next);
-    setPreferences(next);
-  };
-
-  if (!ready) return <p className="panel muted">Preparing today’s lesson…</p>;
-  if (!preferences) return <Onboarding onChoose={chooseMode} />;
+  // Choose once at session start; ratings update progress without replacing the queue.
+  const [session] = useState(() => {
+    const courseConcepts = [
+      ...(preferences.referenceDeck === "ai_drafts_only" ? [] : learningConcepts),
+      ...referenceConceptsFor(preferences.referenceDeck)
+    ];
+    return selectSessionConcepts(courseConcepts, initialState, preferences.sessionMinutes);
+  });
+  const [orthographyUnit] = useState(() => preferences.learningMode === "speaking_and_reading"
+    ? selectOrthographyUnit(orthographyUnits, initialState)
+    : undefined);
 
   if (orthographyUnit && !orthographyComplete) {
     return (

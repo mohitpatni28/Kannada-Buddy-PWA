@@ -1,20 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { learningConcepts } from "@/data/learning-concepts";
 import { orthographyUnits } from "@/data/orthography-units";
 import { eligibleReferenceLearningConcepts } from "@/data/reference-learning-concepts";
-import { loadLearningState } from "@/lib/learningStore";
-import type { LearningState } from "@/lib/types";
+import { useLearningState } from "@/lib/useLearningState";
+import { useCurrentTime } from "@/lib/useCurrentTime";
 
 export default function ProgressPage() {
-  const [state, setState] = useState<LearningState>({ concepts: {}, orthography: {}, evidence: [] });
-  useEffect(() => setState(loadLearningState()), []);
+  const state = useLearningState();
+  const now = useCurrentTime();
 
   const stats = useMemo(() => {
     const progress = Object.values(state.concepts);
-    const now = Date.now();
     return {
       started: progress.length,
       strong: progress.filter((item) => item.stabilityDays >= 7).length,
@@ -22,7 +21,7 @@ export default function ProgressPage() {
         + Object.values(state.orthography).filter((item) => new Date(item.nextReviewAt).getTime() <= now).length,
       scriptUnits: Object.keys(state.orthography).length
     };
-  }, [state]);
+  }, [state, now]);
 
   const allConcepts = [...learningConcepts, ...eligibleReferenceLearningConcepts];
   const startedConcepts = allConcepts.filter((concept) => state.concepts[concept.id]);
