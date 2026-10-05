@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { orthographyUnits } from "@/data/orthography-units";
 import { activeLearningConcepts, learningMetrics } from "@/lib/learningMetrics";
 import { ConceptPractice } from "@/components/ConceptPractice";
@@ -22,6 +22,12 @@ export function LearningHome() {
   if (!ready) return <p className="panel muted">Preparing today’s lesson…</p>;
   if (!preferences) return <Onboarding onChoose={savePreferences} />;
   return <LearningSession key={JSON.stringify(preferences)} preferences={preferences} initialState={learningState} />;
+}
+
+function CompletionHeading({ caughtUp }: { caughtUp: boolean }) {
+  const heading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => { heading.current?.focus(); }, []);
+  return <h1 ref={heading} tabIndex={-1}>{caughtUp ? "You’re caught up." : "Kannada, made usable."}</h1>;
 }
 
 function LearningSession({ preferences, initialState }: { preferences: LearningPreferences; initialState: LearningState }) {
@@ -83,7 +89,7 @@ function LearningSession({ preferences, initialState }: { preferences: LearningP
       <div className="page completion-page">
         <section className="hero compact-hero">
           <p className="eyebrow">{caughtUp ? "Reviews complete" : "Session complete"}</p>
-          <h1>{caughtUp ? "You’re caught up." : "Kannada, made usable."}</h1>
+          <CompletionHeading caughtUp={caughtUp} />
           <p className="lede">{caughtUp
             ? "Nothing is due yet. Waiting before the next retrieval makes the memory work harder—and last longer."
             : `You practised ${session.length} communicative concepts${relearningIds.length ? ` and repaired ${relearningIds.length} difficult ${relearningIds.length === 1 ? "item" : "items"}` : ""}. The next session will mix due reviews with a small amount of new material.`}</p>

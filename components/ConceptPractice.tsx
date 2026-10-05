@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AudioButton } from "@/components/AudioButton";
 import { VoiceRecorder } from "@/components/VoiceRecorder";
 import type { LearningConcept, LearningPreferences, PracticeOutcome, ReadingOutcome } from "@/lib/types";
@@ -24,6 +24,16 @@ export function ConceptPractice({
   const [showScript, setShowScript] = useState(preferences.learningMode === "speaking_and_reading");
   const [showRoman, setShowRoman] = useState(preferences.romanization === "always");
   const [speakingOutcome, setSpeakingOutcome] = useState<PracticeOutcome | null>(null);
+  const stageHeading = useRef<HTMLHeadingElement>(null);
+  const scriptAnswer = useRef<HTMLParagraphElement>(null);
+  const romanAnswer = useRef<HTMLParagraphElement>(null);
+  const requestedHelpFocus = useRef<"script" | "roman" | null>(null);
+  useEffect(() => { stageHeading.current?.focus(); }, [revealed, speakingOutcome]);
+  useEffect(() => {
+    if (requestedHelpFocus.current === "script") scriptAnswer.current?.focus();
+    if (requestedHelpFocus.current === "roman") romanAnswer.current?.focus();
+    requestedHelpFocus.current = null;
+  }, [showScript, showRoman]);
   const readingMode = preferences.learningMode === "speaking_and_reading";
 
   const rateSpeaking = (outcome: PracticeOutcome) => {
@@ -63,7 +73,7 @@ export function ConceptPractice({
       {!revealed ? (
         <div className="practice-prompt">
           <p className="eyebrow">Say it in Kannada</p>
-          <h2>{concept.intent}</h2>
+          <h2 ref={stageHeading} tabIndex={-1}>{concept.intent}</h2>
           <p className="lede">{concept.situation}</p>
           <p className="attempt-cue">{corrective
             ? "Retrieve it again without looking. This successful repair is what makes the correction stick."
@@ -73,14 +83,14 @@ export function ConceptPractice({
       ) : !speakingOutcome ? (
         <div className="practice-answer">
           <div className="answer-heading">
-            <p className="eyebrow">Compare your answer</p>
-            <AudioButton script={concept.form.kannadaScript} roman={concept.form.kannadaRoman} audioUrl={concept.audioUrl} label="Play Kannada reference" />
+            <h2 className="eyebrow" ref={stageHeading} tabIndex={-1}>Compare your answer</h2>
+            <AudioButton script={concept.form.kannadaScript} roman={concept.form.kannadaRoman} audioUrl={concept.audioUrl} label={`Play Kannada reference for ${concept.intent}`} />
           </div>
-          {showScript ? <p className="answer-script kannada-font" lang="kn">{concept.form.kannadaScript}</p> : null}
-          {showRoman || !readingMode ? <p className="answer-roman">{concept.form.kannadaRoman}</p> : null}
+          {showScript ? <p ref={scriptAnswer} tabIndex={-1} className="answer-script kannada-font" lang="kn">{concept.form.kannadaScript}</p> : null}
+          {showRoman || !readingMode ? <p ref={romanAnswer} tabIndex={-1} className="answer-roman">{concept.form.kannadaRoman}</p> : null}
           <div className="action-row">
-            {!showScript ? <button className="button secondary" type="button" onClick={() => setShowScript(true)}>Show Kannada script</button> : null}
-            {readingMode && !showRoman ? <button className="button secondary" type="button" onClick={() => setShowRoman(true)}>Show romanization</button> : null}
+            {!showScript ? <button className="button secondary" type="button" onClick={() => { requestedHelpFocus.current = "script"; setShowScript(true); }}>Show Kannada script</button> : null}
+            {readingMode && !showRoman ? <button className="button secondary" type="button" onClick={() => { requestedHelpFocus.current = "roman"; setShowRoman(true); }}>Show romanization</button> : null}
           </div>
           {concept.pattern ? <p className="pattern-note"><strong>Pattern</strong> {concept.pattern}</p> : null}
           {concept.pronunciationNote ? <p className="small muted">Pronunciation: {concept.pronunciationNote}</p> : null}
@@ -98,11 +108,11 @@ export function ConceptPractice({
       ) : (
         <div className="reading-check">
           <p className="eyebrow">Reading minute</p>
-          <h2>Read this aloud</h2>
-          <p className="answer-script kannada-font" lang="kn">{concept.form.kannadaScript}</p>
+          <h2 ref={stageHeading} tabIndex={-1}>Read this aloud</h2>
+          <p ref={scriptAnswer} tabIndex={-1} className="answer-script kannada-font" lang="kn">{concept.form.kannadaScript}</p>
           <p className="small muted">Apply the letters and vowel-sign patterns from the script pathway to this real phrase.</p>
-          {showRoman ? <p className="answer-roman">{concept.form.kannadaRoman}</p> : (
-            <button className="button secondary" type="button" onClick={() => setShowRoman(true)}>Show reading help</button>
+          {showRoman ? <p ref={romanAnswer} tabIndex={-1} className="answer-roman">{concept.form.kannadaRoman}</p> : (
+            <button className="button secondary" type="button" onClick={() => { requestedHelpFocus.current = "roman"; setShowRoman(true); }}>Show reading help</button>
           )}
           <div className="rating-grid">
             <button className="button" type="button" onClick={() => rateReading(showRoman ? "hinted" : "read")}>{showRoman ? "Read with help" : "Read it"}</button>

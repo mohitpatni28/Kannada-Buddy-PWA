@@ -3,7 +3,9 @@ import { AudioButton } from "@/components/AudioButton";
 
 export function PhraseCard({ phrase, compact = false }: { phrase: PhraseItem; compact?: boolean }) {
   const automated = phrase.automation;
-  const statusLabel = phrase.status === "ai_draft"
+  const statusLabel = phrase.publicationReview && phrase.status === "approved"
+    ? "Published admin review"
+    : phrase.status === "ai_draft"
     ? "AI reference draft"
     : phrase.status === "ai_draft_caution"
       ? "AI draft · use caution"

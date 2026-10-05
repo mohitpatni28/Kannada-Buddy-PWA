@@ -5,16 +5,19 @@ import type { PhraseItem, PhraseStatus } from "@/lib/types";
 import { setPhraseStatus, updatePhraseOverride } from "@/lib/libraryStore";
 import { AudioButton } from "@/components/AudioButton";
 
-export function AdminPhraseCard({ phrase }: { phrase: PhraseItem }) {
+export function AdminPhraseCard({ phrase, onDecision }: { phrase: PhraseItem; onDecision?: (phrase: PhraseItem, status: PhraseStatus) => void }) {
   const [draft, setDraft] = useState(phrase);
   const [editing, setEditing] = useState(false);
+  const [error, setError] = useState("");
   const automation = phrase.automation;
 
   const setStatus = (status: PhraseStatus) => {
-    setPhraseStatus(phrase.id, status);
+    try { setPhraseStatus(phrase.id, status); setError(""); onDecision?.(phrase, status); }
+    catch { setError("Could not save the decision. Check browser storage permissions and try again."); }
   };
 
   const save = () => {
+    try {
     updatePhraseOverride(phrase.id, {
       english: draft.english,
       kannadaRoman: draft.kannadaRoman,
@@ -25,11 +28,13 @@ export function AdminPhraseCard({ phrase }: { phrase: PhraseItem }) {
       isBengaluruPractical: draft.isBengaluruPractical,
       status: draft.status
     });
-    setEditing(false);
+    setEditing(false); setError("");
+    } catch { setError("Could not save the edit. Check browser storage permissions and try again."); }
   };
 
   return (
     <article className="phrase-card">
+      {error ? <p className="small" role="alert">{error}</p> : null}
       {editing ? (
         <div className="grid">
           <input aria-label="English meaning" className="field" value={draft.english} onChange={(event) => setDraft({ ...draft, english: event.target.value })} />
@@ -64,7 +69,7 @@ export function AdminPhraseCard({ phrase }: { phrase: PhraseItem }) {
           <div className="phrase-main">
             <p className="english">{phrase.english}</p>
             <p className="roman">{phrase.kannadaRoman}</p>
-            <p className="script">{phrase.kannadaScript}</p>
+            <p className="script kannada-font" lang="kn">{phrase.kannadaScript}</p>
           </div>
           <div className="meta-row">
             <span className="pill">{phrase.source}</span>
@@ -103,13 +108,13 @@ export function AdminPhraseCard({ phrase }: { phrase: PhraseItem }) {
                 </div>
               ) : <p className="small muted">No deterministic structural issue detected.</p>}
               <p className="draft-warning small">
-                Automated reference only. It has not been reviewed by a human or native speaker and is not course/audio material.
+                {phrase.publicationReview ? `Published admin review by ${phrase.publicationReview.reviewer}. This is not a native-speaker or audio approval.` : "The original automated draft has no recorded native-speaker or audio review. Local approval must be exported and published before it changes the shared course."}
               </p>
             </details>
           ) : null}
           <div className="action-row">
             <button className="button" type="button" onClick={() => setStatus("approved")}>
-              Approve locally for Library
+              Approve for export
             </button>
             <button className="button secondary" type="button" onClick={() => { setDraft(phrase); setEditing(true); }}>
               Edit

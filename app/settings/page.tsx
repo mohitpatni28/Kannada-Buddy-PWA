@@ -12,12 +12,18 @@ export default function SettingsPage() {
   const packagedAudioCount = Object.keys(audioPack).length;
   const preferences = usePreferences() ?? defaultSpeakingPreferences;
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState("");
 
   const update = (patch: Partial<LearningPreferences>) => {
     const next = { ...preferences, ...patch };
-    savePreferences(next);
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 1200);
+    try {
+      savePreferences(next);
+      setError("");
+      setSaved(true);
+    } catch {
+      setSaved(false);
+      setError("Could not save settings in this browser. Check storage permissions and try again.");
+    }
   };
 
   return (
@@ -57,15 +63,15 @@ export default function SettingsPage() {
           value={preferences.referenceDeck}
           onChange={(event) => update({ referenceDeck: event.target.value as ReferenceDeckPreference })}
         >
-          <option value="safe_ai_drafts">Core + {safeReferenceLearningConcepts.length} regular AI drafts</option>
+          <option value="safe_ai_drafts">Reviewed + {safeReferenceLearningConcepts.length} regular AI drafts</option>
           <option value="all_eligible_ai_drafts">
-            Core + all eligible drafts ({safeReferenceLearningConcepts.length + cautionReferenceLearningConcepts.length}, including {cautionReferenceLearningConcepts.length} caution)
+            Reviewed + all eligible drafts ({safeReferenceLearningConcepts.length + cautionReferenceLearningConcepts.length}, including {cautionReferenceLearningConcepts.length} caution)
           </option>
           <option value="ai_drafts_only">Regular AI drafts only ({safeReferenceLearningConcepts.length})</option>
-          <option value="core_only">Core course only</option>
+          <option value="core_only">Reviewed phrases only</option>
         </select>
         <p className="small muted">
-          Structurally held phrases never enter learning sessions. AI drafts have no approved audio and do not claim
+          Held phrases enter lessons only after a reviewed publication. AI drafts have no approved audio and do not claim
           human or native review.
         </p>
       </section>
@@ -100,6 +106,7 @@ export default function SettingsPage() {
         <span className={packagedAudioCount ? "pill" : "pill status-warning"}>{packagedAudioCount ? `${packagedAudioCount} reviewed clips installed` : "Audio pack not installed"}</span>
       </section>
       <LocalBackup />
+      {error ? <p className="small" role="alert">{error}</p> : null}
       {saved ? <p className="small muted" role="status">Settings saved on this device.</p> : null}
     </div>
   );

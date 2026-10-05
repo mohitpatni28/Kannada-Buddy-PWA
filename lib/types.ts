@@ -54,6 +54,11 @@ export type PhraseItem = {
   license?: string;
   status: PhraseStatus;
   automation?: PhraseAutomation;
+  publicationReview?: {
+    reviewer: string;
+    reviewedAt: string;
+    checks: { meaning: true; script: true; romanization: true; context: true };
+  };
   isBengaluruPractical: boolean;
   createdAt: string;
   updatedAt: string;
@@ -106,7 +111,7 @@ export type ConceptForm = {
   usePriority: "produce" | "recognize" | "reference";
   review: {
     status: "needs_native_review" | "reviewed";
-    source: "manual_course_draft" | "automated_reference_draft" | "native_review";
+    source: "manual_course_draft" | "automated_reference_draft" | "native_review" | "admin_review";
     reviewer?: string;
     reviewedAt?: string;
   };
@@ -123,7 +128,7 @@ export type LearningConcept = {
   usageNote?: string;
   form: ConceptForm;
   audioUrl?: string;
-  contentTier?: "core" | "ai_draft" | "ai_draft_caution";
+  contentTier?: "core" | "reviewed_reference" | "ai_draft" | "ai_draft_caution";
   sourceRisk?: "low" | "medium" | "high";
 };
 

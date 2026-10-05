@@ -13,7 +13,7 @@ Kannada Buddy is a mobile-first, local-first Kannada learning PWA built with Nex
 - `public/`: manifest, icons, and service worker.
 - `scripts/`: content import tooling.
 
-Progress and admin edits currently live in browser storage. Preserve this data and the distinction between approved content and raw imports.
+Progress and admin edits live in browser storage. Reviewed exports are validated into `data/published-phrases.json`, then committed and redeployed for shared availability. Preserve local history, immutable source content, and the distinction between admin review, native review, and audio approval.
 
 ## Always delegate
 
@@ -85,7 +85,7 @@ pnpm test
 pnpm test:e2e
 ```
 
-`pnpm lint` runs ESLint directly with the Next.js Core Web Vitals and TypeScript flat configurations and rejects warnings. `pnpm test` runs the Vitest unit, integration, and regression tests. `pnpm test:e2e` runs Playwright against a production server; run `pnpm build` first and install Chromium with `pnpm exec playwright install chromium`. An existing Chromium executable can be selected with `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`. The initial tests cover lint enforcement, storage subscriptions, learning sessions, preferences, and library/admin flows; extend coverage for every subsequent behavior change rather than assuming the rest of the app is already fully covered. Run `pnpm content:validate` and `pnpm content:validate-all` for reference-content changes. A build or typecheck is not a substitute for tests. Update this section when commands or tooling change.
+`pnpm lint` runs ESLint directly with the Next.js Core Web Vitals and TypeScript flat configurations and rejects warnings. `pnpm test` runs the Vitest unit, integration, and regression tests. `pnpm test:e2e` runs Playwright against a production server; run `pnpm build` first and install Chromium with `pnpm exec playwright install chromium`. An existing Chromium executable can be selected with `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`. The initial tests cover lint enforcement, storage subscriptions, learning sessions, preferences, and library/admin flows; extend coverage for every subsequent behavior change rather than assuming the rest of the app is already fully covered. Run `pnpm content:validate` and `pnpm content:validate-all` for reference-content changes. For publishing changes, validate an actual exported fixture with `pnpm reviews:check --input /path/to/export.json`; `pnpm reviews:apply --input /path/to/export.json` updates the tracked publication artifact and must only apply genuine completed reviews. Browser tests use temporary artifacts rather than inventing real approvals. A build or typecheck is not a substitute for tests. Update this section when commands or tooling change.
 
 ## GitHub identity and Vercel deployments
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { OrthographyUnit, PracticeOutcome } from "@/lib/types";
 
 export function OrthographyPractice({
@@ -14,6 +14,8 @@ export function OrthographyPractice({
 }) {
   const [stage, setStage] = useState<"study" | "test" | "retry">("study");
   const [madeError, setMadeError] = useState(false);
+  const stageHeading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => { stageHeading.current?.focus(); }, [stage]);
   const question = unit.recognition[previousAttempts % unit.recognition.length];
 
   const choose = (answer: string) => {
@@ -35,7 +37,7 @@ export function OrthographyPractice({
         <div className="grid">
           <div>
             <p className="eyebrow">Alphabet and decoding</p>
-            <h2>{unit.title}</h2>
+            <h2 ref={stageHeading} tabIndex={-1}>{unit.title}</h2>
             <p className="lede">{unit.explanation}</p>
           </div>
           <div className="grapheme-grid" aria-label={`${unit.title} symbols`}>
@@ -53,7 +55,7 @@ export function OrthographyPractice({
       ) : stage === "test" ? (
         <div className="grid">
           <p className="eyebrow">Recognise without romanization</p>
-          <h2>{question.prompt}</h2>
+          <h2 ref={stageHeading} tabIndex={-1}>{question.prompt}</h2>
           <div className="grapheme-options" aria-label="Kannada letter choices">
             {question.options.map((option) => (
               <button className="grapheme-option kannada-font" lang="kn" type="button" key={option} onClick={() => choose(option)}>{option}</button>
@@ -63,7 +65,7 @@ export function OrthographyPractice({
       ) : (
         <div className="grid">
           <p className="eyebrow">Correct, then retrieve</p>
-          <h2>Look once: <span className="kannada-font" lang="kn">{question.answer}</span> means {unit.symbols.find((item) => item.grapheme === question.answer)?.sound}.</h2>
+          <h2 ref={stageHeading} tabIndex={-1}>Look once: <span className="kannada-font" lang="kn">{question.answer}</span> means {unit.symbols.find((item) => item.grapheme === question.answer)?.sound}.</h2>
           <p className="muted">Hide the answer mentally, then try the same choice again.</p>
           <div className="action-row">
             <button className="button" type="button" onClick={() => setStage("test")}>Try again now</button>

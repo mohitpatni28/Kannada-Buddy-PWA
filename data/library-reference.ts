@@ -1,7 +1,9 @@
 import enrichmentData from "@/data/library-enrichment-all.json";
+import publishedData from "@/data/published-phrases.json";
 import { seedPhrases } from "@/data/seed-phrases";
 import { wikivoyagePhrases } from "@/data/wikivoyage-phrases";
 import type { PhraseAutomation, PhraseItem, PhraseStatus } from "@/lib/types";
+import { validatePublishedReviews, type ReviewRecord } from "@/lib/reviewPublishing";
 
 type EnrichmentItem = {
   sourceId: string;
@@ -82,18 +84,39 @@ function toReferencePhrase(item: EnrichmentItem): PhraseItem {
   };
 }
 
-export const automatedReferencePhrases = artifact.items.map(toReferencePhrase);
+const originalReferencePhrases = artifact.items.map(toReferencePhrase);
+export const sourceLibraryPhrases: PhraseItem[] = [...seedPhrases, ...originalReferencePhrases];
+export const sourceAdminLibraryPhrases = sourceLibraryPhrases;
+
+// Only the validated repository artifact is shared with all users. Browser edits stay local.
+export function applyPublishedReviews(phrases: PhraseItem[], records: ReviewRecord[]): PhraseItem[] {
+  const byId = new Map(records.map((record) => [record.id, record]));
+  return phrases.map((phrase) => {
+    const record = byId.get(phrase.id);
+    return record ? {
+      ...phrase,
+      ...record.content,
+      status: "approved",
+      publicationReview: record.review,
+      updatedAt: record.review.reviewedAt
+    } : phrase;
+  });
+}
+
+const publishedReviews = validatePublishedReviews(publishedData, sourceLibraryPhrases);
+export const automatedReferencePhrases = applyPublishedReviews(originalReferencePhrases, publishedReviews.records);
+const publishedSeedPhrases = applyPublishedReviews(seedPhrases, publishedReviews.records);
 export const safeAutomatedReferencePhrases = automatedReferencePhrases.filter(
   (phrase) => phrase.status !== "human_review_required"
 );
 
 export const libraryPhrases: PhraseItem[] = [
-  ...seedPhrases.filter((phrase) => phrase.status === "approved"),
+  ...publishedSeedPhrases.filter((phrase) => phrase.status === "approved"),
   ...safeAutomatedReferencePhrases
 ];
 
 export const adminLibraryPhrases: PhraseItem[] = [
-  ...seedPhrases,
+  ...publishedSeedPhrases,
   ...automatedReferencePhrases
 ];
 

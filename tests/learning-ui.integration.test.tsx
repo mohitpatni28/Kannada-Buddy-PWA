@@ -21,7 +21,9 @@ describe("adaptive session queue regression", () => {
     render(<LearningHome />);
     expected.forEach((concept, index) => {
       expect(screen.getByRole("heading", { name: concept.intent })).toBeTruthy();
+      expect(document.activeElement).toBe(screen.getByRole("heading", { name: concept.intent }));
       fireEvent.click(screen.getByRole("button", { name: "Reveal and compare" }));
+      expect(document.activeElement).toBe(screen.getByRole("heading", { name: "Compare your answer" }));
       fireEvent.click(screen.getByRole("button", { name: index === 0 ? "Not yet" : "Said it" }));
     });
     expect(screen.getByRole("heading", { name: expected[0].intent })).toBeTruthy();
@@ -40,12 +42,14 @@ describe("adaptive session queue regression", () => {
     const expected = selectSessionConcepts(learningConcepts, { concepts: {}, orthography: {}, evidence: [] }, 5);
     render(<LearningHome />);
     fireEvent.click(screen.getByRole("button", { name: "Try one recognition check" }));
+    expect(document.activeElement).toBe(screen.getByRole("heading", { name: unit.recognition[0].prompt }));
     fireEvent.click(screen.getByRole("button", { name: unit.recognition[0].answer }));
     expect(screen.getByRole("heading", { name: expected[0].intent })).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Reveal and compare" }));
     fireEvent.click(screen.getByRole("button", { name: "Said it" }));
-    expect(screen.getByRole("heading", { name: "Read this aloud" })).toBeTruthy();
+    expect(document.activeElement).toBe(screen.getByRole("heading", { name: "Read this aloud" }));
     fireEvent.click(screen.getByRole("button", { name: "Show reading help" }));
+    expect(document.activeElement?.textContent).toBe(expected[0].form.kannadaRoman);
     fireEvent.click(screen.getByRole("button", { name: "Read with help" }));
     expect(screen.getByRole("heading", { name: expected[1].intent })).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Reveal and compare" }));

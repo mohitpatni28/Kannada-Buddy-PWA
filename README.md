@@ -16,7 +16,8 @@ A personal, mobile-first Kannada learning PWA for everyday Bengaluru situations:
 - Manual JSON backup and restore in Settings; no backend or cross-device synchronization
 - Locally packaged Noto Sans Kannada font
 - Packaged-audio-first playback; device speech is explicitly labelled as an unreviewed preview
-- Library and protected `/admin` screens for approving, rejecting, and editing phrase candidates locally
+- Protected admin review, checked JSON exports, and validated publishing into the shared course and reference library
+- Icon navigation, a situation-based Practice hub, keyboard focus handling, and light/dark themes
 - Sources and licenses page for future open-content imports
 
 ## Run locally
@@ -115,11 +116,29 @@ The full artifact feeds the reference Library, Admin review queues, and an expli
 labelled reference-learning deck. Regular `library_ai_draft` entries are included in
 spaced-repetition sessions by default. `library_ai_draft_caution` entries require an
 explicit Settings choice, while `hold_for_human_review` entries remain Admin-only and
-can never enter a session. The learning deck stores progress on the device and retains
+cannot enter a session until reviewed and published through the workflow below. The learning deck stores progress on the device and retains
 AI-draft provenance in practice and history views; it does not turn a draft into an
 approved lesson or claim native review. Settings also offers a regular-AI-drafts-only
 mode for focused reference study. Admin shows the exact source and draft side by side,
 structural issue flags, confidence, and review priority.
+
+## Publish reviewed phrases
+
+1. Open protected `/admin`. Edit a candidate, then choose **Approve for export**. Resolved items leave pending queues; find them in Approved. This decision affects only this browser.
+2. In **Publish reviewed phrases**, inspect the selected phrases, enter the reviewer name, and confirm the four checks for meaning, Kannada script, romanization, and usage/context. Confirm only checks actually performed. Export the reviewed JSON. This export excludes learner progress and credentials.
+3. In the project folder, validate and apply the downloaded file:
+
+   ```bash
+   pnpm reviews:check --input /path/to/kannada-reviewed-phrases.json
+   pnpm reviews:apply --input /path/to/kannada-reviewed-phrases.json
+   ```
+
+   Checking changes no files. Applying merges reviews into `data/published-phrases.json`; it does not push or deploy. Unknown or duplicate IDs, stale original source fields/hashes, incomplete checks, missing script, unsupported fields, malformed dates, and older replacement reviews are rejected. Keep the downloaded export as a recovery copy of your reviewed edits.
+4. Review the content diff, run the validation commands above, obtain the independent reviews required by [AGENTS.md](AGENTS.md), commit as `fakecoder28`, and push. Confirm Vercel successfully deploys that exact commit.
+
+After deployment, reviewed content is available in the shared course, search, and eligible practice decks, including candidates previously held for review. Stable IDs preserve existing learning history. Admin review is labeled separately from native-speaker review; changing a reviewed phrase's Kannada form removes incompatible packaged audio. Source licenses and attribution stay attached. The initial published artifact is empty: no human approvals have been invented.
+
+Exports contain approved reviews, not deletions or rejected decisions. Rejecting a previously published phrase locally does not withdraw it from other users; withdrawal currently requires a reviewed repository change. Learning progress and preferences stay in local storage, with Settings backup/restore; this workflow adds no backend or device synchronization.
 
 ## Generate the Kannada audio pack
 
@@ -164,9 +183,9 @@ The packaging command refuses incomplete approvals, copies passed WAV files to `
 
 The app is local-first. Learning progress and admin edits are stored in the browser, not synced to a server yet. Compatible v1 phrase progress is migrated into the current concept store on first load.
 
-Course phrases remain marked `needs_native_review` until a fluent Kannada reviewer validates wording, register, script, romanization, and any packaged synthetic audio. Generated audio must not be assigned to `audioUrl` before that review passes.
+Unpublished course drafts retain their pending-review status. Published admin reviews are separately attributed and do not certify fluent native-speaker review. Generated audio must not be assigned to `audioUrl` until its separate wording, register, script, romanization, and audio review passes.
 
-The admin screen edits only the current browser's library. Approval there does not publish changes for other users or certify course/audio review records. Settings can export and restore local data through a JSON file; restoring replaces the backed-up stores in this browser. Clearing site data deletes local progress, preferences, and admin edits. A backup can recover learning history and settings; admin edits are excluded and cannot be recovered from it. There is no automatic synchronization or server database. The service worker registers in production; public offline availability depends on an initial online visit and successful caching. Admin requires an online connection and is excluded from offline caches. The admin link opens a full browser navigation, and protected requests pass directly to the network so the browser can show its username/password prompt. Browsers may reuse credentials already entered; use a private window to test a fresh login. Device speech availability depends on installed voices and browser support.
+Admin decisions remain local until exported, validated, committed, and redeployed. Published admin reviews enter the shared course and library, with explicit admin-review attribution; they do not certify native-speaker or audio review. Settings can export and restore local data through a JSON file; restoring replaces the backed-up stores in this browser. Clearing site data deletes local progress, preferences, and admin edits. A backup can recover learning history and settings; admin edits are excluded and cannot be recovered from it. There is no automatic synchronization or server database. The service worker registers in production; public offline availability depends on an initial online visit and successful caching. Admin requires an online connection and is excluded from offline caches. The admin link opens a full browser navigation, and protected requests pass directly to the network so the browser can show its username/password prompt. Browsers may reuse credentials already entered; use a private window to test a fresh login. Device speech availability depends on installed voices and browser support.
 
 ## Admin access
 
@@ -178,7 +197,7 @@ Public learning routes remain available without admin credentials. Protected HTM
 
 Speaking outcomes are self-reported and do not measure pronunciation automatically. A phrase becomes retained after independent recall on two distinct scheduled review days, with the latest recall gap at least seven days, and remains retained only while its review is not overdue. Same-session corrections and initial successes cannot establish retention. Speaking and reading evidence are tracked separately; old history keeps its counters but does not receive invented recall dates.
 
-The dashboard follows your selected decks and reading mode for due counts. Lifetime attempts use persistent counters, while detailed recent history holds the latest 500 checks. The 84 scenario additions retain their source attribution and draft status; native review and verified audio are still required before they can be promoted.
+The dashboard follows your selected decks and reading mode for due counts. Lifetime attempts use persistent counters, while detailed recent history holds the latest 500 checks. The initial 84 scenario drafts retain source attribution and draft status until an explicit reviewed publication. Admin review never certifies native-speaker review or audio.
 
 ## License and attribution
 

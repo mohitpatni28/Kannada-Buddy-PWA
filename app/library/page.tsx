@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { PhraseCard } from "@/components/PhraseCard";
-import { libraryDraftCounts, libraryPhrases } from "@/data/library-reference";
+import { adminLibraryPhrases } from "@/data/library-reference";
 import { useLibraryPhrases } from "@/lib/useLibraryPhrases";
 import { categoriesFor, searchPhrases } from "@/lib/search";
 
@@ -12,7 +12,8 @@ export default function LibraryPage() {
   const [category, setCategory] = useState("all");
   const [query, setQuery] = useState("");
   const [visibleCount, setVisibleCount] = useState(60);
-  const phrases = useLibraryPhrases(libraryPhrases);
+  const storedPhrases = useLibraryPhrases(adminLibraryPhrases);
+  const phrases = storedPhrases.filter((phrase) => ["approved", "ai_draft", "ai_draft_caution"].includes(phrase.status));
   const statusFiltered = phrases.filter((phrase) => status === "reference" || phrase.status === status);
   const results = searchPhrases(statusFiltered, query, category);
   const visible = results.slice(0, visibleCount);
@@ -37,12 +38,13 @@ export default function LibraryPage() {
       <section className="panel draft-disclosure">
         <strong>What the labels mean</strong>
         <p className="small muted">
-          {libraryDraftCounts.safe} source-linked AI drafts are available; {libraryDraftCounts.caution} high-stakes
-          entries carry caution labels. {libraryDraftCounts.held} structurally incomplete entries are excluded and
+          {phrases.filter((phrase) => phrase.status === "ai_draft").length} source-linked AI drafts are available; {counts.ai_draft_caution} high-stakes
+          entries carry caution labels. {storedPhrases.filter((phrase) => phrase.status === "human_review_required").length} structurally incomplete entries are excluded and
           remain in Admin for later review. Regular drafts are included in spaced-repetition sessions by default;
           caution drafts require an explicit Settings choice. No AI draft receives packaged audio or a human-review claim.
         </p>
         <Link className="button secondary" href="/settings">Choose learning content</Link>
+        <Link className="text-link" href="/phrasebook">Back to the selected course phrasebook</Link>
       </section>
       <section className="panel library-tools">
         <label className="small" htmlFor="library-search">Search English, Kannada, romanization, or tags</label>
@@ -54,11 +56,12 @@ export default function LibraryPage() {
           value={query}
           onChange={(event) => { setQuery(event.target.value); setVisibleCount(60); }}
         />
-        <label className="small" htmlFor="library-category">Category</label>
+        <label className="small" htmlFor="library-category">Source category</label>
         <select id="library-category" className="select" value={category} onChange={(event) => { setCategory(event.target.value); setVisibleCount(60); }}>
           <option value="all">All categories</option>
           {categories.map((item) => <option key={item} value={item}>{item}</option>)}
         </select>
+        <p className="small muted">Each reference has one source category. Related uses can overlap; search all categories to explore them.</p>
       </section>
       <div className="filter-row library-filters" role="group" aria-label="Filter library by review status">
         {["reference", "approved", "ai_draft", "ai_draft_caution"].map((item) => (
@@ -71,6 +74,7 @@ export default function LibraryPage() {
           Review queues
         </a>
       </div>
+      <p className="small muted">Status counts show all available references before your search and category filters. Local admin edits affect only this browser until published.</p>
       <p className="small muted" role="status">
         Showing {visible.length} of {results.length} matching references
       </p>
@@ -78,7 +82,7 @@ export default function LibraryPage() {
         {visible.map((phrase) => (
           <PhraseCard key={phrase.id} phrase={phrase} />
         ))}
-        {visible.length === 0 ? <p className="panel muted">No phrases match this filter.</p> : null}
+        {visible.length === 0 ? <div className="panel"><p className="muted">No phrases match this filter.</p><button className="button secondary" type="button" onClick={() => { setStatus("reference"); setCategory("all"); setQuery(""); setVisibleCount(60); }}>Clear filters</button></div> : null}
       </section>
       {visible.length < results.length ? (
         <button className="button secondary" type="button" onClick={() => setVisibleCount((count) => count + 60)}>

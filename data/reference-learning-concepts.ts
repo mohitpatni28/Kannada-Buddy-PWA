@@ -1,14 +1,21 @@
-import { selectedReferenceScenario } from "@/data/course-scenarios";
-import { automatedReferencePhrases } from "@/data/library-reference";
+import { courseScenarios, selectedReferenceScenario } from "@/data/course-scenarios";
+import { learningConcepts } from "@/data/learning-concepts";
+import { adminLibraryPhrases, automatedReferencePhrases } from "@/data/library-reference";
 import type { LearningConcept, PhraseItem, ReferenceDeckPreference } from "@/lib/types";
 
-function toLearningConcept(phrase: PhraseItem): LearningConcept {
+export function referencePhraseToLearningConcept(phrase: PhraseItem): LearningConcept {
   const automation = phrase.automation;
-  if (!phrase.kannadaScript || !automation) {
+  if (!phrase.kannadaScript || (!automation && !phrase.publicationReview)) {
     throw new Error(`Reference learning phrase is incomplete: ${phrase.id}`);
   }
 
-  const scenario = selectedReferenceScenario.get(phrase.id);
+  const publishedScenarioByCategory: Record<string, string> = {
+    basics: "everyday", family: "everyday", lodging: "home-stay", transport: "auto-travel",
+    food: "food-counter", shop: "shopping", numbers: "shopping", time: "meeting-time", phone: "phone-calls"
+  };
+  const scenario = selectedReferenceScenario.get(phrase.id) ?? (phrase.publicationReview
+    ? courseScenarios.find((item) => item.id === (publishedScenarioByCategory[phrase.category] ?? "everyday"))
+    : undefined);
 
   return {
     id: phrase.id,
@@ -17,16 +24,21 @@ function toLearningConcept(phrase: PhraseItem): LearningConcept {
     missionId: scenario?.id ?? `reference-${phrase.category.toLowerCase().replaceAll(/[^a-z0-9]+/g, "-")}`,
     missionTitle: scenario?.title ?? phrase.category,
     usageNote: phrase.usageNote,
-    contentTier: phrase.status === "ai_draft_caution" ? "ai_draft_caution" : "ai_draft",
-    sourceRisk: automation.risk,
+    contentTier: phrase.publicationReview ? "reviewed_reference" : phrase.status === "ai_draft_caution" ? "ai_draft_caution" : "ai_draft",
+    sourceRisk: automation?.risk,
     form: {
       phraseId: phrase.id,
       kannadaScript: phrase.kannadaScript.normalize("NFC"),
       kannadaRoman: phrase.kannadaRoman,
-      register: automation.register,
+      register: automation?.register ?? "neutral",
       variety: "standard-spoken",
       usePriority: "produce",
-      review: {
+      review: phrase.publicationReview ? {
+        status: "reviewed",
+        source: "admin_review",
+        reviewer: phrase.publicationReview.reviewer,
+        reviewedAt: phrase.publicationReview.reviewedAt
+      } : {
         status: "needs_native_review",
         source: "automated_reference_draft"
       }
@@ -66,11 +78,15 @@ export const safeReferenceLearningConcepts = automatedReferencePhrases
     if (confidenceDifference !== 0) return confidenceDifference;
     return 0;
   })
-  .map(toLearningConcept);
+  .map(referencePhraseToLearningConcept);
 
 export const cautionReferenceLearningConcepts = automatedReferencePhrases
   .filter((phrase) => phrase.status === "ai_draft_caution")
-  .map(toLearningConcept);
+  .map(referencePhraseToLearningConcept);
+
+export const reviewedReferenceLearningConcepts = adminLibraryPhrases
+  .filter((phrase) => phrase.status === "approved" && phrase.publicationReview && !learningConcepts.some((concept) => concept.id === phrase.id))
+  .map(referencePhraseToLearningConcept);
 
 export const eligibleReferenceLearningConcepts = [
   ...safeReferenceLearningConcepts,
@@ -78,7 +94,8 @@ export const eligibleReferenceLearningConcepts = [
 ];
 
 export function referenceConceptsFor(preference: ReferenceDeckPreference) {
-  if (preference === "core_only") return [];
-  if (preference === "all_eligible_ai_drafts") return eligibleReferenceLearningConcepts;
-  return safeReferenceLearningConcepts;
+  if (preference === "core_only") return reviewedReferenceLearningConcepts;
+  if (preference === "ai_drafts_only") return safeReferenceLearningConcepts;
+  return [...reviewedReferenceLearningConcepts, ...(preference === "all_eligible_ai_drafts"
+    ? eligibleReferenceLearningConcepts : safeReferenceLearningConcepts)];
 }

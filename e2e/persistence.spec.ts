@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { learningConcepts } from "../data/learning-concepts";
+import publishedReviews from "../data/published-phrases.json";
 
 const learningKey = "kannada-buddy-learning-state-v2";
 const preferenceKey = "kannada-buddy-learning-preferences-v2";
@@ -27,7 +28,8 @@ test("learning progress responds to real cross-tab updates and clearing", async 
 });
 
 test("adaptive session stays stable while rating and persists progress on reload", async ({ page }) => {
-  await page.clock.setFixedTime(new Date("2026-10-04T12:00:00.000Z"));
+  const sessionAt = new Date(Math.max(Date.parse("2026-10-04T12:00:00.000Z"), ...publishedReviews.records.map((record: { review: { reviewedAt: string } }) => Date.parse(record.review.reviewedAt))));
+  await page.clock.setFixedTime(sessionAt);
   await page.goto("/");
   const state = { concepts: Object.fromEntries(learningConcepts.map((concept) => [concept.id,
     savedConcept(concept.id, concept.id === "greet-hello" ? "2000-01-01T00:00:00.000Z" : "2100-01-01T00:00:00.000Z")
@@ -45,7 +47,7 @@ test("adaptive session stays stable while rating and persists progress on reload
   await expect(page.getByText("Session complete", { exact: true })).toBeVisible();
   const saved = await page.evaluate((key) => JSON.parse(localStorage.getItem(key) ?? "{}"), learningKey);
   expect(saved.concepts["greet-hello"].successes).toBe(3);
-  expect(saved.concepts["greet-hello"].nextReviewAt).toBe("2026-10-11T12:00:00.000Z");
+  expect(saved.concepts["greet-hello"].nextReviewAt).toBe(new Date(sessionAt.getTime() + 7 * 86400000).toISOString());
   expect(saved.concepts["greet-thanks"]).toEqual(state.concepts["greet-thanks"]);
   await page.goto("/review");
   await expect(page.locator(".stat-card").filter({ hasText: "due now" }).locator("strong")).toHaveText("0");
@@ -71,7 +73,7 @@ test("admin hydrates edited drafts and preserves edits through approval", async 
   await card.getByRole("button", { name: "Edit", exact: true }).click();
   await expect(page.getByRole("textbox", { name: "English meaning", exact: true })).toHaveValue("Browser regression phrase");
   await page.getByRole("button", { name: "Cancel", exact: true }).click();
-  await card.getByRole("button", { name: "Approve locally for Library", exact: true }).click();
+  await card.getByRole("button", { name: "Approve for export", exact: true }).click();
   await expect(card).toHaveCount(0);
   await page.getByRole("button", { name: /^approved \(\d+\)$/ }).click();
   await expect(card).toBeVisible();

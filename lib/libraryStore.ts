@@ -52,7 +52,14 @@ export function subscribeLibrary(onChange: () => void): () => void {
 }
 
 export function mergeOverrides(phrases: PhraseItem[], overrides = loadPhraseOverrides()) {
-  return phrases.map((phrase) => ({ ...phrase, ...(overrides[phrase.id] ?? {}) }));
+  return phrases.map((phrase) => {
+    const merged = { ...phrase, ...(overrides[phrase.id] ?? {}) };
+    // A published review applies to that wording, never to subsequent local edits.
+    const reviewedContentChanged = (["english", "kannadaRoman", "kannadaScript", "category", "usageNote"] as const)
+      .some((field) => (merged[field] ?? "") !== (phrase[field] ?? ""));
+    merged.publicationReview = reviewedContentChanged ? undefined : phrase.publicationReview;
+    return merged;
+  });
 }
 
 export function updatePhraseOverride(id: string, patch: Partial<PhraseItem>) {

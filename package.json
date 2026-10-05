@@ -15,9 +15,12 @@
     "audio:validate": "audio/.venv/bin/python audio/validate.py",
     "audio:package": "node scripts/package-reviewed-audio.mjs",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "reviews:check": "node --experimental-strip-types scripts/publish-reviewed-phrases.mjs --check",
+    "reviews:apply": "node --experimental-strip-types scripts/publish-reviewed-phrases.mjs --write"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
     "next": "16.2.10",
     "react": "19.0.0",
     "react-dom": "19.0.0"

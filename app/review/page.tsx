@@ -21,19 +21,28 @@ export default function ProgressPage() {
       <section className="band">
         <p className="eyebrow">Learning progress</p>
         <h1>What you can use</h1>
-        <p className="lede">Speaking is self-reported recall, not an automated pronunciation score. Retained means independent recall on two distinct scheduled review days, with the latest gap at least seven days, and no review overdue.</p>
+        <p className="lede">Speaking is self-reported recall, not an automated pronunciation score.</p>
+        <details>
+          <summary>How retention is counted</summary>
+          <p>Retained means independent recall on two distinct scheduled review days, with the latest gap at least seven days, and no review overdue. Speaking and reading evidence are counted separately.</p>
+        </details>
       </section>
-      <section className="progress-stats" aria-label="Active deck progress">
+      <section className="progress-stats" aria-label="Speaking phrase states">
         <article className="stat-card"><strong>{stats.new}</strong><span>new</span></article>
-        <article className="stat-card"><strong>{stats.learning}</strong><span>learning</span></article>
+        <article className="stat-card"><strong>{stats.learning + stats.due}</strong><span>learning</span></article>
         <article className="stat-card"><strong>{stats.retained}</strong><span>retained speaking</span></article>
+
+      </section>
+      <section className="panel" aria-label="Review work">
         <article className="stat-card"><strong>{stats.totalDue}</strong><span>due now</span></article>
+        <p>{stats.due} speaking phrase reviews{stats.scriptDue ? ` and ${stats.scriptDue} script checks` : ""}. Due phrases are included in learning above.</p>
+        <Link className="button" href="/today">{stats.totalDue ? "Practise due reviews" : stats.new ? "Start a practice session" : "Open practice"}</Link>
       </section>
       <section className="panel">
         <h2>Your active decks</h2>
-        <p>{stats.tiers.core} course concepts · {stats.tiers.ai} AI draft concepts. Due now includes {stats.due} phrases{stats.scriptDue ? ` and ${stats.scriptDue} script units` : ""}. Disabled decks keep their history and are excluded here.</p>
+        <p>{stats.tiers.core} reviewed phrases · {stats.tiers.ai} AI draft phrases. Disabled decks keep their history and are excluded here.</p>
         <p>Lifetime: {stats.lifetime.speaking} speaking attempts · {stats.lifetime.reading} reading attempts · {stats.lifetime.script} script checks.</p>
-        <p>Reading: {stats.readingStarted} concepts started · {stats.readingRetained} retained. Speaking and reading evidence are counted separately.</p>
+        <p>Reading: {stats.readingStarted} phrases attempted · {stats.readingRetained} retained. Reading attempts do not increase speaking retention.</p>
         <p>Last seven days: {stats.recentTruncated ? "at least " : ""}{stats.recent.length} recorded checks. {stats.recentTruncated ? "Detailed history keeps the latest 500 checks; lifetime totals remain complete." : "Imported history is excluded because its dates cannot prove recent practice."}</p>
       </section>
       <section className="grid" aria-label="Progress by situation">
@@ -58,14 +67,14 @@ export default function ProgressPage() {
                 <div className="meta-row">
                   <span className="pill">{progress.attempts} checks</span>
                   <span className="pill">{Math.max(0, Math.round((new Date(progress.nextReviewAt).getTime() - new Date(progress.lastSeenAt).getTime()) / 86400000))} day scheduled interval</span>
-                  <span className="pill">due {new Date(progress.nextReviewAt).toLocaleDateString()}</span>
+                  <span className="pill">script check due {new Date(progress.nextReviewAt).toLocaleDateString()}</span>
                 </div>
               </article>
             );
           })}
         </section>
       ) : null}
-      <Link className="button" href="/">Start today’s adaptive session</Link>
+      <Link className="button" href="/today">Start an adaptive practice session</Link>
       <section className="grid">
         <h2>Concept history</h2>
         {startedConcepts.map((concept) => {
@@ -81,10 +90,11 @@ export default function ProgressPage() {
                 <span className="pill">{progress.readingAttempts} reading attempts</span>
                 <span className="pill">{isRetained(progress.speakingRecall, progress.nextReviewAt, now) ? "retained" : new Date(progress.nextReviewAt).getTime() <= now ? "needs review" : "learning"}</span>
                 <span className="pill">{Math.max(0, Math.round((new Date(progress.nextReviewAt).getTime() - new Date(progress.lastSeenAt).getTime()) / 86400000))} day scheduled interval</span>
-                <span className="pill">due {new Date(progress.nextReviewAt).toLocaleDateString()}</span>
+                <span className="pill">speaking due {new Date(progress.nextReviewAt).toLocaleDateString()}</span>
+                {progress.readingNextReviewAt ? <span className="pill">reading due {new Date(progress.readingNextReviewAt).toLocaleDateString()}</span> : null}
                 <span className={concept.form.review.status === "reviewed" ? "pill" : "pill status-warning"}>
                   {concept.form.review.status === "reviewed"
-                    ? "native reviewed"
+                    ? concept.form.review.source === "native_review" ? "native reviewed" : "admin reviewed"
                     : concept.form.review.source === "automated_reference_draft"
                       ? concept.contentTier === "ai_draft_caution" ? "AI caution draft" : "AI reference draft"
                       : "review pending"}

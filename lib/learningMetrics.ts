@@ -24,7 +24,7 @@ export function learningMetrics(concepts: LearningConcept[], state: LearningStat
   const missions: Record<string, { title: string; total: number; started: number; retained: number; due: number }> = {};
   const upcoming: Array<{ id: string; title: string; at: string }> = [];
   for (const concept of concepts) {
-    tiers[!concept.contentTier || concept.contentTier === "core" ? "core" : "ai"]++;
+    tiers[!concept.contentTier || concept.contentTier === "core" || concept.contentTier === "reviewed_reference" ? "core" : "ai"]++;
     const mission = missions[concept.missionId] ??= { title: concept.missionTitle, total: 0, started: 0, retained: 0, due: 0 };
     mission.total++;
     const progress = state.concepts[concept.id];

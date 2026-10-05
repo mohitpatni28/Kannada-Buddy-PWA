@@ -33,7 +33,7 @@ function conceptProgress(nextReviewAt = "2026-10-11T06:00:00.000Z"): ConceptProg
     lastSeenAt: now, nextReviewAt, readingAttempts: 1, readingSuccesses: 1 };
 }
 function assertStat(label: string, expected: number, scope: Pick<typeof screen, "getByRole"> = screen) {
-  const card = within(scope.getByRole("region", { name: "Active deck progress" })).getByText(label).closest("article");
+  const card = within(scope.getByRole("region", { name: label === "due now" ? "Review work" : "Speaking phrase states" })).getByText(label).closest("article");
   expect(card?.querySelector("strong")?.textContent).toBe(String(expected));
 }
 
@@ -87,7 +87,7 @@ describe("adaptive progress UI and persisted learning state", () => {
       window.localStorage.setItem(progressKey, newValue);
       window.dispatchEvent(new StorageEvent("storage", { key: progressKey, newValue, storageArea: window.localStorage }));
     });
-    assertStat("learning", 0);
+    assertStat("learning", 1);
     assertStat("due now", 1);
     act(() => {
       window.localStorage.clear();
@@ -168,8 +168,13 @@ describe("admin status refresh regression", () => {
     window.localStorage.setItem(overridesKey, JSON.stringify(existing));
     render(<AdminPage />);
     expect(screen.getByText("Edited candidate", { selector: ".english" })).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Approve locally for Library" }));
-    expect(screen.getByText("Edited candidate", { selector: ".english" })).toBeTruthy();
+    const approval = screen.getByRole("button", { name: "Approve for export" });
+    approval.focus();
+    fireEvent.click(approval);
+    expect(screen.queryByText("Edited candidate", { selector: ".english" })).toBeNull();
+    expect(document.activeElement).toBe(screen.getByRole("status"));
+    expect(screen.getByRole("status").textContent).toContain("approved locally for export");
+    expect(screen.getByRole("button", { name: /^priority queue \(0\)/ }).getAttribute("aria-pressed")).toBe("true");
     fireEvent.click(screen.getByRole("button", { name: /^approved \(/ }));
     expect(screen.getByText("Edited candidate", { selector: ".english" })).toBeTruthy();
     const candidateCard = screen.getByText("Edited candidate", { selector: ".english" }).closest("article");

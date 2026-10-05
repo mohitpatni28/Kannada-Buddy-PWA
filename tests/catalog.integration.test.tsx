@@ -20,6 +20,7 @@ afterEach(() => vi.useRealTimers());
 describe("catalog pagination and filter regressions", () => {
   it("resets admin pagination on query and queue changes", () => {
     render(<AdminPage />);
+    fireEvent.click(screen.getByRole("button", { name: /^all \(/ }));
     expect(screen.getByRole("status").textContent).toBe("Showing 50 of 125 matching review items");
     fireEvent.click(screen.getByRole("button", { name: "Show 50 more" }));
     expect(screen.getByRole("status").textContent).toBe("Showing 100 of 125 matching review items");
@@ -38,7 +39,7 @@ describe("catalog pagination and filter regressions", () => {
     fireEvent.change(screen.getByRole("searchbox"), { target: { value: "Batch" } });
     expect(screen.getByRole("status").textContent?.trim()).toBe("Showing 60 of 125 matching references");
     fireEvent.click(screen.getByRole("button", { name: "Show 60 more" }));
-    fireEvent.change(screen.getByRole("combobox", { name: "Category" }), { target: { value: "greetings" } });
+    fireEvent.change(screen.getByRole("combobox", { name: "Source category" }), { target: { value: "greetings" } });
     expect(screen.getByRole("status").textContent?.trim()).toBe("Showing 60 of 125 matching references");
     fireEvent.click(screen.getByRole("button", { name: "Show 60 more" }));
     fireEvent.click(screen.getByRole("button", { name: /^approved \(/ }));
