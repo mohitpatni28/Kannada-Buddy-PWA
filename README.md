@@ -13,7 +13,7 @@
 
 Kannada Buddy helps people practising everyday Bengaluru conversations retrieve a phrase before seeing its answer, then track their next review on the same device. It provides speaking practice, an optional Kannada reading pathway, and a searchable phrasebook with visible content-review status.
 
-Release preparation is in progress. Content redistribution rights, private security reporting, and any unfinished checks remain visible in the [readiness record](docs/open-source-readiness.md).
+The repository is public, and the deployed app is available at [Kannada Buddy](https://kannada-buddy-pwa.vercel.app). Validation results and the accepted audio-licensing exception are recorded in the [readiness record](docs/open-source-readiness.md).
 
 ## Contents
 
@@ -39,8 +39,6 @@ The app does not score pronunciation automatically, synchronize devices, certify
 ## Quick start
 
 Use Node.js 22.22.2 or newer in the 22 line, Node.js 24.15.0 or newer in the 24 line, or Node.js 26 or newer, with pnpm. No admin credentials or model account are needed for learning routes.
-
-The repository is currently private. Cloning requires authorized GitHub access until it is published.
 
 <!-- checked-snippet: quickstart -->
 ```sh
@@ -135,8 +133,10 @@ pnpm docs:check
 
 The suites cover pure logic, UI and storage integration, regression cases, and browser workflows. They do not establish linguistic correctness or content redistribution rights. The [readiness record](docs/open-source-readiness.md) distinguishes actual results, blocked checks, and hosted CI verification.
 
-Follow [CONTRIBUTING.md](CONTRIBUTING.md) and the independent review requirements in [AGENTS.md](AGENTS.md). See [SECURITY.md](SECURITY.md) for reporting guidance and the pending private reporting channel. Do not put credentials, private backups, or exploit details in public issues.
+Follow [CONTRIBUTING.md](CONTRIBUTING.md) and the independent review requirements in [AGENTS.md](AGENTS.md). See [SECURITY.md](SECURITY.md) for the private vulnerability-reporting route and reporting guidance. Do not put credentials, private backups, or exploit details in public issues.
 
 Project code is [MIT licensed](LICENSE), copyright 2026 fakecoder28. Third-party code, content, fonts, model assets, and recordings keep their own terms and are not relicensed under MIT. The [workflow reference](docs/reference-workflows.md#license-and-attribution) and `/sources` describe existing attribution.
 
-Independently created learning text is licensed under [CC BY-SA 4.0](CONTENT-LICENSE.md). Wikivoyage-derived material retains its source attribution and share-alike obligations, including the source-linked AI drafts. Packaged-audio rights and other release checks remain unresolved, so this preparation does not claim public-release readiness.
+Independently created learning text is licensed under [CC BY-SA 4.0](CONTENT-LICENSE.md). Wikivoyage-derived material retains its source attribution and share-alike obligations, including the source-linked AI drafts.
+
+Packaged recordings are excluded from that text grant, and their output redistribution terms remain unverified. The maintainer accepted publication with that exception; it does not establish reuse permission for the recordings.

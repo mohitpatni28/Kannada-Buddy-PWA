@@ -18,6 +18,10 @@ Keep the source links, contributor attribution, modification notices, and applic
 
 ## Separate material
 
-Packaged audio, model weights, fonts, dependencies, and material imported from other sources are outside this original-text grant. Byte-identical regeneration established reproducible provenance for the sixteen packaged WAVs; original historical generation metadata was not recovered. Output redistribution terms still require confirmation before release. Model licensing alone is not presented as a license for those recordings.
+Packaged audio, model weights, fonts, dependencies, and material imported from other sources are outside this original-text grant. Byte-identical regeneration established reproducible provenance for the sixteen packaged WAVs.
 
-Native-speaker review, admin review, and audio approval describe quality decisions independently of licensing. Synthetic test exports do not establish genuine approvals. See [NOTICE](NOTICE) and the [rights inventory](docs/third-party-material.md) for evidence and unresolved release gates.
+Original historical generation metadata was not recovered. Model licensing alone is not presented as a license for those recordings.
+
+The maintainer accepted publication with an audio-licensing exception, citing noncommercial use. Output redistribution terms remain unverified, and noncommercial use does not establish redistribution permission. This exception does not extend the original-text grant to the recordings.
+
+Native-speaker review, admin review, and audio approval describe quality decisions independently of licensing. Synthetic test exports do not establish genuine approvals. See [NOTICE](NOTICE) and the [rights inventory](docs/third-party-material.md) for provenance evidence and the remaining licensing uncertainty.

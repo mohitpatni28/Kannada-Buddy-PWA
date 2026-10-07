@@ -33,12 +33,14 @@ Model weights are not included in this repository. This declaration does
 not establish a license for the packaged WAVs. Byte-identical regeneration
 established reproducible provenance; original historical metadata was not
 recovered. Evidence: data/audio-provenance.json. Output redistribution
-rights require confirmation before open-source release.
+rights remain unverified. The maintainer accepted publication with an
+audio-licensing exception, citing noncommercial use; this acceptance does
+not establish redistribution permission.
 
 Independently created learning text is licensed under CC BY-SA 4.0 to the
 extent of the maintainer's rights. See CONTENT-LICENSE.md for the exact scope.
 This grant does not replace Wikivoyage source obligations or establish rights
-to packaged audio. See docs/third-party-material.md for release blockers.
+to packaged audio. See docs/third-party-material.md for provenance and remaining licensing uncertainty.
 
 Vendored Parler-TTS inference code
 Copyright 2024 The HuggingFace Inc. team
