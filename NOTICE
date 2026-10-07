@@ -1,0 +1,48 @@
+Kannada Buddy
+Copyright (c) 2026 fakecoder28
+
+Project code is provided under the MIT License in LICENSE. Third-party
+material retains its own terms; this notice does not relicense it.
+
+Wikivoyage Kannada phrasebook contributors
+Source: https://en.wikivoyage.org/wiki/Kannada_phrasebook
+Contributor history: https://en.wikivoyage.org/w/index.php?title=Kannada_phrasebook&action=history
+Terms: https://en.wikivoyage.org/wiki/Wikivoyage:Copyleft
+Current text license: Creative Commons Attribution-ShareAlike 4.0
+https://creativecommons.org/licenses/by-sa/4.0/
+The upstream page also credits material under CC BY-SA 3.0.
+Imported text in data/wikivoyage-phrases.ts is parsed and reformatted.
+Source-derived course and library drafts include automated modifications;
+they retain source attribution and are not certified native-speaker content.
+Exact matching source revision: 5254654 (2026-04-05T10:28:04Z)
+https://en.wikivoyage.org/w/index.php?title=Kannada_phrasebook&oldid=5254654
+Recovered by byte-for-byte importer replay; the original request's revision
+was not logged. Evidence: data/wikivoyage-provenance.json.
+
+Noto Sans Kannada
+Copyright 2022 The Noto Project Authors
+https://github.com/notofonts/kannada
+Bundled Regular and SemiBold fonts in public/fonts/ are licensed under
+the SIL Open Font License, Version 1.1. Full terms: public/fonts/OFL.txt.
+
+Packaged speech references AI4Bharat Indic Parler-TTS, revision
+7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca, voice Anu, in audio/review.json.
+https://huggingface.co/ai4bharat/indic-parler-tts
+The upstream model card declares Apache License 2.0 for the model.
+Model weights are not included in this repository. This declaration does
+not establish a license for the packaged WAVs. Byte-identical regeneration
+established reproducible provenance; original historical metadata was not
+recovered. Evidence: data/audio-provenance.json. Output redistribution
+rights require confirmation before open-source release.
+
+Independently created learning text is licensed under CC BY-SA 4.0 to the
+extent of the maintainer's rights. See CONTENT-LICENSE.md for the exact scope.
+This grant does not replace Wikivoyage source obligations or establish rights
+to packaged audio. See docs/third-party-material.md for release blockers.
+
+Vendored Parler-TTS inference code
+Copyright 2024 The HuggingFace Inc. team
+Source: https://github.com/huggingface/parler-tts/tree/d108732cd57788ec86bc857d99a6cabd66663d68
+The modified source in audio/vendor/parler-inference/ retains Apache License
+2.0. Its full license, original source revision, and modification record
+accompany the source. This license does not establish model-output rights.

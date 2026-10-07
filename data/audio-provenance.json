@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 1,
+  "recordType": "byte-identical-reproduction",
+  "verifiedOn": "2026-10-06",
+  "originalGenerationMetadataRecovered": false,
+  "verification": "Recreated with the checked-in generator. Each reproduced candidate WAV exactly matches its existing packaged WAV by SHA-256. This records a new reproducible observation, not recovered historical metadata or historical access terms. Existing audio quality decisions and packaged bytes are unchanged. Candidate metadata retains its unreviewed status.",
+  "model": "ai4bharat/indic-parler-tts",
+  "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+  "voice": "Anu",
+  "modelCardUrl": "https://huggingface.co/ai4bharat/indic-parler-tts/blob/7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca/README.md",
+  "modelLicense": "Apache-2.0",
+  "outputRights": "This provenance evidence does not assign or establish redistribution rights for generated recordings.",
+  "generatorSha256": "271e4ee5230785cd23cae1aa600ef2803e1456dba57825a2325d9cea76431cad",
+  "inputManifestSha256": "8e1a883684fec7a3980e4983668e22f33122fba5ec71685fb7a61c87af47ba9a",
+  "reviewManifestSha256": "673d5d2ef732ba8602dbf2f95c4c052603e0fe78363d6fbbbbcc5ee2c046d75e",
+  "environment": {
+    "python": "Python 3.12.12",
+    "device": "mps",
+    "packages": {
+      "torch": "2.14.1",
+      "transformers": "4.46.1",
+      "numpy": "2.5.3",
+      "soundfile": "0.14.0",
+      "huggingface-hub": "0.36.2",
+      "parler_tts": "0.2.2"
+    }
+  },
+  "items": [
+    {
+      "id": "greet-hello",
+      "script": "ನಮಸ್ಕಾರ",
+      "roman": "Namaskara",
+      "intent": "Greet someone politely",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 4154503243,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 2.3267
+      },
+      "sha256": "274386563ed87b6f8b8ecc79d6245aaf171c3201a75889d8be50dd44115669a5",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "greet-thanks",
+      "script": "ಧನ್ಯವಾದಗಳು",
+      "roman": "Dhanyavaadagalu",
+      "intent": "Thank someone",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 140525540,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 6.8283
+      },
+      "sha256": "243858cd1b4429ce0ec66ddcd12d7508fe8159d5c9b118d586d6e7b6e2d59067",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "greet-how-are-you",
+      "script": "ಹೇಗಿದ್ದೀರಾ?",
+      "roman": "Hegiddira?",
+      "intent": "Ask how someone is",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 3666417400,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 4.0409
+      },
+      "sha256": "dc55f3cd9a26f8f30741224e54475b398e554cd2229ba5889309cbab3c4ae9e0",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "apt-come",
+      "script": "ಬನ್ನಿ",
+      "roman": "Banni",
+      "intent": "Ask someone to come",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 2297665947,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 4.6789
+      },
+      "sha256": "a95deef7715d49cd32cf7f48819d82469516577862e86dc4d2fa2e935576e3d2",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "apt-call",
+      "script": "ನನಗೆ ಕಾಲ್ ಮಾಡಿ",
+      "roman": "Nanage call maadi",
+      "intent": "Ask someone to call you",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 764552279,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 1.5043
+      },
+      "sha256": "c154a7caf898a181572542f5ee8033c45169060d8586bb6ff67b1b8f9d5bbc8f",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "apt-water",
+      "script": "ನೀರು ಬರ್ತಾ ಇಲ್ಲ",
+      "roman": "Neeru bartha illa",
+      "intent": "Say that the water is not coming",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 2462159283,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 6.1204
+      },
+      "sha256": "138f91c9705a504c1f94197b9845e4832b7662c18cb1b6023c6c0ba1a6f3951b",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "auto-straight",
+      "script": "ಸ್ಟ್ರೈಟ್ ಹೋಗಿ",
+      "roman": "Straight hogi",
+      "intent": "Ask the driver to go straight",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 3335406032,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 10.243
+      },
+      "sha256": "8c1443f5fcc5827c3ea2dbdeafe923e45f1e893dd900ea6f2f7db34bfc6c979b",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "auto-slow",
+      "script": "ನಿಧಾನವಾಗಿ ಹೋಗಿ",
+      "roman": "Nidhaanavaagi hogi",
+      "intent": "Ask the driver to go slowly",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 3057090640,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 2.9115
+      },
+      "sha256": "6171ef7e16192458edc34cc8a44b0f4049b4f8ade40863d7781c1825c914b6e6",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "auto-stop",
+      "script": "ಇಲ್ಲಿ ನಿಲ್ಲಿಸಿ",
+      "roman": "Illi nillisi",
+      "intent": "Ask the driver to stop here",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 1138385394,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 2.1968
+      },
+      "sha256": "aee8cf6d303564fb9324489a978a1bdb4dc126f752d6eeb6cd3150e1ed44b976",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "food-coffee",
+      "script": "ಒಂದು ಕಾಫಿ ಕೊಡಿ",
+      "roman": "Ondu coffee kodi",
+      "intent": "Order one coffee",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 3941102271,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 5.3439
+      },
+      "sha256": "5892b3e4c405993a66acac56628f8fffa12bfb8ecd0cab6cdc1490aa599337b5",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "food-water",
+      "script": "ನೀರು ಕೊಡಿ",
+      "roman": "Neeru kodi",
+      "intent": "Ask for water",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 2662603680,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 3.407
+      },
+      "sha256": "503e653af6cd5d401615802976b3af48669ec6eebdcfcae372cc2248c8e8157c",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "food-less-spicy",
+      "script": "ಸ್ವಲ್ಪ ಖಾರ ಕಡಿಮೆ",
+      "roman": "Swalpa khara kadime",
+      "intent": "Ask for less spice",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 1656185175,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 6.898
+      },
+      "sha256": "5312dc7e5aee808540f293dbcc5b81e89574e12cf97ba7124384f9d8f7ef27bb",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "food-parcel",
+      "script": "ಪಾರ್ಸೆಲ್ ಕೊಡಿ",
+      "roman": "Parcel kodi",
+      "intent": "Ask for takeaway",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 422333464,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 2.882
+      },
+      "sha256": "b856fd519d2c173c6196c422cfd4518905e8bd057e56d086ed5bf7d6a3cd4264",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "shop-how-much-this",
+      "script": "ಇದು ಎಷ್ಟು?",
+      "roman": "Idhu eshtu?",
+      "intent": "Ask how much this costs",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 3528313482,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 4.1854
+      },
+      "sha256": "874ac976095e11a1c5592381b7fce2338d99f95f93de3d879d5a49e84e3c9e9f",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "shop-want-this",
+      "script": "ಇದು ಬೇಕು",
+      "roman": "Idhu beku",
+      "intent": "Say that you want this",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 4186806819,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": -5.113
+      },
+      "sha256": "3c77b30c3c2ea2f503fd5e2b1b8fed90357dfb0988d707aebdc8c1730b489503",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "shop-dont-want",
+      "script": "ಬೇಡ",
+      "roman": "Beda",
+      "intent": "Say that you do not want it",
+      "model": "ai4bharat/indic-parler-tts",
+      "modelRevision": "7b527af5ee8ed1f9a28d80b19703ed9bb8ba10ca",
+      "voice": "Anu",
+      "description": "Anu speaks Kannada in a neutral, natural conversational style at a slightly slow pace. Her voice is very clear and close, with balanced pitch and no background noise or reverberation.",
+      "baseSeed": 20260718,
+      "seed": 1987158254,
+      "sampleRate": 44100,
+      "normalization": {
+        "method": "rms",
+        "targetDbfs": -22.0,
+        "peakCeilingDbfs": -1.0,
+        "appliedGainDb": 1.9806
+      },
+      "sha256": "3c21c0180adb5e0ad83f2ae76e2a312162d33920c18711dfa218952450170340",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "inputTextSource": "audio/phrases.json",
+  "inputTextLicense": "CC-BY-SA-4.0"
+}

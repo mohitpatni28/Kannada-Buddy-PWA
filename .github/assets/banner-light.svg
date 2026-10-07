@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="200" viewBox="0 0 880 200" role="img" aria-labelledby="title desc">
+  <title id="title">Kannada Buddy</title>
+  <desc id="desc">Practise everyday Kannada and keep learning progress on your device.</desc>
+  <rect width="880" height="200" rx="12" fill="#f7f6f0"/>
+  <g font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    <text x="42" y="48" font-size="13" font-weight="600" letter-spacing="2" fill="#326e59">EVERYDAY BENGALURU CONVERSATIONS</text>
+    <text x="40" y="105" font-size="44" font-weight="700" fill="#182624">Kannada Buddy</text>
+    <text x="42" y="142" font-size="18" fill="#4c625b">Practise everyday Kannada.</text>
+    <text x="42" y="169" font-size="18" fill="#4c625b">Keep learning progress on your device.</text>
+  </g>
+  <g transform="translate(699 39)" stroke="#326e59" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 0h87a13 13 0 0 1 13 13v61a13 13 0 0 1-13 13H40L20 105V87H0a13 13 0 0 1-13-13V13A13 13 0 0 1 0 0Z"/>
+    <path d="M11 27h62M11 43h42M11 59h52"/>
+    <circle cx="102" cy="102" r="23" fill="#f7f6f0"/>
+    <path d="m90 102 8 8 16-18"/>
+  </g>
+</svg>

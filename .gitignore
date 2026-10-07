@@ -18,3 +18,5 @@ audio/model-cache/
 audio/.tools/
 __pycache__/
 *.pyc
+audio/vendor/parler-inference/build/
+audio/vendor/parler-inference/*.egg-info/

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools==84.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kannada-parler-tts"
+version = "0.2.2+kb.inference.1"
+description = "Kannada Buddy's native-DAC inference port of Parler-TTS"
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
+dependencies = [
+  "transformers==5.10.0",
+  "torch==2.14.1",
+  "sentencepiece==0.2.2",
+  "protobuf==6.33.5",
+]
+
+[tool.setuptools.packages.find]
+include = ["parler_tts"]

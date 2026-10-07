@@ -19,7 +19,7 @@ describe("ESLint configuration", () => {
     expect(result.errorCount).toBeGreaterThan(0);
   });
 
-  it.each([".next/generated.ts", "out/generated.ts", "dist/generated.ts", "coverage/generated.ts", ".pnpm-store/generated.ts", "next-env.d.ts"])("ignores generated file %s", async (file) => {
+  it.each([".next/generated.ts", "out/generated.ts", "dist/generated.ts", "coverage/generated.ts", ".pnpm-store/generated.ts", "next-env.d.ts", "audio/.venv/generated.js", "audio/model-cache/generated.js", "audio/.tools/generated.js", "audio/generated/generated.js"])("ignores generated file %s", async (file) => {
     expect(await eslint.isPathIgnored(file)).toBe(true);
   });
 

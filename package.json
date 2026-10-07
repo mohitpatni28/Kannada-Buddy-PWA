@@ -17,11 +17,13 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "reviews:check": "node --experimental-strip-types scripts/publish-reviewed-phrases.mjs --check",
-    "reviews:apply": "node --experimental-strip-types scripts/publish-reviewed-phrases.mjs --write"
+    "reviews:apply": "node --experimental-strip-types scripts/publish-reviewed-phrases.mjs --write",
+    "examples:check": "node scripts/run-examples.mjs",
+    "docs:check": "node scripts/check-release-docs.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
-    "next": "16.2.10",
+    "next": "16.3.6",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
@@ -33,12 +35,21 @@
     "@types/react": "19.0.7",
     "@types/react-dom": "19.0.3",
     "eslint": "9.39.5",
-    "eslint-config-next": "16.2.10",
+    "eslint-config-next": "16.3.6",
     "jsdom": "30.1.1",
     "typescript": "5.7.3",
     "vitest": "5.0.3"
   },
   "engines": {
     "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+  },
+  "packageManager": "pnpm@10.30.0",
+  "pnpm": {
+    "overrides": {
+      "@next/eslint-plugin-next@16.3.6>fast-glob": "npm:glob@13.0.6"
+    },
+    "patchedDependencies": {
+      "@next/eslint-plugin-next@16.3.6": "patches/@next__eslint-plugin-next@16.3.6.patch"
+    }
   }
 }

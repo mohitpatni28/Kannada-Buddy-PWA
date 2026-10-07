@@ -1,0 +1,30 @@
+[
+  {
+    "id": "quickstart",
+    "commands": [
+      "git clone https://github.com/mohitpatni28/Kannada-Buddy-PWA.git",
+      "cd Kannada-Buddy-PWA",
+      "pnpm install --frozen-lockfile",
+      "pnpm dev"
+    ],
+    "verification": "isolated-install-and-browser-example",
+    "reason": "Clone and dev start are network or persistent bootstrap steps, excluded from the example runner. Release isolation validates a frozen install; learn-first-phrase executes the same learning steps against a production server. A running dev server must also be checked separately."
+  },
+  {
+    "id": "validation",
+    "commands": [
+      "pnpm lint",
+      "pnpm test",
+      "pnpm content:validate",
+      "pnpm content:validate-all",
+      "pnpm build",
+      "pnpm exec tsc --noEmit",
+      "pnpm exec playwright install chromium",
+      "pnpm test:e2e",
+      "pnpm examples:check",
+      "pnpm docs:check"
+    ],
+    "verification": "release-suite-and-ci",
+    "reason": "CI executes these commands individually; Chromium uses --with-deps on Ubuntu for required system libraries. Installation requires network access and is checked separately from offline examples."
+  }
+]

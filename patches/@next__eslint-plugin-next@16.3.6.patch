@@ -1,0 +1,59 @@
+diff --git a/dist/utils/get-root-dirs.js b/dist/utils/get-root-dirs.js
+index 47108c943514a1d7e686c5eb18aad00a59963c83..bf844718a03464df149c1584d6273de49521b3a9 100644
+--- a/dist/utils/get-root-dirs.js
++++ b/dist/utils/get-root-dirs.js
+@@ -12,8 +12,52 @@ var _fastglob = require("fast-glob");
+ /**
+  * Process a Next.js root directory glob.
+  */ var processRootDir = function(rootDir) {
+-    return (0, _fastglob.globSync)(rootDir.replace(/\\/g, '/'), {
+-        onlyDirectories: true
++    // Version-scoped replacement: bound raw syntax before brace expansion and matching.
++    var fs = require("node:fs");
++    var path = require("node:path");
++    var pattern = rootDir.replace(/\\/g, '/');
++    var depth = 0;
++    var parentheses = 0;
++    var brackets = 0;
++    var extglobs = 0;
++    var pipes = 0;
++    var previous = '';
++    for (var character of pattern) {
++        if (character === '|' && ++pipes > 8) {
++            throw new Error("Next root directory patterns support at most 8 alternation pipes.");
++        }
++        if (character === '{' && ++depth > 100) {
++            throw new Error("Next root directory patterns support at most 100 nested braces.");
++        }
++        if (character === '(') {
++            if ('@!?+*'.includes(previous) && previous && ++extglobs > 5) {
++                throw new Error("Next root directory patterns support at most 5 extglob groups.");
++            }
++            if (++parentheses > 5) {
++                throw new Error("Next root directory patterns support at most 5 opening parentheses.");
++            }
++        }
++        if (character === '[' && ++brackets > 16) {
++            throw new Error("Next root directory patterns support at most 16 nested brackets.");
++        }
++        if (character === '}' && depth > 0) depth--;
++        if (character === ']' && brackets > 0) brackets--;
++        previous = character;
++    }
++    if (pattern.length > 2048) {
++        throw new Error("Next root directory patterns support at most 2048 characters.");
++    }
++    return (0, _fastglob.globSync)(pattern, {
++        follow: true,
++        nocase: false,
++        absolute: path.isAbsolute(pattern),
++        mark: pattern.endsWith('/')
++    }).filter(function(match) {
++        return fs.statSync(match, { throwIfNoEntry: false })?.isDirectory();
++    }).map(function(match) {
++        if (path.isAbsolute(pattern)) return match;
++        var relative = path.relative(process.cwd(), match) || '.';
++        return pattern.endsWith('/') ? relative + '/' : relative;
+     });
+ };
+ var getRootDirs = function(context) {

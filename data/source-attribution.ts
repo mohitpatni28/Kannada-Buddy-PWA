@@ -1,14 +1,15 @@
 export const sourceAttribution = [
   {
     name: "Manual curated phrases",
-    license: "Personal learning content",
-    note: "The v1 learning deck is hand-curated from the project brief for personal Bengaluru use."
+    url: "https://creativecommons.org/licenses/by-sa/4.0/",
+    license: "CC BY-SA 4.0",
+    note: "Independently created learning text is licensed under CC BY-SA 4.0 to the extent of the maintainer's rights. Wikivoyage-derived text and packaged audio have separate provenance and terms."
   },
   {
     name: "Wikivoyage Kannada phrasebook",
     url: "https://en.wikivoyage.org/wiki/Kannada_phrasebook",
     license: "Creative Commons Attribution-ShareAlike",
-    note: "Reserved for imported candidate phrases. Imported items remain raw until reviewed."
+    note: "Imported candidates and source-derived drafts keep Wikivoyage attribution and share-alike terms. LLM edits and human review retain source obligations. Original imported records remain unchanged."
   },
   {
     name: "Tatoeba Project",

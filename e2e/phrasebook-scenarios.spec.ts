@@ -1,5 +1,15 @@
 import { test, expect } from "@playwright/test";
 
+test("source page separates original reuse terms from source obligations", async ({ page }) => {
+  await page.goto("/sources");
+  const original = page.locator("article").filter({ has: page.getByRole("heading", { name: "Manual curated phrases" }) });
+  const imported = page.locator("article").filter({ has: page.getByRole("heading", { name: "Wikivoyage Kannada phrasebook" }) });
+  await expect(original.getByText("CC BY-SA 4.0", { exact: true })).toBeVisible();
+  await expect(original.getByRole("link", { name: "Open source" })).toHaveAttribute("href", "https://creativecommons.org/licenses/by-sa/4.0/");
+  await expect(imported.getByText(/LLM edits and human review retain source obligations/)).toBeVisible();
+  await expect(page.getByText(/Content licensing does not certify native-speaker or audio review/)).toBeVisible();
+});
+
 test("mobile phrasebook finds provisional phrases by situation and preserves source links", async ({ page }) => {
   await page.goto("/phrasebook");
   await expect(page.getByRole("status")).toHaveText("100 course phrases");

@@ -6,7 +6,7 @@ export default function SourcesPage() {
       <section className="band">
         <p className="eyebrow">Sources</p>
         <h1>Licenses</h1>
-        <p className="lede">Imported content stays as a candidate until reviewed and approved for personal learning.</p>
+        <p className="lede">Original learning text and source-derived material keep separate attribution. Content licensing does not certify native-speaker or audio review.</p>
       </section>
       <section className="grid">
         {sourceAttribution.map((source) => (

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "source": "Wikivoyage Kannada phrasebook contributors",
+  "pageId": 16863,
+  "revisionId": 5254654,
+  "revisionTimestamp": "2026-04-05T10:28:04Z",
+  "revisionUrl": "https://en.wikivoyage.org/w/index.php?title=Kannada_phrasebook&oldid=5254654",
+  "contributorsUrl": "https://en.wikivoyage.org/w/index.php?title=Kannada_phrasebook&action=history",
+  "wikitextApiUrl": "https://en.wikivoyage.org/w/api.php?action=parse&oldid=5254654&prop=wikitext&format=json",
+  "wikitextSha256": "7bb294e98f665a3f7b1561eead2dbdfebfcbdb1b50f7bafe1a64f52e88ee1cb9",
+  "importedArtifact": "data/wikivoyage-phrases.ts",
+  "importedArtifactSha256": "9a981197120260515be08ab90e50540cfb11e32f6245b3aaa12fac58c5d0c4a1",
+  "importer": "scripts/import-wikivoyage.mjs",
+  "importerSha256": "f542dcdc341cb8c56452e30c23eab4a8385695f4994bfff7b13b21663e33a87b",
+  "importTimestamp": "2026-07-05T07:24:10.999Z",
+  "phraseCount": 621,
+  "verificationDate": "2026-10-06",
+  "verification": "Recovered retrospectively. Replaying the checked-in importer against this revision's wikitext with the stored import timestamp reproduces the complete imported TypeScript artifact byte for byte. This proves an exact matching source revision, not which API revision the original request served.",
+  "termsUrl": "https://en.wikivoyage.org/wiki/Wikivoyage:Copyleft",
+  "observedLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "licenseObservation": "The pinned revision page served on 2026-10-06 links CC BY-SA 4.0 in its license metadata and footer. A current site footer is not evidence of which terms were displayed on the original import date.",
+  "licenseNote": "Preserve Wikivoyage attribution, modification notices, and applicable share-alike terms, including upstream credits. Recovery does not relicense source records or establish native-speaker review."
+}

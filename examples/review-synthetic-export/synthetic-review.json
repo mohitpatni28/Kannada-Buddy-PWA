@@ -1,0 +1,35 @@
+{
+  "format": "kannada-buddy-review-export",
+  "version": 1,
+  "exportedAt": "2026-07-05T00:00:00.000Z",
+  "records": [
+    {
+      "id": "greet-hello",
+      "base": {
+        "english": "Hello",
+        "kannadaRoman": "Namaskara",
+        "kannadaScript": "ನಮಸ್ಕಾರ",
+        "category": "greetings",
+        "usageNote": "",
+        "sourceHash": null
+      },
+      "content": {
+        "english": "Hello",
+        "kannadaRoman": "Namaskara",
+        "kannadaScript": "ನಮಸ್ಕಾರ",
+        "category": "greetings",
+        "usageNote": ""
+      },
+      "review": {
+        "reviewer": "SYNTHETIC EXAMPLE — NOT A HUMAN REVIEW",
+        "reviewedAt": "2026-07-05T00:00:00.000Z",
+        "checks": {
+          "meaning": true,
+          "script": true,
+          "romanization": true,
+          "context": true
+        }
+      }
+    }
+  ]
+}
