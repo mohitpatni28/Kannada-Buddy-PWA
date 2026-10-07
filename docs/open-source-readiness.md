@@ -39,6 +39,14 @@ The baseline before preparation was `1951615`. The destination remains `mohitpat
 
 See [third-party material](third-party-material.md) and [NOTICE](../NOTICE) for the rights inventory. Project code remains MIT licensed. The explicit original-text license decision does not relicense source-derived content or recordings.
 
+## Follow-up release-check correction
+
+The public-documentation PR exposed a Node.js 22 security-regression timeout on forty repeated flat brace alternatives. The same input timed out on one unchanged retry, and the original failures remain in external receipts. No required check or timeout was disabled.
+
+The lint-helper guard now limits commas inside brace groups to eight before matcher expansion. Regression tests cover accepted boundaries and controlled rejection of the forty-group input, while preserving nested-brace and ordinary root-pattern behavior. Final-state validation and independent-review receipts for this correction remain outside the publication tree; earlier passing results do not cover it.
+
+A local full-suite run also hit an unrelated lint CLI timeout during overlapping review tests. Final verification runs serially with that test’s original deadline; failed runs are retained in the external receipts.
+
 ## Validation evidence
 
 Exact immutable snapshot hashes, command outputs, exit statuses, vulnerability reports, redacted secret-scan reports, and full review findings are stored outside the publication tree. The table below preserves initial observations; it is not the final release result. Final-state command receipts and later independent reviews are stored separately.

@@ -1,8 +1,8 @@
 diff --git a/dist/utils/get-root-dirs.js b/dist/utils/get-root-dirs.js
-index 47108c943514a1d7e686c5eb18aad00a59963c83..bf844718a03464df149c1584d6273de49521b3a9 100644
+index 47108c943514a1d7e686c5eb18aad00a59963c83..f515095ec2081aa71b36f1eaef0055d4b5f77d7a 100644
 --- a/dist/utils/get-root-dirs.js
 +++ b/dist/utils/get-root-dirs.js
-@@ -12,8 +12,52 @@ var _fastglob = require("fast-glob");
+@@ -12,8 +12,57 @@ var _fastglob = require("fast-glob");
  /**
   * Process a Next.js root directory glob.
   */ var processRootDir = function(rootDir) {
@@ -13,6 +13,7 @@ index 47108c943514a1d7e686c5eb18aad00a59963c83..bf844718a03464df149c1584d6273de4
 +    var path = require("node:path");
 +    var pattern = rootDir.replace(/\\/g, '/');
 +    var depth = 0;
++    var braceCommas = 0;
 +    var parentheses = 0;
 +    var brackets = 0;
 +    var extglobs = 0;
@@ -36,12 +37,16 @@ index 47108c943514a1d7e686c5eb18aad00a59963c83..bf844718a03464df149c1584d6273de4
 +        if (character === '[' && ++brackets > 16) {
 +            throw new Error("Next root directory patterns support at most 16 nested brackets.");
 +        }
++        if (character === ',' && depth > 0) braceCommas++;
 +        if (character === '}' && depth > 0) depth--;
 +        if (character === ']' && brackets > 0) brackets--;
 +        previous = character;
 +    }
 +    if (pattern.length > 2048) {
 +        throw new Error("Next root directory patterns support at most 2048 characters.");
++    }
++    if (braceCommas > 8) {
++        throw new Error("Next root directory patterns support at most 8 commas within braces.");
 +    }
 +    return (0, _fastglob.globSync)(pattern, {
 +        follow: true,
