@@ -91,24 +91,6 @@ pnpm docs:check
 
 Optional audio-tooling changes additionally require Python 3.12, a fresh environment from `scripts/setup-audio-env.sh`, `audio/.venv/bin/python -m pip check`, and `HF_HUB_OFFLINE=1 audio/.venv/bin/python -m unittest discover -s audio/tests -v`. Run the installed-environment audit gate exactly as documented in [CONTRIBUTING.md](CONTRIBUTING.md#validate-audio-tooling). Tiny-model tests need no model credentials; real generation checks use authorized cached artifacts and isolated unreviewed candidates, never genuine approvals.
 
-## GitHub identity and Vercel deployments
-
-This repository's Vercel integration requires commits attributed to the GitHub account **`fakecoder28`**. Authenticating a push as `fakecoder28` is insufficient if the commit was authored with another account's email.
-
-- Before creating any commit, configure and verify the repository-local author and committer identity. Use the verified account's GitHub noreply address; do not change global Git settings:
-
-  ```sh
-  git config --local user.name fakecoder28
-  git config --local user.email 218176506+fakecoder28@users.noreply.github.com
-  git var GIT_AUTHOR_IDENT
-  git var GIT_COMMITTER_IDENT
-  ```
-
-- Ensure environment variables or command flags do not override this identity. After committing, inspect `git show -s --format=fuller HEAD` and verify both identities before pushing.
-- Authenticate GitHub operations with the authorized `fakecoder28` account. Keep credentials out of files, command output, and commits; repository-local Git identity and GitHub authentication are separate requirements.
-- After pushing, confirm GitHub maps the commit author to `fakecoder28` and inspect the Vercel check/status for that exact commit. A successful Git push does not prove deployment success; report pending, failed, and successful deployments accurately.
-- If Vercel rejects an earlier commit's author, use a correctly attributed follow-up commit to trigger a fresh deployment when authorized. Do not rewrite published history or force-push without explicit authorization.
-
 ## Engineering and product safeguards
 
 - Keep TypeScript strict. Avoid unjustified `any`, unchecked casts, ignored errors, and new dependencies when existing tools suffice.
