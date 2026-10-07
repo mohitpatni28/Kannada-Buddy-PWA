@@ -9,7 +9,7 @@ overrides:
 
 patchedDependencies:
   '@next/eslint-plugin-next@16.3.6':
-    hash: 8c2d04252f1e4bd7fd5c6ecc5c01d54e0563d9f733f2f9fca8d7a3f575332822
+    hash: f8982a14194ec5c5fb8a68b2f9ccd2455a018e4c0712d7ffa70ebccaf2a4c630
     path: patches/@next__eslint-plugin-next@16.3.6.patch
 
 importers:
@@ -2723,7 +2723,7 @@ snapshots:
 
   '@next/env@16.3.6': {}
 
-  '@next/eslint-plugin-next@16.3.6(patch_hash=8c2d04252f1e4bd7fd5c6ecc5c01d54e0563d9f733f2f9fca8d7a3f575332822)(eslint@9.39.5)':
+  '@next/eslint-plugin-next@16.3.6(patch_hash=f8982a14194ec5c5fb8a68b2f9ccd2455a018e4c0712d7ffa70ebccaf2a4c630)(eslint@9.39.5)':
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.5)
       fast-glob: glob@13.0.6
@@ -3427,7 +3427,7 @@ snapshots:
 
   eslint-config-next@16.3.6(@typescript-eslint/parser@8.71.1(eslint@9.39.5)(typescript@5.7.3))(eslint@9.39.5)(typescript@5.7.3):
     dependencies:
-      '@next/eslint-plugin-next': 16.3.6(patch_hash=8c2d04252f1e4bd7fd5c6ecc5c01d54e0563d9f733f2f9fca8d7a3f575332822)(eslint@9.39.5)
+      '@next/eslint-plugin-next': 16.3.6(patch_hash=f8982a14194ec5c5fb8a68b2f9ccd2455a018e4c0712d7ffa70ebccaf2a4c630)(eslint@9.39.5)
       eslint: 9.39.5
       eslint-import-resolver-node: 0.3.10
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.71.1(eslint@9.39.5)(typescript@5.7.3))(eslint@9.39.5))(eslint@9.39.5)

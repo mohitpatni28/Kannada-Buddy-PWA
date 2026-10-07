@@ -17,6 +17,7 @@ The helper scans normalized pattern characters before entering the matcher. It r
 | Syntax | Limit | Reason |
 | --- | --- | --- |
 | Nested braces | 100 | Bound recursive brace expansion. |
+| Total commas within braces | 8 | Bound combinations of flat and nested brace alternatives before expansion. |
 | Total extglob groups | 5 | Bound nested recursion and repeated negative-group expansion. |
 | Total opening parentheses | 5 | Bound groups even when brace alternatives join operators and parentheses. |
 | Total alternation pipes | 8 | Bound wide negative-group alternatives, including brace-joined tokens. |
@@ -35,7 +36,11 @@ Brace depths 99 and 100, extglob counts 4 and 5, total opening-parenthesis count
 
 Nested extglobs previously caused a timeout or stack exhaustion in the replacement matcher. Repeated flat negative extglobs could exhaust a 256 MB child process even without deep nesting, so a nesting-only guard was insufficient.
 
-The resolved matcher also limits brace expansion to 10,000 results, and its `brace-expansion@5.0.12` dependency bounds accumulated output length to 4,000,000 characters. A bounded child-process test checks flat repeated alternatives that would have exponentially many combinations without those limits.
+The resolved matcher also limits brace expansion to 10,000 results, and its `brace-expansion@5.0.12` dependency bounds accumulated output length to 4,000,000 characters. Repeated hosted Node 22 runs still exceeded the five-second child-process limit for 40 flat `{a,b}` groups, so those downstream limits did not sufficiently bound this helper's work.
+
+The helper now counts all raw commas while brace depth is positive and rejects totals above eight before matching. Eight binary groups have at most 256 combinations, while a single wide or nested alternative also consumes the same conservative budget. Plain commas outside braces do not consume the budget, and nesting depths 99 and 100 with one comma remain accepted.
+
+This is deliberately conservative for character classes, malformed braces, and backslash-normalized punctuation. The scan completes existing syntax and normalized-length checks before reporting the comma limit, preserving their diagnostic priority. Child-process regressions retain the 256 MB and five-second guards and cover flat counts 7/8/9/40 plus wide and nested comma boundaries.
 
 This is compatibility for the plugin's observed root discovery usage, not a claim that every fast-glob API or arbitrary matcher input is interchangeable or universally safe.
 

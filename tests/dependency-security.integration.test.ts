@@ -37,12 +37,16 @@ describe("Next ESLint root discovery dependency", () => {
         const matches = getRootDirs({ cwd: process.cwd(), settings: { next: { rootDir: pattern } } });
         console.log(JSON.stringify({ matches }));
       } catch (error) { console.log(JSON.stringify({ name: error.name, message: error.message })); process.exitCode = 1; }`;
-    for (const depth of [99, 100, "flat"]) {
+    for (const depth of [99, 100]) {
       const result = spawnSync(process.execPath, ["--max-old-space-size=256", "-e", program, join(dirname(pluginEntry), "utils/get-root-dirs.js"), String(depth)], { encoding: "utf8", timeout: 5000 });
       expect(result.error).toBeUndefined();
       expect(result.status, result.stdout + result.stderr).toBe(0);
       expect(JSON.parse(result.stdout)).toEqual({ matches: [] });
     }
+    const flat = spawnSync(process.execPath, ["--max-old-space-size=256", "-e", program, join(dirname(pluginEntry), "utils/get-root-dirs.js"), "flat"], { encoding: "utf8", timeout: 5000 });
+    expect(flat.error).toBeUndefined();
+    expect(flat.status, flat.stdout + flat.stderr).toBe(1);
+    expect(JSON.parse(flat.stdout)).toEqual({ name: "Error", message: "Next root directory patterns support at most 8 commas within braces." });
     for (const depth of [101, 4000, 16000]) {
       const result = spawnSync(process.execPath, ["-e", program, join(dirname(pluginEntry), "utils/get-root-dirs.js"), String(depth)], { encoding: "utf8", timeout: 5000 });
       expect(result.error).toBeUndefined();
@@ -50,6 +54,31 @@ describe("Next ESLint root discovery dependency", () => {
       expect(JSON.parse(result.stdout)).toEqual({ name: "Error", message: "Next root directory patterns support at most 100 nested braces." });
     }
   }, 20_000);
+  it("bounds flat, wide, and nested brace alternatives before matcher expansion", async () => {
+    const directory = await mkdtemp(join(tmpdir(), "kannada-brace-alternatives-"));
+    temporary.push(directory);
+    const program = `const { getRootDirs } = require(process.argv[1]);
+      const pattern = process.argv[2];
+      try { console.log(JSON.stringify({ matches: getRootDirs({ cwd: process.cwd(), settings: { next: { rootDir: pattern } } }) })); }
+      catch (error) { console.log(JSON.stringify({ name: error.name, message: error.message })); process.exitCode = 1; }`;
+    const cases = [
+      ...[7, 8, 9, 40].map((count) => ({ pattern: "{no-such-a,no-such-b}".repeat(count), rejected: count > 8 })),
+      ...[7, 8, 9].map((count) => ({ pattern: "{" + Array.from({ length: count + 1 }, (_, index) => `no-such-${index}`).join(",") + "}", rejected: count > 8 })),
+      ...[7, 8, 9].map((count) => ({ pattern: "{no-such-a,".repeat(count) + "no-such-b" + "}".repeat(count), rejected: count > 8 })),
+      { pattern: "no-such-a,".repeat(40), rejected: false },
+      { pattern: "{".repeat(100) + "no-such-a,no-such-b" + "}".repeat(100), rejected: false },
+      { pattern: "no-such-a,".repeat(20) + "{no-such-a,no-such-b}".repeat(8), rejected: false },
+      { pattern: "{no-such-a,".repeat(9), rejected: true },
+      { pattern: "\\{no-such-a,no-such-b}".repeat(9), rejected: true },
+      { pattern: "{[no-such-a,no-such-b]}".repeat(9), rejected: true }
+    ];
+    for (const { pattern, rejected } of cases) {
+      const result = spawnSync(process.execPath, ["--max-old-space-size=256", "-e", program, join(dirname(pluginEntry), "utils/get-root-dirs.js"), pattern], { encoding: "utf8", timeout: 5000, cwd: directory });
+      expect(result.error).toBeUndefined();
+      expect(result.status, result.stdout + result.stderr).toBe(rejected ? 1 : 0);
+      expect(JSON.parse(result.stdout)).toEqual(rejected ? { name: "Error", message: "Next root directory patterns support at most 8 commas within braces." } : { matches: [] });
+    }
+  }, 30_000);
   it("bounds nested and flat extglobs before matcher recursion or expansion", async () => {
     const directory = await mkdtemp(join(tmpdir(), "kannada-extglob-boundary-"));
     temporary.push(directory);
@@ -145,8 +174,9 @@ describe("Next ESLint root discovery dependency", () => {
       ...[{ width: 100, groups: 5 }, { width: 1000, groups: 2 }].map(({ width, groups }) => ({ pattern: ("!(" + Array.from({ length: width }, (_, index) => `a${index}`).join("|") + ")").repeat(groups), error: "Next root directory patterns support at most 8 alternation pipes." })),
       ...[7, 8, 9].map((count) => ({ pattern: "!(" + "a|".repeat(count) + "b)", ...(count > 8 ? { error: "Next root directory patterns support at most 8 alternation pipes." } : {}) })),
       ...[2047, 2048, 2049].map((length) => ({ pattern: "x".repeat(length), ...(length > 2048 ? { error: "Next root directory patterns support at most 2048 characters." } : {}) })),
+      { pattern: "x".repeat(2049) + "{a,b}".repeat(9), error: "Next root directory patterns support at most 2048 characters." },
       ...[4, 5].map((count) => ({ pattern: "!(a|b)".repeat(count) })),
-      ...[7, 8, 9].map((count) => ({ pattern: "{!,!}(" + "a{|,x}".repeat(count) + "b)", ...(count > 8 ? { error: "Next root directory patterns support at most 8 alternation pipes." } : {}) }))
+      ...[7, 8, 9].map((count) => ({ pattern: "{!,!}(" + "a{|,x}".repeat(count) + "b)", ...(count > 8 ? { error: "Next root directory patterns support at most 8 alternation pipes." } : count === 8 ? { error: "Next root directory patterns support at most 8 commas within braces." } : {}) }))
     ];
     for (const { pattern, error } of cases) {
       const result = spawnSync(process.execPath, ["--max-old-space-size=256", "-e", program, join(dirname(pluginEntry), "utils/get-root-dirs.js"), pattern], { encoding: "utf8", timeout: 5000, cwd: directory });

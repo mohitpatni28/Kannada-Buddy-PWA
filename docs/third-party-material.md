@@ -1,6 +1,6 @@
 # Material rights and provenance
 
-This inventory separates project code from learning content, fonts, dependencies, and generated speech. It records release gaps rather than certifying permission to publish every asset.
+This inventory separates project code from learning content, fonts, dependencies, and generated speech. It records provenance gaps and licensing uncertainty rather than certifying permission to publish every asset.
 
 ## Rights inventory
 
@@ -20,7 +20,9 @@ AI draft labels, native review, admin review, and audio approval describe qualit
 
 The installed-tree report was obtained with `pnpm licenses list --json` and the production subset with `pnpm licenses list --prod --json`. These commands succeeded; raw reports remain outside the repository because they contain local machine paths. Installed packages are not proof of which bytes enter a browser bundle, server deployment, or release archive.
 
-The initial full report contained 399 package-name/license groups. Repeat counts are kept in the final validation receipts because patched dependencies change the installed tree. Besides MIT, Apache-2.0, ISC, BSD, and other permissive terms, it includes MPL-2.0 (`lightningcss`, its platform binary, and test-only `axe-core`), LGPL-3.0-or-later (the macOS libvips package), and CC-BY-4.0 (`caniuse-lite`). Copyleft terms are not automatically incompatible with this project; redistribution must preserve applicable notices and satisfy the obligations for the actual distributed components.
+The initial full report contained 399 package-name/license groups. Repeat counts are kept in the final validation receipts because patched dependencies change the installed tree.
+
+Besides MIT, Apache-2.0, ISC, BSD, and other permissive terms, it includes MPL-2.0 (`lightningcss`, its platform binary, and test-only `axe-core`), LGPL-3.0-or-later (the macOS libvips package), and CC-BY-4.0 (`caniuse-lite`). Copyleft terms are not automatically incompatible with this project; redistribution must preserve applicable notices and satisfy the obligations for the actual distributed components.
 
 Before distributing built bundles or native binaries, identify the included components and retain their license texts and notices. Review MPL file-level source obligations and LGPL library/source and relinking obligations where those components are distributed. A source checkout with a lockfile and dependency installation is a different artifact from a bundled application.
 
@@ -28,7 +30,9 @@ Before distributing built bundles or native binaries, identify the included comp
 
 An initial tracked-and-proposed tree snapshot was scanned with ScanCode Toolkit 32.5.0 using `--license --copyright`; the scan completed with no scanner errors. The report is outside the repository. This scan does not cover later edits, dependency directories, ignored generation metadata, or publishable Git history.
 
-Its version guesses from generic `CC BY-SA` labels are not evidence of the original import's exact terms. A `JSON` license detection in the CI command `pnpm licenses list --json` is a false positive, not a license obligation. Combined detections in this inventory and `NOTICE` reflect descriptive references to multiple licenses, not a license applied to those documents. Binary WAVs and fonts require provenance review alongside their adjacent notices; absence of a detection is not clearance.
+Its version guesses from generic `CC BY-SA` labels are not evidence of the original import's exact terms. A `JSON` license detection in the CI command `pnpm licenses list --json` is a false positive, not a license obligation.
+
+Combined detections in this inventory and `NOTICE` reflect descriptive references to multiple licenses, not a license applied to those documents. Binary WAVs and fonts require provenance review alongside their adjacent notices; absence of a detection is not clearance.
 
 - Confirm rights to any contributed material beyond the independently created learning text covered by the maintainer's CC BY-SA 4.0 decision.
 - Confirm packaged-audio output terms. Retain the byte-identical reproduction evidence for the sixteen shipped WAVs without treating it as historical access-term evidence.
@@ -49,7 +53,9 @@ Both font name tables declare version 2.006 and copyright 2022 The Noto Project 
 
 The exact upstream artifact location is deferred to the maintainer because it was not recorded when bundled. Matching internal copyright, OFL accompaniment, and byte hashes establish the available evidence; no exact upstream match is claimed.
 
-## Closing the packaged-audio gap
+## Packaged-audio licensing exception
+
+The maintainer accepted publication on 2026-10-07 with an audio-licensing exception, citing noncommercial use. Output redistribution terms remain unverified, and this acceptance does not establish permission. The recordings remain excluded from the original-text grant in [CONTENT-LICENSE.md](../CONTENT-LICENSE.md).
 
 The existing review manifest identifies AI4Bharat Indic Parler-TTS, its pinned revision, and the Anu voice. The original per-file generation metadata was unavailable in Git history. Regeneration with the pinned model reproduced all sixteen packaged WAVs byte for byte and passed audio validation.
 
